@@ -1,6 +1,8 @@
 # Boxabl Foundations Guide
 
-<img src="https://horizons-cdn.hostinger.com/c5928289-3a80-4bf6-aa79-e27d285f0c79/597f4715b654f2f8659d59623ff4a93b.png" alt="Boxabl Foundations Guide" width="220">
+<a href="https://boxablfoundations.com" target="_blank" rel="noopener noreferrer">
+  <img src="https://horizons-cdn.hostinger.com/c5928289-3a80-4bf6-aa79-e27d285f0c79/597f4715b654f2f8659d59623ff4a93b.png" alt="Boxabl Foundations Guide" width="220">
+</a>
 
 Independent public guidance for BOXABL homeowners, homebuilders, and LLMs who need a foundation-first view of the project.
 
