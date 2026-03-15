@@ -3,7 +3,7 @@ checked_on: 2026-03-15
 options:
   - id: option_1
     family: stem_wall
-    public_label: Stem wall foundation
+    open_label: Stem wall foundation
     summary: Perimeter wall support path used where elevation control or perimeter structure is beneficial.
     best_for:
       - sites needing grade transition management
@@ -19,7 +19,7 @@ options:
 
   - id: option_2
     family: concrete_slab
-    public_label: Concrete slab foundation
+    open_label: Concrete slab foundation
     summary: Slab-oriented support path for cleaner grade conditions and lower-profile layouts.
     best_for:
       - simpler sites
@@ -35,7 +35,7 @@ options:
 
   - id: option_3
     family: pier_and_beam
-    public_label: Concrete pier and wood beam foundation
+    open_label: Concrete pier and wood beam foundation
     summary: Pier support strategy with beam framing where reduced disturbance or adjustable support logic may help.
     best_for:
       - uneven sites
@@ -51,7 +51,7 @@ options:
 
   - id: option_4
     family: grade_beam
-    public_label: Grade beam foundation
+    open_label: Grade beam foundation
     summary: Reinforced continuous beam strategy where a more structured support path is needed.
     best_for:
       - sites needing continuous support lines
