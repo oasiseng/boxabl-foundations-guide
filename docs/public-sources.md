@@ -24,7 +24,7 @@ Verification date for current lineup references: **March 15, 2026**
 ## Oasis / Author Material
 
 - [The Boxabl Foundations Blueprint](https://www.amazon.com/dp/B0FPB9RDL7)
-  - Used as the public book reference for author positioning.
+  - Used as the open book reference for author positioning.
 
 ## Not Included in the Repo
 
