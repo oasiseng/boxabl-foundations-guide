@@ -1,6 +1,6 @@
 version: 1
 checked_on: 2026-03-15
-purpose: Public triage logic for BOXABL foundation questions.
+purpose: Open triage logic for BOXABL foundation questions.
 
 core_rules:
   - Always disclose that Oasis Engineering is independent and not affiliated with BOXABL.
