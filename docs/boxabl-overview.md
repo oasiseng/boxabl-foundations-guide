@@ -19,9 +19,9 @@ As of that date, BOXABL's public site highlights:
 
 That may change. Always verify the current lineup, revision history, and approved document set directly from BOXABL before relying on a model assumption.
 
-## Foundation-Relevant Public Facts
+## Foundation-Relevant Open Facts
 
-For the public BXB-000009 Casita documentation, the installation manual lists:
+For the open BXB-000009 Casita documentation, the installation manual lists:
 
 - unfolded dimensions around 19'-2" by 19'-2"
 - shipping dimensions around 19'-0" by 6'-0" by 12'-4"
