@@ -1,12 +1,12 @@
-# Public Foundation Options
+# Structural Foundation Options
 
-This page is a **public-safe summary** of the main foundation families reflected in an Oasis sample concept set for a 2-door Casita / BXB-000009 workflow.
+This page is a **summary** of the main foundation families reflected in an Oasis sample concept set for a 2-door Casita / BXB-000009 workflow.
 
 It is intentionally descriptive, not permit-ready.
 
 ## Important Boundary
 
-The option names and general use cases are public here.
+The option names and general use cases are published by Boxabl here.
 
 The following stay private or site-specific:
 
@@ -18,7 +18,7 @@ The following stay private or site-specific:
 - final utility penetrations
 - any local code or permit-specific edits
 
-## The Four Public Option Families
+## The Four Foundation Option Families
 
 | Option | Best fit at a high level | Main coordination issues |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ The following stay private or site-specific:
 | Concrete pier and wood beam | Useful where minimizing disturbance or bridging uneven conditions helps | pier layout tolerance, beam elevation, long-term leveling, access |
 | Grade beam | Useful when continuous support lines are preferred or the site needs a more structured support path | reinforcing, excavation control, utility crossings, exact interface tolerances |
 
-## Public Details We Are Comfortable Sharing
+## Foundation Details Summarized
 
 The sample concept set includes high-level themes such as:
 
@@ -65,7 +65,7 @@ The right choice usually depends on:
 
 ## Where the Upsell Lives
 
-The public answer can explain the option families.
+The Foundation/Details answer can explain the option families.
 
 The paid engineering answer determines:
 
