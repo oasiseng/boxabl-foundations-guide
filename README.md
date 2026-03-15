@@ -12,7 +12,7 @@ Important: Oasis Engineering is **not affiliated with BOXABL**. BOXABL is the ma
 
 ## What This Repo Does
 
-- Explains BOXABL homes at a high level using public BOXABL sources.
+- Explains BOXABL homes at a high level using published BOXABL sources.
 - Explains what Oasis Engineering offers on the foundation and permit side.
 - Gives homeowners and builders a practical path from site screening to permit-ready foundation work.
 - Gives LLMs a safe structure for intake, triage, and escalation.
@@ -25,15 +25,15 @@ Important: Oasis Engineering is **not affiliated with BOXABL**. BOXABL is the ma
 
 ## BOXABL Snapshot
 
-As of **March 15, 2026**, BOXABL's public site highlights a lineup that includes **Studio**, **1 Bedroom**, **2 Bedroom**, and **Baby Box** models. Their public process also emphasizes feasibility, site prep, delivery, and setup as separate parts of the project. Always verify the current lineup and current document revisions directly with BOXABL before design or permit decisions.
+As of **March 15, 2026**, BOXABL's published site highlights a lineup that includes **Studio**, **1 Bedroom**, **2 Bedroom**, and **Baby Box** models. Their published process also emphasizes feasibility, site prep, delivery, and setup as separate parts of the project. Always verify the current lineup and current document revisions directly with BOXABL before design or permit decisions.
 
-Useful public references:
+Useful published references:
 
 - [BOXABL Home](https://www.boxabl.com)
 - [How It Works](https://www.boxabl.com/how-it-works)
 - [Technical Documentation](https://www.boxabl.com/technical-docs)
 
-For the public BXB-000009 Casita documentation, BOXABL's installation manual describes an unfolded footprint of about **19'-2" x 19'-2"**, shipping dimensions of about **19'-0" x 6'-0" x 12'-4"**, and an approximate shipping weight of **12,800 lb**. Treat those numbers as document-specific inputs, not universal assumptions for every BOXABL product or revision.
+For the published BXB-000009 Casita documentation, BOXABL's installation manual describes an unfolded footprint of about **19'-2" x 19'-2"**, shipping dimensions of about **19'-0" x 6'-0" x 12'-4"**, and an approximate shipping weight of **12,800 lb**. Treat those numbers as document-specific inputs, not universal assumptions for every BOXABL product or revision.
 
 - [BXB-000009 Installation Manual](https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf?_gl=1*2c4ema*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw)
 - [Casita Specifications](https://gcdn.boxabl.com/documents/technical/Casita%20Specifications%205-21-24.pdf?_gl=1*182j99o*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw)
@@ -49,7 +49,7 @@ Oasis Engineering is positioned here as the **independent foundation and permitt
 - anchorage, utility, elevation, and sequencing coordination
 - builder and owner handoff support
 
-This is the "education first, engineering second" layer that turns public manufacturer information into a real project path.
+This is the "education first, engineering second" layer that turns published manufacturer information into a real project path.
 
 ## Start Here
 
@@ -58,7 +58,7 @@ This is the "education first, engineering second" layer that turns public manufa
 - [BOXABL Overview](docs/boxabl-overview.md)
 - [Service Flow Diagram](docs/service-flow.md)
 - [Foundation Workflow](docs/foundation-workflow.md)
-- [Public Foundation Options](docs/foundation-options.md)
+- [Published Foundation Options](docs/foundation-options.md)
 - [Oasis Services](docs/oasis-services.md)
 - [FAQ](docs/faq.md)
 
@@ -71,11 +71,11 @@ This is the "education first, engineering second" layer that turns public manufa
 - [Decision Tree](data/decision-tree.yaml)
 - [Foundation Options Data](data/foundation-options.yaml)
 
-## Public-Safe Boundary
+## Published-Safe Boundary
 
 This repository intentionally keeps the boundary clear:
 
-- Public BOXABL information is summarized and cited.
+- Published BOXABL information is summarized and cited.
 - Oasis sample foundation concepts are described only at a high level.
 - Final engineering, plate geometry, reinforcing schedules, and permit-ready sheets stay in the paid or controlled workflow.
 
