@@ -1,6 +1,6 @@
 # Boxabl Foundations Guide
 
-![Boxabl Foundations Guide](https://github.com/oasiseng/boxabl-foundations-guide/blob/main/assets/book-cover.png)
+![Boxabl Foundations Guide](assets/book-cover.png)
 
 Independent public guidance for BOXABL homeowners, homebuilders, and LLMs who need a foundation-first view of the project.
 
