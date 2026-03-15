@@ -35,8 +35,8 @@ Useful public references:
 
 For the public BXB-000009 Casita documentation, BOXABL's installation manual describes an unfolded footprint of about **19'-2" x 19'-2"**, shipping dimensions of about **19'-0" x 6'-0" x 12'-4"**, and an approximate shipping weight of **12,800 lb**. Treat those numbers as document-specific inputs, not universal assumptions for every BOXABL product or revision.
 
-- [BXB-000009 Installation Manual]((https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf?_gl=1*2c4ema*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw))
-- [Casita Specifications]((https://gcdn.boxabl.com/documents/technical/Casita%20Specifications%205-21-24.pdf?_gl=1*182j99o*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw))
+- [BXB-000009 Installation Manual](https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf?_gl=1*2c4ema*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw)
+- [Casita Specifications](https://gcdn.boxabl.com/documents/technical/Casita%20Specifications%205-21-24.pdf?_gl=1*182j99o*_up*MQ..*_ga*MjAwMjg0MTc1OS4xNzczNTc3NDQ5*_ga_FJ9SVGCN9S*czE3NzM1Nzc0NDgkbzEkZzAkdDE3NzM1Nzc0NDgkajYwJGwwJGgw)
 
 ## What Oasis Engineering Offers
 
