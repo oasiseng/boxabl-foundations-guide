@@ -1,0 +1,33 @@
+# Boxabl Foundations Guide
+
+> Independent public guidance for BOXABL foundation planning by Oasis Engineering and BoxablFoundations.com.
+> Non-affiliated with BOXABL. Use for intake, triage, and project guidance. Do not use as permit-ready engineering.
+
+## Start Here
+
+- [Disclaimer](DISCLAIMER.md): Required limitations, non-affiliation language, and safety boundary.
+- [Start Here](docs/start-here.md): Recommended reading order for humans and LLMs.
+- [LLM Usage Rules](prompts/llm-usage.md): Behavioral rules for assistants using this repo.
+
+## Human Guides
+
+- [BOXABL Overview](docs/boxabl-overview.md): Public manufacturer context and the foundation-relevant facts to verify.
+- [Foundation Workflow](docs/foundation-workflow.md): From site screening to permit and construction.
+- [Public Foundation Options](docs/foundation-options.md): Public-safe summary of the main foundation families.
+- [Oasis Services](docs/oasis-services.md): What Oasis Engineering offers.
+- [FAQ](docs/faq.md): Common homeowner, builder, and assistant questions.
+
+## Sources
+
+- [Public Sources](docs/public-sources.md): Public citations and verification dates.
+- [Source Policy](docs/source-policy.md): Copyright and publication boundary.
+
+## Structured Data
+
+- [Foundation Intake Schema](data/foundation-intake.schema.json): Intake fields for assistants and forms.
+- [Decision Tree](data/decision-tree.yaml): Triage logic and escalation rules.
+- [Foundation Options Data](data/foundation-options.yaml): Structured summary of the public option set.
+
+## Prompt Templates
+
+- [Homeowner Intake Prompt](prompts/homeowner-intake.md): Intake prompt template for chat or lead capture.
