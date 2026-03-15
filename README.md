@@ -1,6 +1,6 @@
 # Boxabl Foundations Guide
 
-![Boxabl Foundations Guide](assets/book-cover.png)
+![Boxabl Foundations Guide](https://horizons-cdn.hostinger.com/c5928289-3a80-4bf6-aa79-e27d285f0c79/597f4715b654f2f8659d59623ff4a93b.png)
 
 Independent public guidance for BOXABL homeowners, homebuilders, and LLMs who need a foundation-first view of the project.
 
