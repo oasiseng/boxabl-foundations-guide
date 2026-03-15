@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BOXABL Foundation Intake",
+  "description": "Public-safe intake schema for BOXABL foundation triage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_location",
+    "unit_model",
+    "document_basis",
+    "site_condition_summary",
+    "utility_strategy",
+    "foundation_goals",
+    "permit_status"
+  ],
+  "properties": {
+    "project_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "city",
+        "state"
+      ],
+      "properties": {
+        "street_address": {
+          "type": "string"
+        },
+        "parcel_id": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip_code": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        }
+      }
+    },
+    "unit_model": {
+      "type": "string",
+      "description": "Example: Casita, Studio, 1 Bedroom, 2 Bedroom, Baby Box."
+    },
+    "document_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manufacturer_docs_confirmed"
+      ],
+      "properties": {
+        "manufacturer_docs_confirmed": {
+          "type": "boolean"
+        },
+        "manufacturer_doc_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "revision_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "site_condition_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slope_condition",
+        "soil_info_status",
+        "access_constraints"
+      ],
+      "properties": {
+        "slope_condition": {
+          "type": "string",
+          "enum": [
+            "flat",
+            "gently_sloped",
+            "moderately_sloped",
+            "steep",
+            "unknown"
+          ]
+        },
+        "soil_info_status": {
+          "type": "string",
+          "enum": [
+            "visual_only",
+            "geotech_pending",
+            "geotech_complete",
+            "unknown"
+          ]
+        },
+        "soil_notes": {
+          "type": "string"
+        },
+        "frost_depth_known": {
+          "type": "boolean"
+        },
+        "flood_zone_known": {
+          "type": "boolean"
+        },
+        "access_constraints": {
+          "type": "string"
+        }
+      }
+    },
+    "utility_strategy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "water",
+        "sewer",
+        "power"
+      ],
+      "properties": {
+        "water": {
+          "type": "string",
+          "enum": [
+            "municipal",
+            "well",
+            "unknown"
+          ]
+        },
+        "sewer": {
+          "type": "string",
+          "enum": [
+            "municipal",
+            "septic",
+            "unknown"
+          ]
+        },
+        "power": {
+          "type": "string",
+          "enum": [
+            "overhead",
+            "underground",
+            "unknown"
+          ]
+        },
+        "utility_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "foundation_goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "lowest_cost",
+          "lowest_profile",
+          "best_for_slope",
+          "minimal_site_disturbance",
+          "fastest_permit_path",
+          "best_service_access",
+          "future_repeatability",
+          "unknown"
+        ]
+      }
+    },
+    "preferred_foundation_family": {
+      "type": "string",
+      "enum": [
+        "stem_wall",
+        "concrete_slab",
+        "pier_and_beam",
+        "grade_beam",
+        "undecided"
+      ]
+    },
+    "permit_status": {
+      "type": "string",
+      "enum": [
+        "idea_stage",
+        "site_screening",
+        "design_in_progress",
+        "permit_submittal",
+        "permit_comments",
+        "construction"
+      ]
+    },
+    "professional_team": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "builder_selected": {
+          "type": "boolean"
+        },
+        "geotech_selected": {
+          "type": "boolean"
+        },
+        "pe_selected": {
+          "type": "boolean"
+        },
+        "ahj_contacted": {
+          "type": "boolean"
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,71 @@
+version: 1
+checked_on: 2026-03-15
+purpose: Public triage logic for BOXABL foundation questions.
+
+core_rules:
+  - Always disclose that Oasis Engineering is independent and not affiliated with BOXABL.
+  - Treat current BOXABL manufacturer documents as controlling for product-specific information.
+  - Do not provide permit-ready engineering from this decision tree.
+  - Escalate when local code, soils, anchorage, structural adequacy, or permit acceptance is in question.
+
+stages:
+  - id: verify_inputs
+    objective: Confirm the exact unit and document basis.
+    must_collect:
+      - unit_model
+      - manufacturer_docs_confirmed
+      - document_revision_notes
+    if_missing: Ask for the current BOXABL model and current official source documents before giving technical guidance.
+
+  - id: screen_site
+    objective: Determine whether the site is simple enough for early guidance.
+    must_collect:
+      - project_location
+      - slope_condition
+      - access_constraints
+      - utility_strategy
+    if_missing: Limit output to general workflow only.
+
+  - id: screen_soils
+    objective: Determine whether a generic concept may be enough for early planning.
+    must_collect:
+      - soil_info_status
+      - frost_depth_known
+      - flood_zone_known
+    if_missing: Say that foundation family selection is provisional.
+
+  - id: choose_family
+    objective: Narrow the likely foundation family.
+    routing:
+      - condition: slope_condition == flat and utility_strategy.sewer in [municipal, septic]
+        likely_options:
+          - concrete_slab
+          - grade_beam
+      - condition: slope_condition in [gently_sloped, moderately_sloped]
+        likely_options:
+          - stem_wall
+          - pier_and_beam
+          - grade_beam
+      - condition: access_constraints contains "minimal disturbance"
+        likely_options:
+          - pier_and_beam
+      - condition: soil_info_status == geotech_complete
+        likely_options:
+          - use_geotech_to_filter_options
+
+  - id: escalate
+    objective: Identify handoff points.
+    triggers:
+      - geotechnical report conflicts with any generic concept
+      - AHJ requires sealed structural drawings
+      - owner asks for final dimensions, reinforcing, or anchorage
+      - flood, frost, or hillside conditions are material
+      - utility routing drives slab or footing changes
+    action: Escalate to site-specific PE review and permit-package development.
+
+safe_output_template:
+  - state the likely phase of the project
+  - list missing inputs
+  - name 1 to 3 likely foundation families
+  - explain why the answer is provisional
+  - provide the next human action

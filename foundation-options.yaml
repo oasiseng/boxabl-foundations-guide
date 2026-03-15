@@ -1,0 +1,68 @@
+version: 1
+checked_on: 2026-03-15
+options:
+  - id: option_1
+    family: stem_wall
+    public_label: Stem wall foundation
+    summary: Perimeter wall support path used where elevation control or perimeter structure is beneficial.
+    best_for:
+      - sites needing grade transition management
+      - projects where perimeter support is preferred
+    watch_for:
+      - drainage
+      - utility penetrations
+      - local inspection complexity
+    do_not_publish:
+      - reinforcing schedule
+      - final wall geometry
+      - permit-ready connection details
+
+  - id: option_2
+    family: concrete_slab
+    public_label: Concrete slab foundation
+    summary: Slab-oriented support path for cleaner grade conditions and lower-profile layouts.
+    best_for:
+      - simpler sites
+      - projects prioritizing straightforward support and service planning
+    watch_for:
+      - subgrade preparation
+      - vapor barrier continuity
+      - precise utility preplanning
+    do_not_publish:
+      - slab reinforcement schedule
+      - edge thickening geometry
+      - interface tolerances
+
+  - id: option_3
+    family: pier_and_beam
+    public_label: Concrete pier and wood beam foundation
+    summary: Pier support strategy with beam framing where reduced disturbance or adjustable support logic may help.
+    best_for:
+      - uneven sites
+      - access-constrained placements
+    watch_for:
+      - pier elevations
+      - beam long-term serviceability
+      - exact interface hardware
+    do_not_publish:
+      - pier spacing schedule
+      - bearing plate detail
+      - private leveling logic
+
+  - id: option_4
+    family: grade_beam
+    public_label: Grade beam foundation
+    summary: Reinforced continuous beam strategy where a more structured support path is needed.
+    best_for:
+      - sites needing continuous support lines
+      - projects where slab-only logic is not enough
+    watch_for:
+      - excavation control
+      - reinforcement coordination
+      - utility crossings
+    do_not_publish:
+      - rebar schedule
+      - exact hook and lap detail
+      - final elevations
+
+sample_assumptions_note: One Oasis sample concept set used 2024 IBC, Risk Category II, Exposure C, ultimate wind speed 140 mph, and an example 2,000 psf visual bearing assumption. These are educational only and may not apply to another site.
