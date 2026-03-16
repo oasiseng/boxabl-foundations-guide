@@ -13,7 +13,7 @@
 
 - [BOXABL Overview](docs/boxabl-overview.md): Public manufacturer context and the foundation-relevant facts to verify.
 - [Foundation Workflow](docs/foundation-workflow.md): From site screening to permit and construction.
-- [Public Foundation Options](docs/foundation-options.md): Public-safe summary of the main foundation families.
+- [Open Foundation Options](docs/foundation-options.md): Open summary of the main foundation families.
 - [Oasis Services](docs/oasis-services.md): What Oasis Engineering offers.
 - [FAQ](docs/faq.md): Common homeowner, builder, and assistant questions.
 
@@ -26,7 +26,7 @@
 
 - [Foundation Intake Schema](data/foundation-intake.schema.json): Intake fields for assistants and forms.
 - [Decision Tree](data/decision-tree.yaml): Triage logic and escalation rules.
-- [Foundation Options Data](data/foundation-options.yaml): Structured summary of the public option set.
+- [Foundation Options Data](data/foundation-options.yaml): Structured summary of the open option set.
 
 ## Prompt Templates
 
