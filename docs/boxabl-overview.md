@@ -2,9 +2,9 @@
 
 ## What BOXABL Appears to Offer
 
-BOXABL publicly markets factory-built housing and a staged delivery process that includes model selection, feasibility, site preparation, delivery, and setup.
+BOXABL markets factory-built housing and a staged delivery process that includes model selection, feasibility, site preparation, delivery, and setup.
 
-Public references checked on **March 15, 2026**:
+Online references checked on **March 15, 2026**:
 
 - [BOXABL Home](https://www.boxabl.com)
 - [How It Works](https://www.boxabl.com/how-it-works)
