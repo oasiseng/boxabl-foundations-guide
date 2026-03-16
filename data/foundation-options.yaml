@@ -64,5 +64,21 @@ options:
       - rebar schedule
       - exact hook and lap detail
       - final elevations
+    
+    - id: option_rv
+    family: support_pad_or_leveling_plan
+    public_label: Support pad or leveling plan
+    summary: Site support path for towable or chassis-based products where setup, bearing, leveling, and utility coordination matter more than a default permanent foundation.
+    best_for:
+      - Baby Box style towable RV leads
+      - temporary or semi-permanent siting questions
+    watch_for:
+      - jurisdiction classification
+      - jack bearing support
+      - drainage and long-term placement intent
+    do_not_publish:
+      - final bearing design
+      - anchorage details
+      - permit-specific support geometry
 
 sample_assumptions_note: One Oasis sample concept set used 2024 IBC, Risk Category II, Exposure C, ultimate wind speed 140 mph, and an example 2,000 psf visual bearing assumption. These are educational only and may not apply to another site.
