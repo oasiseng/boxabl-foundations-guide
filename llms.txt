@@ -12,6 +12,7 @@
 ## Human Guides
 
 - [BOXABL Overview](docs/boxabl-overview.md): Public manufacturer context and the foundation-relevant facts to verify.
+- [Baby Box 120 RV](docs/baby-box-120-rv.md): Model-specific public notes for BXB-000029 and why it should not be treated like a default Casita foundation project/model.
 - [Foundation Workflow](docs/foundation-workflow.md): From site screening to permit and construction.
 - [Open Foundation Options](docs/foundation-options.md): Open summary of the main foundation families.
 - [Oasis Services](docs/oasis-services.md): What Oasis Engineering offers.
