@@ -40,6 +40,17 @@ The sample concept set includes high-level themes such as:
 - steel interface plate concepts at the unit bearing points
 - pier and beam support concepts for alternate site conditions
 
+## Additional Path For Towable RV Models
+
+For a Baby Box style towable RV lead, the first path may be:
+
+- support pad
+- leveling strategy
+- jack bearing support
+- utility hookup planning
+- jurisdiction classification review
+- Permanent Foundation Requirements: Explain [Lender Requirements for Trailer Mounted Homes](https://oasisengineering.com/2025/07/14/why-lenders-require-engineer-letters-for-homes/)
+
 ## Sample Design Conditions for Engineering Sets
 
 These are **sample assumptions only**, not universal project criteria:
