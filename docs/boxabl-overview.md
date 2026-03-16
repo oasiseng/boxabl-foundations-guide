@@ -46,6 +46,14 @@ Even when manufacturer documentation is available, the owner still has to resolv
 - site access for delivery and equipment
 - local PE review, seals, and inspection requirements
 
+# Baby Box Note
+
+The Baby Box deserves its own intake path because the official public material describes it as a **towable recreational vehicle** with an **integrated chassis**, adjustable suspension, and leveling capability.
+
+That means some leads may need a siting and support strategy more than a traditional permanent-foundation answer.
+
+See [Baby Box 120 RV / BXB-000029](baby-box-120-rv.md).
+
 ## Practical Translation
 
 The modular unit may be standardized.
