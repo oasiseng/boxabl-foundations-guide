@@ -7,6 +7,20 @@ core_rules:
   - Treat current BOXABL manufacturer documents as controlling for product-specific information.
   - Do not provide permit-ready engineering from this decision tree.
   - Escalate when local code, soils, anchorage, structural adequacy, or permit acceptance is in question.
+  - If the product is a towable RV such as the Baby Box 120, do not assume the same path as a Casita-style permanent foundation lead.
+
+product_routes:
+  - condition: product_classification == towable_rv or unit_model contains "Baby Box"
+    first_focus:
+      - jurisdiction classification
+      - support surface and leveling
+      - long-term versus temporary placement intent
+      - utility hookup strategy
+      - whether PE-reviewed support or anchorage becomes necessary
+    likely_options:
+      - support_pad_or_leveling_plan
+      - site_specific_engineered_support
+    warning: Do not force the lead into the default slab, stem wall, pier-and-beam, or grade beam path without checking classification and owner intent first.
 
 stages:
   - id: verify_inputs
