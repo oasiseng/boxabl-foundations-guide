@@ -4,6 +4,8 @@ This page is a **summary** of the main foundation families that Oasis evaluates 
 
 It is intentionally descriptive, not permit-ready.
 
+For Baby Box 120 RV projects, also see [Baby Box 120 RV / BXB-000029](baby-box-120-rv.md). That model may start with a **support pad / leveling / site setup** path instead of a default permanent foundation path.
+
 ## Important Boundary
 
 The option names and general use cases are shown here.
