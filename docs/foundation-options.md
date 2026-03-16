@@ -1,14 +1,14 @@
 # Structural Foundation Options
 
-This page is a **summary** of the main foundation families reflected in an Oasis sample concept set for a 2-door Casita / BXB-000009 workflow.
+This page is a **summary** of the main foundation families that Oasis evaluates for a 2-door Casita / BXB-000009 workflow.
 
 It is intentionally descriptive, not permit-ready.
 
 ## Important Boundary
 
-The option names and general use cases are published by Boxabl here.
+The option names and general use cases are shown here.
 
-The following stay private or site-specific:
+The following elements remain site-specific:
 
 - full sheet set geometry
 - reinforcing schedules
@@ -38,7 +38,7 @@ The sample concept set includes high-level themes such as:
 - steel interface plate concepts at the unit bearing points
 - pier and beam support concepts for alternate site conditions
 
-## Sample Design Assumptions From One Oasis Concept Set
+## Sample Design Conditions for Engineering Sets
 
 These are **sample assumptions only**, not universal project criteria:
 
@@ -62,15 +62,3 @@ The right choice usually depends on:
 - delivery and crane or telehandler constraints
 - how much excavation or concrete work the site can tolerate
 - whether the AHJ or geotech report drives a specific answer
-
-## Where the Upsell Lives
-
-The Foundation/Details answer can explain the option families.
-
-The paid engineering answer determines:
-
-- which option is actually appropriate
-- how it is dimensioned
-- how it is reinforced
-- how the unit interfaces to it
-- what gets submitted for permit
