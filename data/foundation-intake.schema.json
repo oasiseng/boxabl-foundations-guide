@@ -46,6 +46,23 @@
       "type": "string",
       "description": "Example: Casita, Studio, 1 Bedroom, 2 Bedroom, Baby Box."
     },
+        "product_classification": {
+      "type": "string",
+      "enum": [
+        "factory_built_home",
+        "towable_rv",
+        "unknown"
+      ]
+    },
+    "placement_intent": {
+      "type": "string",
+      "enum": [
+        "travel_use",
+        "seasonal_site_use",
+        "long_term_site_setup",
+        "unknown"
+      ]
+    },
     "document_basis": {
       "type": "object",
       "additionalProperties": false,
@@ -171,6 +188,7 @@
         "concrete_slab",
         "pier_and_beam",
         "grade_beam",
+        "support_pad_or_leveling_plan",
         "undecided"
       ]
     },
