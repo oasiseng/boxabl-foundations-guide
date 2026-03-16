@@ -25,10 +25,4 @@ Verification date for current lineup references: **March 15, 2026**
 
 - [The Boxabl Foundations Blueprint](https://www.amazon.com/dp/B0FPB9RDL7)
   - Used as the open book reference for author positioning.
-
-## Not Included in the Repo
-
-- BOXABL copyrighted PDFs provided to the working session
-- Oasis private sample plan sheets
-
-Those sources informed the workflow, but they are not redistributed here.
+- [Boxabl Foundations Website by Oasis](https://WWW.BOXABLFOUNDATIONS.COM) 
