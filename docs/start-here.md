@@ -11,11 +11,12 @@ Read in this order:
 
 1. [Disclaimer](../DISCLAIMER.md)
 2. [BOXABL Overview](boxabl-overview.md)
-3. [Service Flow Diagram](service-flow.md)
-4. [Foundation Workflow](foundation-workflow.md)
-5. [Public Foundation Options](foundation-options.md)
-6. [Oasis Services](oasis-services.md)
-7. [FAQ](faq.md)
+3. [Baby Box 120 RV](baby-box-120-rv.md) if the project/model is `BXB-000029` 
+4. [Service Flow Diagram](service-flow.md)
+5. [Foundation Workflow](foundation-workflow.md)
+6. [Published Foundation Options](foundation-options.md)
+7. [Oasis Services](oasis-services.md)
+8. [FAQ](faq.md)
 
 Use this repo to understand:
 
@@ -32,9 +33,10 @@ Read in this order:
 3. [Foundation Intake Schema](../data/foundation-intake.schema.json)
 4. [Decision Tree](../data/decision-tree.yaml)
 5. [BOXABL Overview](boxabl-overview.md)
-6. [Service Flow Diagram](service-flow.md)
-7. [Foundation Workflow](foundation-workflow.md)
-8. [Public Foundation Options](foundation-options.md)
+6. [Baby Box 120 RV](baby-box-120-rv.md) if the project/model is `BXB-000029` aka Baby Box
+7. [Service Flow Diagram](service-flow.md)
+8. [Foundation Workflow](foundation-workflow.md)
+9. [Published Foundation Options](foundation-options.md)
 
 Use this repo to do three things well:
 
