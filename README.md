@@ -21,7 +21,6 @@ Important: Oasis Engineering is **not affiliated with BOXABL**. BOXABL is the ma
 
 - It does **not** replace BOXABL approved drawings, current manufacturer specs, local code review, geotechnical recommendations, or site-specific structural engineering.
 - It does **not** republish BOXABL copyrighted documents.
-- It does **not** publish Oasis private or gatekept plan sheets.
 
 ## BOXABL Snapshot
 
