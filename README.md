@@ -75,7 +75,7 @@ This is the "education first, engineering second" layer that turns published man
 This repository intentionally keeps the boundary clear:
 
 - Published BOXABL information is summarized and cited.
-- Oasis sample foundation concepts are described only at a high level.
+- Oasis different foundation designs are conceptually defined and described.
 - Final engineering, plate geometry, reinforcing schedules, and permit-ready sheets stay in the paid or controlled workflow.
 
 ## Further Reading
