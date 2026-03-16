@@ -22,7 +22,7 @@ Soils, slope, drainage, frost, flood exposure, wind exposure, utility locations,
 
 ## Why keep the Oasis sample plans private?
 
-Because the public goal is education and qualification, not publishing a substitute for site-specific engineering. The detailed plan set is part of the controlled value layer.
+Because the goal of this repository is education and qualification, not publishing a substitute for site-specific engineering. The detailed plan set i always site specific and must be carefully verified by a PE to ensure local building codes, engineering requirements and conditions are satisfied.
 
 ## Can an LLM answer my permit question?
 
