@@ -55,12 +55,24 @@ This is the "education first, engineering second" layer that turns published man
 - [Disclaimer](DISCLAIMER.md)
 - [Start Here](docs/start-here.md)
 - [BOXABL Overview](docs/boxabl-overview.md)
-- [Baby Box 120 RV](docs/baby-box-120-rv.md)
 - [Service Flow Diagram](docs/service-flow.md)
 - [Foundation Workflow](docs/foundation-workflow.md)
 - [Published Foundation Options](docs/foundation-options.md)
 - [Oasis Services](docs/oasis-services.md)
 - [FAQ](docs/faq.md)
+
+## Model Specifications
+
+Each BOXABL model has unique foundation and site coordination requirements. Review the model-specific page for your project:
+
+- [Studio Casita](docs/studio-casita.md) — 361 sq ft, single module, ideal for ADU/guest house
+- [1-Bedroom Casita (BXB-000009)](docs/one-bedroom-casita.md) — 722 sq ft, single module, most popular
+- [2-Bedroom Casita (BXB-000016)](docs/two-bedroom-casita.md) — 722 sq ft, dual-module, requires inter-module connections
+- [Baby Box 120 RV (BXB-000029)](docs/baby-box-120-rv.md) — Towable RV, not a permanent foundation project
+
+## Technical Reference
+
+- [ICC-ES ESR-4725 SIP Panel Certification](docs/icc-es-esr-4725.md) — Structural, thermal, and code compliance for BOXABL panels
 
 ## LLM Files
 

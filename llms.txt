@@ -12,11 +12,21 @@
 ## Human Guides
 
 - [BOXABL Overview](docs/boxabl-overview.md): Public manufacturer context and the foundation-relevant facts to verify.
-- [Baby Box 120 RV](docs/baby-box-120-rv.md): Model-specific public notes for BXB-000029 and why it should not be treated like a default Casita foundation project/model.
 - [Foundation Workflow](docs/foundation-workflow.md): From site screening to permit and construction.
 - [Open Foundation Options](docs/foundation-options.md): Open summary of the main foundation families.
 - [Oasis Services](docs/oasis-services.md): What Oasis Engineering offers.
 - [FAQ](docs/faq.md): Common homeowner, builder, and assistant questions.
+
+## Model-Specific Documentation
+
+- [Studio Casita](docs/studio-casita.md): 361 sq ft, single module; smallest permanent-foundation model; ideal for ADU/guest house.
+- [1-Bedroom Casita (BXB-000009)](docs/one-bedroom-casita.md): 722 sq ft, single module; most popular and well-documented model.
+- [2-Bedroom Casita (BXB-000016)](docs/two-bedroom-casita.md): 722 sq ft, dual-module; requires inter-module structural connections.
+- [Baby Box 120 RV (BXB-000029)](docs/baby-box-120-rv.md): Towable RV with integrated chassis; not a permanent-foundation project.
+
+## Technical Reference
+
+- [ICC-ES ESR-4725 SIP Panel Certification](docs/icc-es-esr-4725.md): Structural, thermal, fire, and seismic properties of BOXABL panels; code compliance reference.
 
 ## Sources
 
