@@ -4,7 +4,7 @@
 
 BOXABL markets factory-built housing and a staged delivery process that includes model selection, feasibility, site preparation, delivery, and setup.
 
-Online references checked on **March 15, 2026**:
+Online references checked on **May 5, 2026**:
 
 - [BOXABL Home](https://www.boxabl.com)
 - [How It Works](https://www.boxabl.com/how-it-works)
@@ -19,9 +19,31 @@ As of that date, BOXABL's public site highlights:
 
 That may change. Always verify the current lineup, revision history, and approved document set directly from BOXABL before relying on a model assumption.
 
+## BOXABL Model Lineup
+
+| Model | Model # | Size | Config | Modules | Details |
+|-------|---------|------|--------|---------|---------|
+| Studio | ~BXB | 361 sq ft | Studio | Single | [Studio Casita](studio-casita.md) — smallest permanent foundation model; ideal for ADU/guest house |
+| 1-Bedroom Casita | BXB-000009 | 722 sq ft | 1 Bed / 1 Bath | Single | [1-Bedroom Casita](one-bedroom-casita.md) — most popular and well-documented model |
+| 2-Bedroom Casita | BXB-000016 | 722 sq ft | 2 Bed / 1 Bath | Dual | [2-Bedroom Casita](two-bedroom-casita.md) — dual-module with inter-module connections |
+| Baby Box 120 RV | BXB-000029 | ~101 sq ft | Studio | Single | [Baby Box 120 RV](baby-box-120-rv.md) — towable RV with integrated chassis; not permanent foundation |
+
 ## Foundation-Relevant Open Facts
 
-For the open BXB-000009 Casita documentation, the installation manual lists:
+All BOXABL permanent-foundation models use **ICC-ES ESR-4725 certified structural insulated panels** (SIPs).
+
+See [ICC-ES ESR-4725 Structural Insulated Panel Certification](icc-es-esr-4725.md) for full structural, thermal, and code compliance details.
+
+**Model-Specific Documentation:**
+
+Detailed specifications for each BOXABL permanent-foundation model are now available:
+
+- **[Studio Casita](studio-casita.md):** 361 sq ft, single module, smallest permanent-foundation model
+- **[1-Bedroom Casita (BXB-000009)](one-bedroom-casita.md):** 722 sq ft, single module, most popular model with published installation manual
+- **[2-Bedroom Casita (BXB-000016)](two-bedroom-casita.md):** 722 sq ft, dual-module with inter-module connections
+- **[Baby Box 120 RV (BXB-000029)](baby-box-120-rv.md):** 101 sq ft, towable RV, not a permanent-foundation project
+
+For the reference BXB-000009 Casita documentation, the installation manual lists:
 
 - unfolded dimensions around 19'-2" by 19'-2"
 - shipping dimensions around 19'-0" by 6'-0" by 12'-4"
@@ -30,8 +52,8 @@ For the open BXB-000009 Casita documentation, the installation manual lists:
 
 Useful references:
 
-- [BXB-000009 Installation Manual](https://storage.googleapis.com/boxabl-public-site-public/public-site/images/PDFs/BXB-000009_Installation_Manual.pdf)
-- [Casita Specifications](https://storage.googleapis.com/boxabl-public-site-public/public-site/images/PDFs/Casita%20Specifications%205-21-24.pdf)
+- [BXB-000009 Installation Manual](https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf)
+- [Casita Specifications](https://gcdn.boxabl.com/documents/technical/Casita%20Specifications%205-21-24.pdf)
 
 ## What BOXABL Information Usually Does Not Finish for You
 
