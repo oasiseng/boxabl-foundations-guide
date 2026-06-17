@@ -1,0 +1,22 @@
+{
+  "project_location": {
+    "city": "Memphis",
+    "state": "TN"
+  },
+  "unit_model": "Casita",
+  "document_basis": {
+    "manufacturer_docs_confirmed": "yes"
+  },
+  "site_condition_summary": {
+    "slope_condition": "vertical",
+    "soil_info_status": "visual_only",
+    "access_constraints": "tight"
+  },
+  "utility_strategy": {
+    "water": "municipal",
+    "sewer": "septic",
+    "power": "overhead"
+  },
+  "foundation_goals": [],
+  "owner_email": "should-not-be-here@example.com"
+}

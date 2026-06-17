@@ -1,16 +1,23 @@
-version: 1
-checked_on: 2026-03-15
+version: 2
+checked_on: 2026-06-12
 purpose: Open triage logic for BOXABL foundation questions.
+schema_ref: data/foundation-intake.schema.json
+field_convention: >
+  Dotted paths below refer to fields defined in the intake schema, e.g.
+  site_condition_summary.slope_condition. Collect and store data using the
+  schema's exact field names so handoffs between tools stay lossless.
 
 core_rules:
   - Always disclose that Oasis Engineering is independent and not affiliated with BOXABL.
   - Treat current BOXABL manufacturer documents as controlling for product-specific information.
+  - Treat data/models.yaml as the in-repo fact source for model numbers and specs, and respect each fact's verification status.
   - Do not provide permit-ready engineering from this decision tree.
   - Escalate when local code, soils, anchorage, structural adequacy, or permit acceptance is in question.
   - If the product is a towable RV such as the Baby Box 120, do not assume the same path as a Casita-style permanent foundation lead.
+  - If a model uses two modules (1-Bedroom and 2-Bedroom Casitas), flag inter-module connection and unified-bearing design as escalation topics early.
 
 product_routes:
-  - condition: product_classification == towable_rv or unit_model contains "Baby Box"
+  - condition: product_classification == "towable_rv" or unit_model contains "Baby Box"
     first_focus:
       - jurisdiction classification
       - support surface and leveling
@@ -20,52 +27,81 @@ product_routes:
     likely_options:
       - support_pad_or_leveling_plan
       - site_specific_engineered_support
-    warning: Do not force the lead into the default slab, stem wall, pier-and-beam, or grade beam path without checking classification and owner intent first.
+    warning: >
+      Do not force the lead into the default slab, stem wall, pier-and-beam,
+      or grade beam path without checking classification and owner intent first.
 
 stages:
   - id: verify_inputs
     objective: Confirm the exact unit and document basis.
     must_collect:
       - unit_model
-      - manufacturer_docs_confirmed
-      - document_revision_notes
-    if_missing: Ask for the current BOXABL model and current official source documents before giving technical guidance.
+      - document_basis.manufacturer_docs_confirmed
+      - document_basis.revision_notes
+    if_missing: >
+      Ask for the current BOXABL model and current official source documents
+      before giving technical guidance. Note: BXB-000009 is the 361 sq ft
+      Studio Casita per the install manual. If the lead says "1-bedroom" or
+      "2-bedroom," that is a dual-module 722 sq ft product with a different
+      model number; confirm it with BOXABL.
 
   - id: screen_site
     objective: Determine whether the site is simple enough for early guidance.
     must_collect:
-      - project_location
-      - slope_condition
-      - access_constraints
-      - utility_strategy
+      - project_location.city
+      - project_location.state
+      - site_condition_summary.slope_condition
+      - site_condition_summary.access_constraints
+      - utility_strategy.water
+      - utility_strategy.sewer
+      - utility_strategy.power
     if_missing: Limit output to general workflow only.
 
   - id: screen_soils
     objective: Determine whether a generic concept may be enough for early planning.
     must_collect:
-      - soil_info_status
-      - frost_depth_known
-      - flood_zone_known
+      - site_condition_summary.soil_info_status
+      - site_condition_summary.frost_depth_known
+      - site_condition_summary.flood_zone_known
     if_missing: Say that foundation family selection is provisional.
 
   - id: choose_family
     objective: Narrow the likely foundation family.
     routing:
-      - condition: slope_condition == flat and utility_strategy.sewer in [municipal, septic]
+      - condition: site_condition_summary.slope_condition == "flat" and utility_strategy.sewer in ["municipal", "septic"]
         likely_options:
           - concrete_slab
           - grade_beam
-      - condition: slope_condition in [gently_sloped, moderately_sloped]
+
+      - condition: site_condition_summary.slope_condition in ["gently_sloped", "moderately_sloped"]
         likely_options:
           - stem_wall
           - pier_and_beam
           - grade_beam
-      - condition: access_constraints contains "minimal disturbance"
+
+      - condition: foundation_goals contains "minimal_site_disturbance"
         likely_options:
           - pier_and_beam
-      - condition: soil_info_status == geotech_complete
-        likely_options:
-          - use_geotech_to_filter_options
+
+      - condition: site_condition_summary.slope_condition == "steep"
+        action: escalate
+        reason: >
+          Hillside conditions require geotechnical input and site-specific PE
+          design before naming a foundation family. Do not suggest a family
+          from this tree alone.
+
+      - condition: site_condition_summary.slope_condition == "unknown"
+        action: return_to_stage
+        target: screen_site
+        reason: Slope is a gating input. Collect it before routing.
+
+      - condition: site_condition_summary.soil_info_status == "geotech_complete"
+        action: use_geotech_to_filter_options
+
+    default: >
+      If no routing condition matches, state that the inputs are insufficient,
+      list the missing fields by schema path, and do not name a foundation
+      family.
 
   - id: escalate
     objective: Identify handoff points.
@@ -73,13 +109,14 @@ stages:
       - geotechnical report conflicts with any generic concept
       - AHJ requires sealed structural drawings
       - owner asks for final dimensions, reinforcing, or anchorage
-      - flood, frost, or hillside conditions are material
+      - flood, frost, hillside, or steep-slope conditions are material
       - utility routing drives slab or footing changes
+      - the unit is dual-module and inter-module connection or unified bearing design is in question
     action: Escalate to site-specific PE review and permit-package development.
 
 safe_output_template:
   - state the likely phase of the project
-  - list missing inputs
-  - name 1 to 3 likely foundation families
+  - list missing inputs by schema path
+  - name 1 to 3 likely foundation families (or state why none can be named yet)
   - explain why the answer is provisional
   - provide the next human action

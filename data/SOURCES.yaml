@@ -1,0 +1,104 @@
+# =============================================================================
+# SOURCE REGISTRY - single place for every external source and its last check
+# =============================================================================
+# Rule: docs should reference sources by id and point readers here, instead of
+# embedding their own "checked on" dates that drift independently.
+# scripts/check_sources.py reads this file and verifies every URL is alive.
+# =============================================================================
+
+version: 1
+
+sources:
+  - id: boxabl-home
+    title: BOXABL Home
+    url: https://www.boxabl.com
+    type: webpage
+    checked_on: 2026-05-05
+
+  - id: boxabl-how-it-works
+    title: BOXABL How It Works
+    url: https://www.boxabl.com/how-it-works
+    type: webpage
+    checked_on: 2026-05-05
+
+  - id: boxabl-technical-docs
+    title: BOXABL Technical Documentation
+    url: https://www.boxabl.com/technical-docs
+    type: webpage
+    checked_on: 2026-05-05
+
+  - id: bxb-000009-install-manual
+    title: BXB-000009 Installation Manual (Rev 1.1, dated 2025-01-17)
+    url: https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf
+    type: pdf
+    checked_on: 2026-06-12
+    notes: >
+      Primary source for Studio Casita (BXB-000009) dimensions, shipping size,
+      weight, and R-values. The manual states that approved drawings control
+      over the manual in any discrepancy.
+
+  - id: casita-specifications
+    title: Casita Specifications (5-21-24)
+    url: https://gcdn.boxabl.com/documents/technical/Casita%20Specifications%205-21-24.pdf
+    type: pdf
+    checked_on: 2026-03-15
+
+  - id: baby-box-spec-sheet
+    title: Baby Box 120 Spec Sheet (BXB-000029)
+    url: https://gcdn.boxabl.com/documents/technical/plan-sets/Baby%20Box%20120%20Spec%20Sheet%20(BXB-000029).pdf
+    type: pdf
+    checked_on: 2026-03-16
+
+  - id: boxabl-baby-box-page
+    title: BOXABL Baby Box Page
+    url: https://www.boxabl.com/baby-box
+    type: webpage
+    checked_on: 2026-03-16
+
+  - id: icc-es
+    title: ICC Evaluation Service (ESR-4725 status lookup)
+    url: https://www.icc-es.org
+    type: webpage
+    checked_on: 2026-05-05
+    notes: >
+      ESR-4725 page in this repo references a May 2024 reissue with a May 2025
+      renewal cycle. Re-verify the current reissue and code-cycle recognition
+      before citing in any permit context.
+
+  - id: boxabl-2br-ca-approval
+    title: BOXABL 2-Bedroom Casita California Approval (press release, 2025-12-17)
+    url: https://www.prnewswire.com/news-releases/boxabl-achieves-milestone-approval-for-2-bedroom-casita-in-california-expanding-modular-housing-options-to-meet-surging-demand-for-larger-adus-302644790.html
+    type: press_release
+    checked_on: 2026-06-12
+
+  - id: boxabl-phase2-launch
+    title: BOXABL Phase 2 Product Lineup Launch (press release, 2026-06-02)
+    url: https://www.prnewswire.com/news-releases/boxabl-launches-phase-2-product-lineup-with-20-home-models-apartments-and-more--expanding-beyond-the-casita-to-serve-a-larger-housing-market-302788503.html
+    type: press_release
+    checked_on: 2026-06-12
+
+  - id: dealer-faq-myboxablhome
+    title: Dealer FAQ noting 1BR/2BR California-only availability
+    url: https://myboxablhome.com/faq/
+    type: webpage
+    checked_on: 2026-06-12
+    notes: Secondary source. Confirm availability claims directly with BOXABL.
+
+  - id: legacy-repo-claim
+    title: Claim carried over from earlier repo versions, primary source not yet located
+    url: https://boxablfoundations.com
+    type: internal
+    checked_on: 2026-06-12
+    notes: Items citing this id need a real primary source. Treat as unverified.
+
+  - id: oasis-book
+    title: "The Boxabl Foundations Blueprint (Amazon KDP)"
+    url: https://www.amazon.com/dp/B0FPB9RDL7
+    type: book
+    checked_on: 2026-03-15
+
+  - id: boxablfoundations-site
+    title: BoxablFoundations.com by Oasis Engineering
+    url: https://boxablfoundations.com
+    type: webpage
+    checked_on: 2026-06-12

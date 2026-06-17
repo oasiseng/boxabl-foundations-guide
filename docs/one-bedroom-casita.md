@@ -1,220 +1,109 @@
-# Boxabl 1-Bedroom Casita / BXB-000009
+# Boxabl 1-Bedroom Casita (Dual-Module, 722 sq ft)
 
-This page sets up a **model-specific public briefing** for the BOXABL 1-Bedroom Casita, model `BXB-000009`.
+This page is the **model-specific public briefing** for the BOXABL 1-Bedroom Casita.
 
-It exists because this is BOXABL's most popular and well-documented model, with published installation manuals and a clear single-module delivery path.
+> **Correction notice (June 2026):** Earlier versions of this page assigned model number `BXB-000009` to the 1-Bedroom Casita and described it as a single module. Both claims were wrong. Per the published installation manual, **BXB-000009 is the 361 sq ft Studio Casita** — see [Studio Casita](studio-casita.md). BOXABL's public material describes the 1-Bedroom layout as **19' x 38' at 722 sq ft**, which is **two connected 19' x 19' modules**. The correct 1-Bedroom model number has not yet been verified — confirm it directly with BOXABL and record it in [`data/models.yaml`](../data/models.yaml).
 
 ## Official Open Source Position
 
-Official published references checked on **May 5, 2026**:
+Official published references (verification dates in [`data/SOURCES.yaml`](../data/SOURCES.yaml)):
 
 - [BOXABL Home](https://www.boxabl.com)
 - [Technical Documentation](https://www.boxabl.com/technical-docs)
-- [BXB-000009 Installation Manual](https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf)
 
-The official product material describes the 1-Bedroom Casita as:
+BOXABL's public material describes the 1-Bedroom Casita as:
 
-- single-module factory-built housing unit
-- one bedroom, one full bathroom
-- complete kitchen with full-size appliances
-- 722 sq ft of living space
-- folds from 19' x 19' shipping configuration to 19' x 38' unfolded
+- a one-bedroom, one-bath layout at approximately 722 sq ft
+- approximately 19' x 38' unfolded — i.e., **two connected 19' x 19' modules**
+- full kitchen with full-size appliances, built-in closets, 9'-6" ceilings
 - ICC-ES ESR-4725 certified structural insulated panels
 - designed for permanent foundation installation
-- most popular BOXABL permanent-structure model
+
+**Availability caveat:** as of late 2025, dealer material reported the 1-Bedroom and 2-Bedroom models as offered **only in California**. Confirm current availability and approved states directly with BOXABL before qualifying a lead outside California.
 
 ## Public Facts That Matter For Lead Intake
 
-Per BOXABL's published installation manual and ESR-4725 certification, public details include:
+All items below are **unverified against a primary manual** for this specific model — treat them as intake starting points, not design inputs:
 
-**Dimensions & Shipping:**
-- unfolded footprint: 19'-2" x 38'-2" (approximately 722 sq ft)
-- single module configuration (folds in half for shipping)
-- shipping dimensions: 8'6" W x 19' L x 12'4" H
-- approximate shipping weight: 12,800 lbs
-- delivery: requires crane or telehandler for unfolding and positioning
+**Dimensions & Configuration:**
+- unfolded footprint: approximately 19' x 38' (~722 sq ft)
+- configuration: 1 bedroom / 1 bath, full kitchen
+- modules: two 19' x 19' modules connected on-site
+- per-module shipping expected to be similar to the Studio (19' L x 8'-6" W x 12'-4" H) — confirm with BOXABL
+- delivery: two transport/unfolding sequences plus inter-module connection work
 
 **Structural & Building Science:**
-- exterior wall: 6" SIP panels, R-value = 23.47
-- floor: 7.125" SIP panels, R-value = 28.3
-- ceiling: 7.125" SIP panels, R-value = 27.68
-- floor live load: 40 psf
-- roof live load: 20 psf (truss system)
-- ground snow load: up to 100 psf with truss roof
-- wind design: 140 mph Exposure B / 120 mph Exposure C
-- seismic design category: D
-- ceiling height: 9'6" throughout
+- SIP panel construction certified under ICC-ES ESR-4725 (see [ICC-ES ESR-4725](icc-es-esr-4725.md))
+- wall/floor/roof R-values expected to match the published panel family (R-23.47 / R-28.3 / R-27.68) — confirm for this model's revision
+- snow, wind, and seismic ratings: see the structural plans for the unit revision; do not quote universal numbers
 
-**Interior & Finishes:**
-- full kitchen with full-size appliances (refrigerator, microwave, range, dishwasher)
-- heat pump water heater
-- 18,000 BTU ductless heat pump HVAC
-- one full bathroom with shower/tub
-- laundry center
-- full-size windows with 8' tall double-pane low-e glazing
-- luxury composite flooring throughout
-- complete electrical and plumbing pre-installed
+**Pricing & Availability:**
+- pricing for the dual-module models changes frequently and varies by state — verify with BOXABL before quoting anything
 
-**Certification & Code Compliance:**
-- ICC-ES ESR-4725 certified SIP panels (see [ICC-ES ESR-4725](icc-es-esr-4725.md))
-- meets 2021/2018 IBC and IRC
-- complies with structural, thermal, weather resistance, and seismic code requirements
+## Why The 1-Bedroom Requires Dual-Module Thinking
 
-**Utility & Installation:**
-- single-module delivery and unfolding
-- pre-installed utility stubs for water, sewer, and electrical
-- finished floor connections to site utilities required
-- permanent foundation required (slab, crawlspace, pier & beam, or grade beam)
-- crane or telehandler required for delivery, positioning, and unfolding
+Because this is a two-module product, the foundation logic is closer to the [2-Bedroom Casita](two-bedroom-casita.md) than to the single-module Studio:
 
-**Pricing & Availability (Advertised):**
-- approximate list price: ~$60,000
-- advertised financing: ~$1,150/month
-- prices subject to change; verify with BOXABL before commitment
+1. **Inter-module connection engineering.** The two modules must be joined at a defined interface, coordinated with the foundation, and verified during installation.
 
-## Why The 1-Bedroom Casita Is The Reference Model
+2. **Unified bearing surface.** The foundation cannot be two independent 19' x 19' pads with uncoordinated settlement behavior. Differential settlement at the module seam is the failure mode to design against.
 
-The 1-Bedroom (BXB-000009) is unique because:
+3. **Larger footprint, more utility coordination.** Stubs and penetrations span both modules; routing must be planned across the full ~19' x 38' footprint.
 
-1. **Most published and proven model.** This is the primary model documented in BOXABL's installation manual and technical examples. Most jurisdictions and building officials have seen or approved this model.
+4. **Two delivery sequences.** Two crane/telehandler events, two unfolding operations, tighter site logistics.
 
-2. **Single-module simplicity.** Unlike the 2-Bedroom (two modules), there is no inter-module structural connection, interface plate, or dual-module unfolding complexity. The foundation supports one unified unit.
+## What "Foundation Plan" Means For The 1-Bedroom Casita
 
-3. **Sweet-spot size for ADU and small residence classification.** At 722 sq ft with one bedroom, it fits ADU, guest house, small residence, and rental housing categories in most jurisdictions.
+The realistic options mirror the dual-module strategies described in detail on the [2-Bedroom Casita](two-bedroom-casita.md) page:
 
-4. **Fully documented.** The installation manual is publicly available and references the approved plan set for foundation designs and connections.
+- **unified concrete slab** across the full dual-module footprint (most common)
+- **pier & beam with a dual-module layout**, including support at the module interface
+- **crawlspace with stem wall** spanning both modules
+- **grade beam** providing continuous support lines under both modules
 
-5. **Production maturity.** BOXABL has delivered many units of this model. Delivery logistics, utility coordination, and permitting paths are well-established.
-
-6. **Clear utility coordination.** Stubs are pre-planned in the factory, and the installation manual provides clear guidance on site connections.
-
-## What "Foundation Plan" Means For 1-Bedroom Casita
-
-For this model, "foundation plan" involves:
-
-### Standard Foundation Options
-
-1-Bedroom projects typically use one of these:
-
-**Concrete Slab:**
-- solid bearing pad with vapor barrier and gravel base
-- continuous footing at perimeter or spot bearing at unit connection points
-- pre-planned utility penetrations through slab
-- most common approach for straightforward sites
-
-**Concrete Pier & Beam:**
-- engineered pier layout supporting beam lines under unit
-- useful for sloped sites, drainage sensitivity, or soil uncertainty
-- allows flexible utility routing and grading
-- common where elevation control or serviceability is important
-
-**Crawlspace with Stem Wall:**
-- perimeter stem wall with interior bearing or continuous footing
-- adds elevation control and moisture management
-- useful where utilities need elevation or long-term serviceability is critical
-- typical for cooler climates or high water tables
-
-**Grade Beam:**
-- continuous reinforced beam on stable bearing layer
-- useful for sites requiring unified support strategy
-- common when local code or engineer preference favors continuous support
-
-### Key Coordination Items
-
-The installation manual emphasizes:
-
-- site access for crane/telehandler delivery
-- utility stub locations (water, sewer, electrical, gas, vent)
-- finished floor elevation and slope drainage
-- bearing soil capacity (geotechnical report typical)
-- anchorage connection to panel base using defined connection points
-- local building official review and plan approval
-
-## Foundation Implications Specific to 1-Bedroom Casita
-
-**Advantages:**
-
-- single connection point sequence (simpler than multi-module units)
-- published installation manual for reference
-- widely accepted by local building officials
-- standard utility stub layout
-- moderate excavation and concrete volumes
-- clear delivery and unfolding logistics
-
-**Planning Checklist:**
-
-- obtain and review the BXB-000009 installation manual with the owner and AHJ
-- establish utility entry points and finished floor target early
-- obtain geotechnical report if jurisdiction requires
-- coordinate site grading and drainage
-- plan crane / telehandler access and placement area
-- verify local foundation standard and connection detail acceptance
-- confirm utility infrastructure capacity (water, sewer, power)
-
-## What BOXABL Does vs. What You Define
-
-**BOXABL provides:**
-- structural panel specifications and ESR-4725 certification
-- floor plan and utility stub locations (documented in installation manual)
-- shipping and placement dimensions
-- installation sequencing guidance
-
-**You (and Oasis) define:**
-- site-specific foundation selection
-- bearing capacity and soil assumptions
-- exact anchorage connection geometry (using defined connection points)
-- local permit path and code compliance
-- utility routing and elevations
-- final construction sequencing
-- site-specific engineering seal and inspection
+In every case, the inter-module interface and unified settlement behavior drive the design — not just the perimeter loads.
 
 ## Oasis Role For A 1-Bedroom Casita Lead
 
-This is where Oasis becomes valuable:
+- confirm the correct model number and current documentation with BOXABL before anything else
+- verify availability for the lead's state
+- review the inter-module connection specification and coordinate it with the foundation design
+- select a unified foundation family for the site and local code
+- coordinate utility, grading, and finished floor elevation across both modules
+- provide PE-sealed drawings, inspection support, and AHJ response
 
-- review the installation manual and confirm foundation approach with site and jurisdiction
-- select the optimal foundation family for the site and local code
-- coordinate utility, grading, and finished floor elevation using defined stub locations
-- design site-specific connection and anchorage using the published connection points
-- support permit intake and AHJ review with manufacturer documentation
-- provide PE-sealed drawings and inspection support
-- advise on long-term site settlement and serviceability
-
-## Public-Safe Guidance For 1-Bedroom Casita Leads
+## Public-Safe Guidance For 1-Bedroom Leads
 
 Do not assume:
 
-- that the published installation manual eliminates site-specific engineering
-- that standard foundation details work for all sites without modification
-- that permitting will be automatic even with manufacturer documentation
-- that the installation manual's sample assumptions apply to your specific site
+- that single-module (Studio) foundation logic applies
+- that the model number from older internet posts is current — verify it
+- that the product is available in the lead's state without checking
+- that two separate pads are acceptable
 
 Do assume:
 
-- the structural and envelope specs are proven and widely accepted
-- single-module delivery is simpler than multi-module coordination
-- the installation manual is the starting point, not the final design
-- utility and foundation coordination must be carefully planned
+- the panel technology and certification match the rest of the Casita family
+- inter-module connection and unified bearing are explicitly engineered items
+- a geotechnical report is strongly advisable for dual-module units
 - local soil, drainage, and code requirements drive final decisions
 
 ## Recommended Intake For A 1-Bedroom Casita Lead
 
-For this model, collect these first:
+Collect these first (store using the field names in [`data/foundation-intake.schema.json`](../data/foundation-intake.schema.json)):
 
-- site address and jurisdiction
-- intended use (primary residence, ADU, guest house, rental)
+- site address and jurisdiction (and whether the state is currently served by BOXABL for this model)
+- exact model number and document revision from BOXABL
+- intended use (primary residence, ADU, rental)
 - site slope and drainage condition
-- existing utility infrastructure (power, water, sewer/septic capacity)
+- existing utility infrastructure and capacity
 - lot size and setback constraints
-- whether the AHJ has reviewed factory-built or modular construction before
-- delivery access (crane/telehandler availability)
-- owner's timeline and permitting readiness
-- whether a geotechnical report is likely required
+- delivery access for two module placements
+- whether the AHJ has reviewed multi-module factory-built construction before
+- whether a geotechnical report is available or required
 
 ## Verification Statement
 
-Always verify current specs directly with BOXABL before design or permit decisions.
+Always verify current specs, the model number, and availability directly with BOXABL before design or permit decisions. Source verification dates live in [`data/SOURCES.yaml`](../data/SOURCES.yaml). For the latest documentation, visit [BOXABL Technical Docs](https://www.boxabl.com/technical-docs).
 
-Current BOXABL 1-Bedroom Casita (BXB-000009) specs, pricing, and availability may change. This document reflects BOXABL's published information and the installation manual as of **May 5, 2026**. For the latest model documentation and approved specifications, visit [BOXABL Technical Docs](https://www.boxabl.com/technical-docs) and reference the current [BXB-000009 Installation Manual](https://gcdn.boxabl.com/documents/technical/plan-sets/BXB-000009%20Install%20Manual.pdf).
-
-For foundation design and permitting, Oasis Engineering can translate these specs into a site-specific plan that fits your jurisdiction and site conditions.
+For dual-module foundation design and permitting, Oasis Engineering can translate the manufacturer's specs into a unified site-specific plan.

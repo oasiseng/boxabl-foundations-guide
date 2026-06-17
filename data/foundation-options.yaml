@@ -1,5 +1,9 @@
-version: 1
-checked_on: 2026-03-15
+# Fixed in v2: option_rv was previously mis-indented inside option_4, which
+# made this file invalid YAML. It is now a proper top-level list item, and the
+# label key is normalized to open_label across all options.
+
+version: 2
+checked_on: 2026-06-12
 options:
   - id: option_1
     family: stem_wall
@@ -64,10 +68,10 @@ options:
       - rebar schedule
       - exact hook and lap detail
       - final elevations
-    
-    - id: option_rv
+
+  - id: option_rv
     family: support_pad_or_leveling_plan
-    public_label: Support pad or leveling plan
+    open_label: Support pad or leveling plan
     summary: Site support path for towable or chassis-based products where setup, bearing, leveling, and utility coordination matter more than a default permanent foundation.
     best_for:
       - Baby Box style towable RV leads
@@ -81,4 +85,11 @@ options:
       - anchorage details
       - permit-specific support geometry
 
-sample_assumptions_note: One Oasis sample concept set used 2024 IBC, Risk Category II, Exposure C, ultimate wind speed 140 mph, and an example 2,000 psf visual bearing assumption. These are educational only and may not apply to another site.
+sample_assumptions_note: >
+  One Oasis sample concept set used 2024 IBC, Risk Category II, Exposure C,
+  ultimate wind speed 140 mph, and an example 2,000 psf visual bearing
+  assumption. These are educational only and may not apply to another site.
+  Code-cycle caveat: the ESR-4725 panel report referenced in this repo lists
+  recognition under the 2021/2018 IBC and IRC. Before pairing a 2024 IBC
+  design basis with ESR-4725, confirm the current report revision recognizes
+  the code cycle adopted by the local jurisdiction.

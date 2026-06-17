@@ -1,0 +1,193 @@
+# =============================================================================
+# BOXABL MODEL FACTS - SINGLE SOURCE OF TRUTH
+# =============================================================================
+# Rule: every model-specific number that appears anywhere in docs/ must trace
+# back to this file. Edit here first, then update the docs. This prevents the
+# copy-paste drift that previously assigned BXB-000009 (361 sq ft Studio) to
+# the 722 sq ft 1-Bedroom page.
+#
+# Oasis Engineering is independent and NOT affiliated with BOXABL.
+# BOXABL's current official documents control over anything in this file.
+#
+# Source ids reference data/SOURCES.yaml.
+# =============================================================================
+
+version: 2
+last_updated: 2026-06-12
+
+verification_statuses:
+  verified: Confirmed against the cited primary source on the stated date.
+  unverified: Appears in public or secondary sources. Confirm with BOXABL before relying on it.
+  unknown: Not published. Collect during intake or confirm with BOXABL.
+
+models:
+  - id: studio_casita
+    display_name: Studio Casita
+    model_number:
+      value: BXB-000009
+      status: verified
+      source: bxb-000009-install-manual
+      note: The install manual title block identifies BXB-000009 as the Casita Home model.
+    modules: 1
+    product_classification: factory_built_home
+    foundation_path: permanent_foundation
+    specs:
+      area_sqft:
+        value: 361
+        status: verified
+        source: bxb-000009-install-manual
+      unfolded_dimensions:
+        value: 19' L x 19' W x 10'-9" H
+        status: verified
+        source: bxb-000009-install-manual
+      shipping_dimensions:
+        value: 19' L x 8'-6" W x 12'-4" H
+        status: verified
+        source: bxb-000009-install-manual
+      shipping_weight_lb:
+        value: 12800
+        status: verified
+        source: bxb-000009-install-manual
+        note: Manual states approximate.
+      r_values:
+        value: R-23.47 walls / R-28.3 floor / R-27.68 flat roof
+        status: verified
+        source: bxb-000009-install-manual
+      snow_and_wind_loads:
+        value: See structural plans for allowable loading of each roof type
+        status: verified
+        source: bxb-000009-install-manual
+        note: >
+          The manual deliberately defers loading to the structural plans.
+          Do not publish a single mph or psf number as a universal rating.
+      ceiling_height:
+        value: 9'-6" nominal interior
+        status: unverified
+        source: boxabl-home
+      sip_certification:
+        value: ICC-ES ESR-4725
+        status: unverified
+        source: icc-es
+        note: Verify current report revision and code-cycle recognition before permit use.
+      list_price_usd:
+        value: 60000
+        status: unverified
+        source: boxabl-home
+        note: Changes frequently. Never quote without re-checking.
+
+  - id: one_bedroom_casita
+    display_name: 1-Bedroom Casita
+    model_number:
+      value: null
+      status: unknown
+      note: >
+        Previous versions of this repo assigned BXB-000009 to this model.
+        That is incorrect: BXB-000009 is the 361 sq ft Studio per the install
+        manual. Confirm the 1-Bedroom model number directly with BOXABL.
+    modules: 2
+    product_classification: factory_built_home
+    foundation_path: permanent_foundation_dual_module
+    specs:
+      area_sqft:
+        value: 722
+        status: unverified
+        source: boxabl-home
+      unfolded_footprint:
+        value: approx 19' x 38' (two connected 19' x 19' modules)
+        status: unverified
+        source: boxabl-home
+      configuration:
+        value: 1 bedroom / 1 bath
+        status: unverified
+        source: boxabl-home
+      availability:
+        value: Reported as offered only in California as of late 2025
+        status: unverified
+        source: dealer-faq-myboxablhome
+        note: Confirm current availability and approved states with BOXABL.
+      per_module_shipping:
+        value: Each module expected to ship similar to Studio (19' L x 8'-6" W x 12'-4" H)
+        status: unverified
+        source: bxb-000009-install-manual
+        note: Inference from the single-module manual. Confirm with BOXABL.
+
+  - id: two_bedroom_casita
+    display_name: 2-Bedroom Casita
+    model_number:
+      value: BXB-000016
+      status: unverified
+      source: legacy-repo-claim
+      note: Confirm with BOXABL technical documentation.
+    modules: 2
+    product_classification: factory_built_home
+    foundation_path: permanent_foundation_dual_module
+    specs:
+      area_sqft:
+        value: 722
+        status: unverified
+        source: boxabl-2br-ca-approval
+      unfolded_footprint:
+        value: approx 19' x 38' (two connected 19' x 19' modules)
+        status: unverified
+        source: boxabl-home
+      configuration:
+        value: 2 bedroom / 1 bath
+        status: unverified
+        source: boxabl-2br-ca-approval
+      regulatory_milestone:
+        value: Approved under California state building laws (announced December 2025)
+        status: unverified
+        source: boxabl-2br-ca-approval
+      availability:
+        value: Reported as offered only in California as of late 2025
+        status: unverified
+        source: dealer-faq-myboxablhome
+
+  - id: baby_box_120_rv
+    display_name: Baby Box 120 RV
+    model_number:
+      value: BXB-000029
+      status: unverified
+      source: baby-box-spec-sheet
+    modules: 1
+    product_classification: towable_rv
+    foundation_path: support_pad_or_leveling_plan
+    specs:
+      building_footprint:
+        value: approx 101" x 168" (~118 sq ft; marketed as 120 sq ft class)
+        status: unverified
+        source: baby-box-spec-sheet
+      transport_dimensions:
+        value: approx 101" W x 296" L x 109" H
+        status: unverified
+        source: baby-box-spec-sheet
+      weights:
+        value: GVWR 6,400 lb / UVW 4,400 lb / CCC 2,000 lb / hitch 50 lb
+        status: unverified
+        source: baby-box-spec-sheet
+      tanks:
+        value: minimum 30 gal fresh, black, and grey
+        status: unverified
+        source: baby-box-spec-sheet
+      power:
+        value: 30A / 120V shore power inlet
+        status: unverified
+        source: baby-box-spec-sheet
+      panels:
+        value: 3" SIP floor, roof, walls at approx R-12
+        status: unverified
+        source: baby-box-spec-sheet
+      live_loads:
+        value: 40 psf floor / 20 psf flat roof
+        status: unverified
+        source: baby-box-spec-sheet
+      wind:
+        value: 75+ mph, Exposure B/C (RV-class rating)
+        status: unverified
+        source: baby-box-spec-sheet
+
+lineup_note: >
+  BOXABL announced a Phase 2 catalog (June 2026) with additional connectable
+  and stackable models beyond the Casita line. This file intentionally only
+  tracks models that have a docs/ page. Verify the current lineup at
+  https://www.boxabl.com before assuming this list is complete.

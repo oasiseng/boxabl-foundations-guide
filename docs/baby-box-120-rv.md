@@ -6,7 +6,7 @@ It exists because this model should not be treated exactly like a Casita-style p
 
 ## Official Open Source Position
 
-Official published references checked on **March 16, 2026**:
+Official published references (verification dates in [`data/SOURCES.yaml`](../data/SOURCES.yaml)):
 
 - [Baby Box page](https://www.boxabl.com/baby-box)
 - [Baby Box 120 Spec Sheet (BXB-000029)](https://gcdn.boxabl.com/documents/technical/plan-sets/Baby%20Box%20120%20Spec%20Sheet%20(BXB-000029).pdf)
@@ -84,7 +84,7 @@ The work may shift toward:
 - site grading
 - tie-down or anchorage questions if required
 - local compliance review for prolonged placement
-- [Mobile Home Foundation Certifications](https://oasisengineering.com/manufactured-home-foundation-letter/
+- [Mobile Home Foundation Certifications](https://oasisengineering.com/manufactured-home-foundation-letter/)
 
 ### Scenario 3: Jurisdiction demands a more engineered answer
 

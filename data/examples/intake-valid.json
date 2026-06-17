@@ -1,0 +1,45 @@
+{
+  "project_location": {
+    "city": "Homosassa",
+    "state": "FL",
+    "zip_code": "34448",
+    "jurisdiction": "Citrus County"
+  },
+  "unit_model": "Studio Casita (BXB-000009)",
+  "product_classification": "factory_built_home",
+  "placement_intent": "long_term_site_setup",
+  "document_basis": {
+    "manufacturer_docs_confirmed": true,
+    "manufacturer_doc_names": [
+      "BXB-000009 Installation Manual Rev 1.1"
+    ],
+    "revision_notes": "Rev 1.1 dated 2025-01-17 per chart of revisions"
+  },
+  "site_condition_summary": {
+    "slope_condition": "flat",
+    "soil_info_status": "visual_only",
+    "soil_notes": "Sandy with limestone near surface, no geotech report yet",
+    "frost_depth_known": true,
+    "flood_zone_known": false,
+    "access_constraints": "Clear telehandler access from the north driveway"
+  },
+  "utility_strategy": {
+    "water": "municipal",
+    "sewer": "septic",
+    "power": "overhead",
+    "utility_notes": "Existing septic capacity needs county verification"
+  },
+  "foundation_goals": [
+    "lowest_cost",
+    "fastest_permit_path"
+  ],
+  "preferred_foundation_family": "undecided",
+  "permit_status": "site_screening",
+  "professional_team": {
+    "builder_selected": false,
+    "geotech_selected": false,
+    "pe_selected": false,
+    "ahj_contacted": true
+  },
+  "notes": "Example fixture used by scripts/validate_data.py. Must always validate against data/foundation-intake.schema.json."
+}

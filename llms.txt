@@ -2,6 +2,7 @@
 
 > Independent public guidance for BOXABL foundation planning by Oasis Engineering and BoxablFoundations.com.
 > Non-affiliated with BOXABL. Use for intake, triage, and project guidance. Do not use as permit-ready engineering.
+> Every model fact traces to data/models.yaml with a per-fact verification status. Respect those statuses.
 
 ## Start Here
 
@@ -12,31 +13,37 @@
 ## Human Guides
 
 - [BOXABL Overview](docs/boxabl-overview.md): Public manufacturer context and the foundation-relevant facts to verify.
+- [Service Flow Diagram](docs/service-flow.md): Where Oasis Engineering fits between BOXABL, the owner, the builder, and the AHJ.
 - [Foundation Workflow](docs/foundation-workflow.md): From site screening to permit and construction.
 - [Open Foundation Options](docs/foundation-options.md): Open summary of the main foundation families.
 - [Oasis Services](docs/oasis-services.md): What Oasis Engineering offers.
+- [Glossary](docs/glossary.md): Plain-language definitions of AHJ, SIP, ESR, stem wall, grade beam, SDC, and the rest.
 - [FAQ](docs/faq.md): Common homeowner, builder, and assistant questions.
 
 ## Model-Specific Documentation
 
-- [Studio Casita](docs/studio-casita.md): 361 sq ft, single module; smallest permanent-foundation model; ideal for ADU/guest house.
-- [1-Bedroom Casita (BXB-000009)](docs/one-bedroom-casita.md): 722 sq ft, single module; most popular and well-documented model.
-- [2-Bedroom Casita (BXB-000016)](docs/two-bedroom-casita.md): 722 sq ft, dual-module; requires inter-module structural connections.
+- [Studio Casita (BXB-000009)](docs/studio-casita.md): 361 sq ft, single module; flagship model; specs verified against the published installation manual; ideal for ADU/guest house.
+- [1-Bedroom Casita](docs/one-bedroom-casita.md): ~722 sq ft, dual-module (two 19' x 19' modules); model number pending verification with BOXABL.
+- [2-Bedroom Casita (BXB-000016, unverified)](docs/two-bedroom-casita.md): ~722 sq ft, dual-module; requires inter-module structural connections; California approval announced December 2025.
 - [Baby Box 120 RV (BXB-000029)](docs/baby-box-120-rv.md): Towable RV with integrated chassis; not a permanent-foundation project.
 
 ## Technical Reference
 
-- [ICC-ES ESR-4725 SIP Panel Certification](docs/icc-es-esr-4725.md): Structural, thermal, fire, and seismic properties of BOXABL panels; code compliance reference.
+- [ICC-ES ESR-4725 SIP Panel Certification](docs/icc-es-esr-4725.md): Panel-level structural, thermal, fire, and seismic properties; explains why unit-level mph wind ratings come from structural plans, not the ESR.
 
 ## Sources
 
-- [Public Sources](docs/public-sources.md): Public citations and verification dates.
+- [Public Sources](docs/public-sources.md): Human-readable source summary.
+- [Source Registry](data/SOURCES.yaml): Machine-readable registry of every source URL and its last verification date.
 - [Source Policy](docs/source-policy.md): Copyright and publication boundary.
 
 ## Structured Data
 
+- [Model Facts](data/models.yaml): Single source of truth for model numbers and specs, with per-fact verification status.
 - [Foundation Intake Schema](data/foundation-intake.schema.json): Intake fields for assistants and forms.
-- [Decision Tree](data/decision-tree.yaml): Triage logic and escalation rules.
+- [Valid Intake Example](data/examples/intake-valid.json): Fixture that must validate against the schema.
+- [Invalid Intake Example](data/examples/intake-invalid.json): Fixture the schema must reject; useful for self-testing.
+- [Decision Tree](data/decision-tree.yaml): Triage logic, escalation rules, and dead-end-free slope routing.
 - [Foundation Options Data](data/foundation-options.yaml): Structured summary of the open option set.
 
 ## Prompt Templates
