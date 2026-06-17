@@ -28,5 +28,5 @@ Full URLs for both are in `data/SOURCES.yaml`.
 
 ## Oasis / Author Material
 
-- [The Boxabl Foundations Blueprint](https://www.amazon.com/dp/B0FPB9RDL7) — open book reference for author positioning.
+- [The Boxabl Foundations Blueprint](https://www.amazon.com/dp/B0FPB9RDL7)
 - [BoxablFoundations.com by Oasis Engineering](https://boxablfoundations.com)
