@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foundation Sheet Set — ephemeral-eng template V1.0</title>
+<title>Foundation Sheet Set — ephemeral-eng template V1.1</title>
 <!--
 ═══════════════════════════════════════════════════════════════════════════
   ephemeral-eng SHEET-SET TEMPLATE · V1.0 · Oasis Engineering
@@ -134,7 +134,7 @@
 </head>
 <body>
 <aside class="panel">
-  <h1>Foundation Sheet Set <span style="font-size:10px;color:#888">V1.0</span></h1>
+  <h1>Foundation Sheet Set <span style="font-size:10px;color:#888">V1.1</span></h1>
   <div style="font-size:11px;color:#666;">Edit the common fields here, or load a project JSON. Everything else renders from <code>PROJECT</code>.</div><div id="modeBanner" style="margin-top:6px;padding:6px 8px;border-radius:4px;font-size:11px;font-weight:700;"></div>
   <label>Project no.</label><input id="p_projNo">
   <label>Client</label><input id="p_client">
@@ -256,7 +256,7 @@ const NOTES_FN = () => [
  ]},
  {h:"Inspection & Submittals", items:[
   "Building-department inspections (hold points — do not proceed without approval): (1) footing excavation, forms, reinforcing, vapor retarder and Boxabl plates in place before concrete; (2) slab finish, plate locations and elevations after the pour and before the unit is set; (3) final.",
-  "Special inspection of concrete is not required for continuous footings supporting light-frame walls designed with f'c ≤ 2,500 psi (CBC 2025 §1705.3 Exception 2) or for the nonstructural slab on ground (Exception 3), subject to concurrence of the building official; where the engineered design specifies a higher f'c, verify with the building official.",
+  ((PROJECT.conc.fc||0) <= 2500 || !PROJECT.engineered ? "Special inspection of concrete is not required for continuous footings supporting light-frame walls designed with f'c ≤ 2,500 psi (CBC 2025 §1705.3 Exception 2) or for the nonstructural slab on ground (Exception 3), subject to concurrence of the building official." : "Special inspection of concrete is required per CBC 2025 §1705.3 and Table 1705.3 for the footings (design f'c above 2,500 psi); the slab on ground is exempt (Exception 3).") + " Periodic special inspection of the manufacturer's SIP shear-wall fastening and anchorage in Seismic Design Category D is required by ICC-ES ESR-4725 and is arranged by the owner with the manufacturer.",
   "Deferred submittal: Boxabl unit structural plans, unit-to-foundation connection and plate anchorage (ICC-ES ESR-4725 and the Boxabl approved plans), to be submitted to the building official before the unit is set.",
   "Structural calculations: " + PROJECT.calcRef + ", Oasis Engineering, on file with this submittal. Termite protection per CRC R318 where required by the building official.",
  ]},
@@ -372,7 +372,7 @@ function titleBlock(P, sheetNo, sheetName){
     <div><div class="lbl">Revisions</div><table><tr><th>No.</th><th>Description</th><th>Date</th></tr><tr><td>${esc(P.rev)}</td><td>${esc(stat)}</td><td>${esc(P.date)}</td></tr><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></table></div>
     <div class="flex1"><div class="lbl">Sheet index</div>${P.sheets.map(s=>`<div style="font-size:7pt"><b>${s[0]}</b> ${esc(s[1])}</div>`).join("")}<div class="lbl" style="margin-top:0.08in">Site plan</div><div style="font-size:7pt">By others — not part of this set</div></div>
     <div><div class="lbl">Ownership &amp; use</div><div style="font-size:5.9pt;line-height:1.28;color:#333;">© ${new Date(P.date||Date.now()).getFullYear()} ${esc(P.firm.entity)}. All rights reserved. ${esc(P.firm.legal)}<br><span style="color:#555">${esc(P.firm.affil)}</span></div></div>
-    <div><div class="lbl">Template</div><div style="font-size:6pt;color:#555;">Sheet set built on ephemeral-eng · Oasis Engineering · github.com/oasiseng — credit appreciated when reused.</div></div>
+    <div><div class="lbl">Template</div><div style="font-size:6pt;color:#555;">Sheet template: ephemeral-eng · Oasis Engineering</div></div>
     <div><div class="lbl">Project no. · Date · Rev</div><div style="font-size:8pt;font-family:monospace;font-weight:700">${esc(P.projNo)} · ${esc(P.date)} · ${esc(P.rev)}</div></div>
     <div><div class="lbl">Sheet</div><div class="huge">${sheetNo}</div><div style="font-size:8pt;font-weight:700;margin-top:0.04in">${esc(sheetName)}</div><div style="font-size:6.5pt;color:var(--grey)">FULL SIZE 24×36 · check 1 in square</div></div>
   </div>`;
@@ -441,9 +441,9 @@ function sheetS0(P){
     <table class="kv"><tr><td>Governing codes</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.codes)}</td></tr>
       <tr><td>Occupancy · construction</td><td>R-3 (one dwelling unit) · Type V-B (unit by Boxabl)</td></tr>
       <tr><td>Scope of this set</td><td style="white-space:normal;font-weight:400;font-family:inherit">Foundation only — slab-on-grade with turned-down perimeter footing for the Boxabl unit. Unit structure, connections and anchorage hardware by Boxabl (ESR-4725).</td></tr>
-      <tr><td>Special inspection</td><td style="white-space:normal;font-weight:400;font-family:inherit">Not required — CBC §1705.3 Exceptions 2 and 3 (f'c ≤ 2,500 psi continuous footings; slab on ground). Verify with AHJ.</td></tr>
+      <tr><td>Special inspection</td><td style="white-space:normal;font-weight:400;font-family:inherit">Concrete: ${(P.conc.fc||0)<=2500?"not required — CBC §1705.3 Exceptions 2 and 3":"required — CBC §1705.3, Table 1705.3 (footings)"}. Unit shear-wall fastening and anchorage: periodic, per ESR-4725 (manufacturer).</td></tr>
       <tr><td>Deferred submittal</td><td style="white-space:normal;font-weight:400;font-family:inherit">Boxabl unit structural plans and unit-to-foundation anchorage.</td></tr>
-      <tr><td>Geotechnical</td><td style="white-space:normal;font-weight:400;font-family:inherit">Presumptive values used; soils report per CBC §1803.5.11 if required by AHJ.</td></tr>
+      <tr><td>Geotechnical</td><td style="white-space:normal;font-weight:400;font-family:inherit">Presumptive values (CBC Table 1806.2); San Bernardino County requires a soils report or an approved alternate for new construction — report recommendations govern where issued.</td></tr>
       <tr><td>Unit certification</td><td style="white-space:normal;font-weight:400;font-family:inherit">California Factory-Built Housing — HCD Insignia of Approval (H&SC §19980). Approved unit plans, BIN${P.hcd.bin?" "+esc(P.hcd.bin):""} and insignia no.${P.hcd.insignia?" "+esc(P.hcd.insignia):""} to be submitted by owner/contractor.</td></tr>
       <tr><td>Structural calculations</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.calcRef)}</td></tr></table>
     <h2 style="margin-top:0.15in">Location</h2>
@@ -539,7 +539,7 @@ function imgPanel(){
 }
 function pickImg(k){ const inp=document.createElement("input"); inp.type="file"; inp.accept="image/*"; inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ IMG[k]=rd.result; render(); }; rd.readAsDataURL(f); }; inp.click(); }
 function clearImg(k){ IMG[k]=""; render(); }
-function exportJSON(){ gather(); const images={}; Object.keys(IMG).forEach(k=>{ if(has(k)) images[k]=IMG[k]; }); const blob=new Blob([JSON.stringify({_meta:{framework:"ephemeral-eng",tool:"Foundation Sheet Set",toolVersion:"V1.0",saved:new Date().toISOString(),source:"user"},project:PROJECT,images},null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${PROJECT.projNo.replace(/[^\w-]+/g,"_")}_sheets_project.json`; a.click(); }
+function exportJSON(){ gather(); const images={}; Object.keys(IMG).forEach(k=>{ if(has(k)) images[k]=IMG[k]; }); const blob=new Blob([JSON.stringify({_meta:{framework:"ephemeral-eng",tool:"Foundation Sheet Set",toolVersion:"V1.1",saved:new Date().toISOString(),source:"user"},project:PROJECT,images},null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${PROJECT.projNo.replace(/[^\w-]+/g,"_")}_sheets_project.json`; a.click(); }
 $("p_file").addEventListener("change",e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const st=JSON.parse(rd.result); Object.assign(PROJECT, st.project||st); if(st.images) Object.assign(IMG, st.images); fill(); render(); }catch(err){ alert("Could not parse JSON"); } }; rd.readAsText(f); e.target.value=""; });
 document.querySelectorAll(".panel input,.panel select,.panel textarea").forEach(el=>{ el.addEventListener("input",render); el.addEventListener("change",render); });
 fill(); render();
