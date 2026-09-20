@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/oasiseng/boxabl-foundations-guide/tools/sheet-set/project.schema.json",
+  "title": "Foundation sheet-set project",
+  "type": "object",
+  "required": ["engineered", "projNo", "client", "address", "unit", "codes", "loads", "wind", "snow", "seismic", "soil", "conc", "footing", "slab", "flood", "fire", "hcd", "sheets"],
+  "properties": {
+    "engineered": { "type": "boolean", "description": "false = published-safe; true only in a controlled project file with values from a verified calculation" },
+    "firm": { "type": "object", "properties": { "name": {"type":"string"}, "site": {"type":"string"}, "line": {"type":"string"}, "entity": {"type":"string"}, "legal": {"type":"string"}, "affil": {"type":"string"} } },
+    "projNo": {"type":"string"}, "client": {"type":"string"}, "address": {"type":"string"}, "jurisdiction": {"type":"string"},
+    "date": {"type":"string"}, "rev": {"type":"string"},
+    "status": { "type":"string", "enum": ["draft","review","permit","construction"] },
+    "eor": {"type":"string"}, "calcRef": {"type":"string"}, "info": {"type":"string"}, "capA": {"type":"string"}, "capB": {"type":"string"},
+    "unit": { "type":"object", "required":["model","L","B","h"], "properties": { "model":{"type":"string"}, "L":{"type":"number"}, "B":{"type":"number"}, "h":{"type":"number"}, "esr":{"type":"string"}, "area":{"type":"number"} } },
+    "codes": {"type":"string"},
+    "loads": { "type":"object", "properties": { "roofDL":{"type":"number"}, "roofLL":{"type":"number"}, "floorDL":{"type":"number"}, "floorLL":{"type":"number"}, "wallDL":{"type":"number"} } },
+    "wind": { "type":"object", "required":["V","exp"], "properties": { "V":{"type":"number"}, "exp":{"type":"string","enum":["B","C","D"]}, "risk":{"type":"string"}, "Kd":{"type":"number"}, "G":{"type":"number"}, "GCpi":{"type":"number"}, "hm":{"type":"number"}, "Kzt":{"type":"number"}, "Ke":{"type":"number"}, "enclosure":{"type":"string"} } },
+    "snow": { "type":"object", "properties": { "pg":{"type":"number"}, "pf":{"type":"number"}, "pm":{"type":"number"}, "Ce":{"type":"number"}, "Ct":{"type":"number"}, "Is":{"type":"number"} } },
+    "seismic": { "type":"object", "required":["SDS","SD1","SDC"], "properties": { "Ss":{"type":"number"}, "S1":{"type":"number"}, "SMS":{"type":"number"}, "SM1":{"type":"number"}, "SDS":{"type":"number"}, "SD1":{"type":"number"}, "TL":{"type":"number"}, "siteClass":{"type":"string"}, "SDC":{"type":"string"}, "R":{"type":"number"}, "Om":{"type":"number"}, "Cd":{"type":"number"}, "Ie":{"type":"number"}, "rho":{"type":"number"}, "Cs":{"type":"number"}, "system":{"type":"string"} } },
+    "soil": { "type":"object", "required":["qall","frost"], "properties": { "qall":{"type":"number"}, "mu":{"type":"number"}, "basis":{"type":"string"}, "frost":{"type":"number"} } },
+    "conc": { "type":"object", "properties": { "fc":{"type":["number","null"]}, "fy":{"type":"number"}, "cement":{"type":"string"}, "slump":{"type":"number"}, "agg":{"type":"number"} } },
+    "footing": { "type":"object", "properties": { "B":{"type":["number","null"]}, "H":{"type":["number","null"]}, "above":{"type":"number"}, "nL":{"type":["integer","null"]}, "szL":{"type":"string"}, "szS":{"type":"string"}, "sS":{"type":["number","null"]}, "cover":{"type":["number","null"]}, "lap":{"type":["number","null"]} } },
+    "slab": { "type":"object", "properties": { "t":{"type":["number","null"]}, "wwr":{"type":"string"}, "gravel":{"type":"number"}, "vapor":{"type":"string"} } },
+    "flood": { "type":"object", "required":["zone"], "properties": { "zone":{"type":"string"}, "panel":{"type":"string"}, "date":{"type":"string"} } },
+    "fire": { "type":"object", "properties": { "fhsz":{"type":"string","enum":["verify","none","moderate","high","vhigh","sra"]}, "sprinklers":{"type":"string","enum":["verify","required","adu"]} } },
+    "hcd": { "type":"object", "properties": { "bin":{"type":"string"}, "insignia":{"type":"string"} } },
+    "sheets": { "type":"array", "items": { "type":"array", "items": {"type":"string"}, "minItems": 2, "maxItems": 2 } }
+  },
+  "allOf": [
+    { "if": { "properties": { "engineered": { "const": true } } },
+      "then": { "properties": {
+        "conc": { "required": ["fc"], "properties": { "fc": {"type":"number"} } },
+        "footing": { "required": ["B","H","nL","sS","cover","lap"], "properties": { "B":{"type":"number"}, "H":{"type":"number"}, "nL":{"type":"integer"}, "sS":{"type":"number"}, "cover":{"type":"number"}, "lap":{"type":"number"} } },
+        "slab": { "required": ["t"], "properties": { "t": {"type":"number"} } } } } }
+  ]
+}

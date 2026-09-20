@@ -1,0 +1,139 @@
+{
+ "_meta": {
+  "framework": "ephemeral-eng",
+  "tool": "Foundation Sheet Set",
+  "toolVersion": "V1.0",
+  "source": "example",
+  "note": "Published-safe example: engineered=false, no controlled values, no images."
+ },
+ "project": {
+  "firm": {
+   "name": "Oasis Engineering",
+   "site": "boxablfoundations.com",
+   "line": "oasisengineering.com",
+   "entity": "Oasis Engineering LLC",
+   "legal": "These drawings, details, notes and the design of this sheet are instruments of service and the copyrighted property of Oasis Engineering LLC. Their use is licensed solely for the project and site named on this sheet. Reuse, reproduction, modification or distribution, in whole or in part, without the written permission of Oasis Engineering LLC is prohibited.",
+   "affil": "BoxablFoundations.com is an independent service operated by Oasis Engineering LLC. It is not affiliated with, endorsed by, or sponsored by Boxabl Inc. BOXABL is a trademark of Boxabl Inc.; Boxabl images and product data are the property of Boxabl Inc. and are used under Boxabl's affiliate program."
+  },
+  "engineered": false,
+  "projNo": "____-___",
+  "client": "Client name",
+  "address": "Site address, City, ST ZIP",
+  "date": "2026-09-20",
+  "rev": "0",
+  "status": "draft",
+  "eor": "",
+  "calcRef": "Site-specific structural calculations (controlled workflow)",
+  "jurisdiction": "",
+  "info": "",
+  "capA": "Aerial view \u2014 Google Maps",
+  "capB": "Parcel view \u2014 parcel info",
+  "flood": {
+   "zone": "X",
+   "panel": "06071C____",
+   "date": ""
+  },
+  "fire": {
+   "fhsz": "verify",
+   "sprinklers": "verify"
+  },
+  "hcd": {
+   "bin": "",
+   "insignia": ""
+  },
+  "unit": {
+   "model": "Boxabl 2 Door Casita \u2014 BXB-000009",
+   "L": 19,
+   "B": 19,
+   "h": 10.75,
+   "esr": "ICC-ES ESR-4725",
+   "area": 361
+  },
+  "codes": "2025 California Building Code (CBC) \u00b7 2025 California Residential Code (CRC) \u00b7 ASCE/SEI 7-22 \u00b7 ACI 318-19 \u00b7 2025 CALGreen",
+  "loads": {
+   "roofDL": 16,
+   "roofLL": 20,
+   "floorDL": 20,
+   "floorLL": 40,
+   "wallDL": 6
+  },
+  "wind": {
+   "V": 100,
+   "exp": "C",
+   "risk": "II",
+   "Kd": 0.85,
+   "G": 0.85,
+   "GCpi": 0.18,
+   "hm": 10.5,
+   "Kzt": 1,
+   "Ke": 1,
+   "enclosure": "Enclosed"
+  },
+  "snow": {
+   "pg": 10,
+   "pf": 8.4,
+   "pm": 10,
+   "Ce": 1,
+   "Ct": 1.2,
+   "Is": 1
+  },
+  "seismic": {
+   "Ss": 1.94,
+   "S1": 0.63,
+   "SMS": 2.09,
+   "SM1": 1.5,
+   "SDS": 1.39,
+   "SD1": 1,
+   "TL": 8,
+   "siteClass": "Default (\u00a711.4.2.1)",
+   "SDC": "D",
+   "R": 6.5,
+   "Om": 3,
+   "Cd": 4,
+   "Ie": 1,
+   "rho": 1,
+   "Cs": 0.214,
+   "system": "Bearing wall \u2014 Boxabl SIP shear walls per ESR-4725"
+  },
+  "soil": {
+   "qall": 2000,
+   "mu": 0.25,
+   "basis": "Presumptive, CBC 2025 Table 1806.2 (sand, silty sand, clayey sand)",
+   "frost": 12
+  },
+  "conc": {
+   "fc": null,
+   "fy": 60000,
+   "cement": "ASTM C150 Type II (Type V where sulfate soils are identified)",
+   "slump": 5,
+   "agg": 1
+  },
+  "footing": {
+   "B": null,
+   "H": null,
+   "above": 8,
+   "nL": null,
+   "szL": "#_",
+   "szS": "#_",
+   "sS": null,
+   "cover": null,
+   "lap": null
+  },
+  "slab": {
+   "t": null,
+   "wwr": "W.W.R. per engineered design",
+   "gravel": 6,
+   "vapor": "10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A)"
+  },
+  "sheets": [
+   [
+    "S0.0",
+    "Cover Sheet, General Notes & Design Criteria"
+   ],
+   [
+    "S1.0",
+    "Foundation Plan & Details"
+   ]
+  ]
+ }
+}

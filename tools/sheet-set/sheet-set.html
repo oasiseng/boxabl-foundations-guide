@@ -1,1 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foundation Sheet Set — ephemeral-eng template V1.0</title>
+<!--
+═══════════════════════════════════════════════════════════════════════════
+  ephemeral-eng SHEET-SET TEMPLATE · V1.0 · Oasis Engineering
+  Two 24×36 sheets (S0.0 office sheet, S1.0 field sheet) rendered from one
+  PROJECT object. Print → PDF. github.com/oasiseng/boxabl-foundations-guide
 
+  PUBLISHED-SAFE BOUNDARY: this file ships with PROJECT.engineered = false.
+  In that mode every controlled value (footing geometry, reinforcing,
+  concrete strength, slab reinforcement, materials takeoff) prints as
+  "per engineered design" and the detail slots are empty. Loading a
+  controlled project JSON (engineered: true, with values and detail images)
+  turns it into a permit-ready set — that JSON stays in the paid workflow.
+
+  ⚠️  Nothing this file prints is a design until reviewed, verified per
+      VERIFICATION-SHEETS.md and sealed by the licensed engineer of record.
+═══════════════════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{
+    --brand:#2E5BD1;            /* logo blue   */
+    --accent:#F26A1B;           /* logo orange */
+    --ink:#111;
+    --rule:#111;
+    --grey:#666;
+    --wash:#eef2fb;
+    --font:'Arial Narrow','Liberation Sans Narrow','Helvetica Neue',Arial,sans-serif;
+    --font-wide:Arial,'Liberation Sans',Helvetica,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#d9d9d9;font-family:var(--font-wide);color:var(--ink);}
+  .panel{position:fixed;top:0;left:0;width:300px;height:100vh;overflow:auto;background:#fff;border-right:1px solid #ccc;padding:12px;font-size:12px;z-index:50;}
+  .panel h1{font-size:14px;margin:0 0 4px;color:var(--brand);}
+  .panel label{display:block;font-weight:700;margin-top:8px;font-size:11px;}
+  .panel input,.panel select{width:100%;padding:4px 6px;font-family:monospace;font-size:11px;border:1px solid #bbb;border-radius:4px;}
+  .panel .btn{display:block;width:100%;margin-top:8px;padding:8px;border:0;border-radius:4px;background:var(--brand);color:#fff;font-weight:700;cursor:pointer;}
+  .panel .btn.sec{background:#fff;color:var(--ink);border:1px solid #bbb;}
+  .stage{margin-left:300px;padding:20px;}
+  /* ── the sheet ────────────────────────────────────────────────── */
+  .sheet{position:relative;width:36in;height:24in;background:#fff;margin:0 auto 24px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.25);font-size:9.5pt;line-height:1.25;}
+  .border{position:absolute;left:1in;top:0.5in;width:34.5in;height:23in;border:0.02in solid var(--rule);}
+  .content{position:absolute;left:1.1in;top:0.95in;width:31.5in;height:22.4in;}
+  .tb{position:absolute;right:0.5in;top:0.5in;width:2.6in;height:23in;border-left:0.02in solid var(--rule);display:flex;flex-direction:column;}
+  .tb > div{border-bottom:0.01in solid var(--rule);padding:0.08in 0.12in;}
+  .tb .logo{display:flex;align-items:center;justify-content:center;height:1.6in;}
+  .tb .logo img{max-width:2.3in;max-height:1.3in;}
+  .tb .lbl{font-size:6pt;letter-spacing:.06em;color:var(--grey);text-transform:uppercase;}
+  .tb .big{font-size:11pt;font-weight:700;}
+  .tb .huge{font-size:26pt;font-weight:700;color:var(--brand);line-height:1;}
+  .tb .flex1{flex:1;}
+  .tb .stamp{height:2.5in;display:flex;align-items:center;justify-content:center;color:#999;font-style:italic;font-size:8pt;text-align:center;}
+  .tb table{width:100%;border-collapse:collapse;font-size:7.5pt;}
+  .tb table td,.tb table th{border:0.005in solid #999;padding:0.02in 0.04in;text-align:left;}
+  .status-band{position:absolute;left:1in;top:0.5in;width:34.5in;height:0.25in;background:var(--accent);color:#fff;font-weight:700;font-size:9pt;letter-spacing:.12em;display:flex;align-items:center;justify-content:center;}
+  .status-band.hidden{display:none;}
+  /* slots */
+  .slot{position:absolute;border:0.008in solid var(--rule);background:#fff;overflow:hidden;}
+  .slot .head{position:absolute;left:0;right:0;bottom:0;height:0.42in;border-top:0.012in solid var(--rule);display:flex;align-items:center;gap:0.1in;padding:0 0.1in;background:#fff;}
+  .slot .head .num{width:0.34in;height:0.34in;border:0.012in solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10pt;}
+  .slot .head .ttl{font-weight:700;font-size:13pt;letter-spacing:.02em;text-transform:uppercase;flex:1;}
+  .slot .head .scl{font-size:8pt;color:var(--grey);}
+  .slot .body{position:absolute;left:0.1in;right:0.1in;top:0.1in;bottom:0.5in;display:flex;align-items:center;justify-content:center;}
+  .slot .body img{max-width:100%;max-height:100%;}
+  .slot .body svg{max-width:100%;max-height:100%;}
+  .imgwrap{position:relative;display:block;width:100%;max-height:100%;}
+  .imgwrap img{display:block;width:100%;height:auto;}
+  .imgwrap.tall{width:auto;height:100%;}
+  .imgwrap.tall img{width:auto;height:100%;}
+  .callout{position:absolute;transform:translate(-50%,-50%);width:0.55in;height:0.55in;border:0.012in solid var(--rule);border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10pt;font-weight:700;line-height:1;}
+  .callout span{font-size:7pt;font-weight:400;border-top:0.008in solid var(--rule);padding-top:0.02in;margin-top:0.02in;}
+  .overlay-txt{position:absolute;font-size:8.5pt;background:#fff;padding:0 0.02in;white-space:nowrap;}
+  /* text blocks */
+  .block{position:absolute;overflow:hidden;}
+  .block h2{margin:0 0 0.08in;font-size:13pt;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-bottom:0.012in solid var(--rule);padding-bottom:0.03in;color:var(--ink);}
+  .block h3{margin:0.14in 0 0.04in;font-size:10.5pt;font-weight:700;text-transform:uppercase;color:var(--brand);}
+  .notes{column-gap:0.4in;font-size:10.4pt;line-height:1.32;}
+  .notes ol{margin:0 0 0.08in 0.22in;padding:0;}
+  .notes li{margin-bottom:0.06in;break-inside:avoid;}
+  .notes h3{break-after:avoid;}
+  table.kv{width:100%;border-collapse:collapse;font-size:9.8pt;}
+  table.kv td{padding:0.04in 0.06in;border-bottom:0.005in dotted #999;vertical-align:top;}
+  table.kv td:last-child{text-align:right;font-family:monospace;font-weight:700;white-space:nowrap;}
+  table.grid{width:100%;border-collapse:collapse;font-size:9.6pt;}
+  table.grid th,table.grid td{border:0.005in solid #777;padding:0.025in 0.05in;text-align:center;}
+  table.grid th{background:var(--wash);}
+  table.grid td:first-child{text-align:left;}
+  .stub{position:absolute;left:0;top:0;width:31.5in;height:0.95in;border:0.012in solid var(--rule);background:var(--wash);display:grid;grid-template-columns:repeat(8,1fr);}
+  .stub > div{border-right:0.005in solid #999;padding:0.08in 0.12in;}
+  .stub > div:last-child{border-right:0;}
+  .stub .k{font-size:7.5pt;text-transform:uppercase;letter-spacing:.06em;color:var(--grey);}
+  .stub .v{font-size:15pt;font-weight:700;font-family:monospace;}
+  .stub .s{font-size:8pt;color:var(--grey);}
+  .seq{position:absolute;display:grid;grid-template-columns:repeat(7,1fr);gap:0.08in;}
+  .seq .step{border:0.01in solid var(--rule);padding:0.05in 0.08in;position:relative;font-size:7.6pt;line-height:1.22;overflow:hidden;}
+  .seq .step b{display:block;font-size:8.8pt;margin-bottom:0.015in;}
+  .seq .step .n{display:inline-flex;vertical-align:middle;margin-right:0.05in;width:0.24in;height:0.24in;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;align-items:center;justify-content:center;font-size:9pt;}
+  .seq .step.hold{border-color:var(--accent);border-width:0.02in;}
+  .hp{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:7.5pt;padding:0.01in 0.05in;border-radius:0.04in;letter-spacing:.06em;}
+  .takeoff table.grid td{text-align:right;}
+  .takeoff table.grid td:first-child{text-align:left;}
+  .disclaim{position:absolute;border:0.02in solid var(--accent);background:#fff7f2;padding:0.05in 0.12in;font-size:7.8pt;line-height:1.25;color:#222;overflow:hidden;}
+  .disclaim b{color:var(--accent);}
+  .siteimgs{position:absolute;display:flex;gap:0.3in;align-items:stretch;justify-content:center;}
+  .siteimgs .si{flex:1;max-width:50%;border:0.008in solid var(--rule);display:flex;flex-direction:column;}
+  .siteimgs .si.single{max-width:75%;}
+  .siteimgs .si .im{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:0.06in;}
+  .siteimgs .si .im img{max-width:100%;max-height:100%;}
+  .siteimgs .si .cap{border-top:0.008in solid var(--rule);padding:0.05in 0.1in;font-size:9pt;font-weight:700;}
+  .siteimgs .si .cap span{font-weight:400;color:var(--grey);font-size:8pt;}
+  .prose{font-size:9.2pt;line-height:1.35;white-space:pre-wrap;}
+  .panel textarea{width:100%;min-height:90px;font-family:monospace;font-size:11px;border:1px solid #bbb;border-radius:4px;padding:4px 6px;}
+  .panel .img-row{display:flex;align-items:center;gap:6px;margin-top:4px;}
+  .panel .img-row img{width:34px;height:34px;object-fit:contain;border:1px solid #ddd;background:#fff;}
+  .panel .img-row .nm{flex:1;font-size:11px;}
+  .panel .img-row button{font-size:10px;padding:2px 6px;}
+  .wm{position:absolute;left:1in;top:0.5in;width:34.5in;height:23in;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:40;}
+  .wm span{transform:rotate(-20deg);font-size:120pt;font-weight:900;color:rgba(242,106,27,.10);letter-spacing:.1em;white-space:nowrap;}
+  .wm.hidden{display:none;}
+  .sq{position:absolute;left:1.15in;top:22.25in;width:1in;height:1in;border:0.01in solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:6pt;color:var(--grey);text-align:center;}
+  @media print{
+    body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .panel{display:none!important;}
+    .stage{margin:0;padding:0;}
+    .sheet{box-shadow:none;margin:0;page-break-after:always;}
+    .sheet:last-child{page-break-after:auto;}
+  }
+  @page{size:36in 24in;margin:0;}
+</style>
+</head>
+<body>
+<aside class="panel">
+  <h1>Foundation Sheet Set <span style="font-size:10px;color:#888">V1.0</span></h1>
+  <div style="font-size:11px;color:#666;">Edit the common fields here, or load a project JSON. Everything else renders from <code>PROJECT</code>.</div><div id="modeBanner" style="margin-top:6px;padding:6px 8px;border-radius:4px;font-size:11px;font-weight:700;"></div>
+  <label>Project no.</label><input id="p_projNo">
+  <label>Client</label><input id="p_client">
+  <label>Site address</label><input id="p_address">
+  <label>Jurisdiction (city / county)</label><input id="p_juris">
+  <label>Date</label><input id="p_date" type="date">
+  <label>Revision</label><input id="p_rev">
+  <label>Status</label><select id="p_status"><option value="draft">PRELIMINARY — NOT FOR CONSTRUCTION</option><option value="review">RELEASED FOR REVIEW</option><option value="permit">RELEASED FOR PERMIT</option><option value="construction">RELEASED FOR CONSTRUCTION</option></select>
+  <label>Engineer of record</label><input id="p_eor">
+  <label>Calc reference</label><input id="p_calcRef">
+  <label style="margin-top:12px;border-top:1px solid #ddd;padding-top:8px;">Flood zone (FEMA FIRM)</label>
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:4px;"><input id="p_floodZone" placeholder="X"><input id="p_floodPanel" placeholder="FIRM panel no."></div>
+  <input id="p_floodDate" placeholder="FIRM effective date" style="margin-top:4px;">
+  <label>Fire Hazard Severity Zone</label>
+  <select id="p_fhsz"><option value="verify">To be verified — CAL FIRE FHSZ viewer</option><option value="none">Not in a Fire Hazard Severity Zone</option><option value="moderate">Moderate FHSZ (LRA)</option><option value="high">High FHSZ (LRA)</option><option value="vhigh">Very High FHSZ (LRA)</option><option value="sra">State Responsibility Area (SRA)</option></select>
+  <label>Fire sprinklers</label>
+  <select id="p_spr"><option value="verify">Per AHJ and HCD-approved unit plans — verify</option><option value="required">Required — new dwelling, CRC R313</option><option value="adu">Not required — ADU exception (Gov. Code §66323)</option></select>
+  <label>HCD unit serial (BIN) · insignia no. <span style="font-weight:400;color:#888">(leave blank to print "to be provided")</span></label>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><input id="p_bin" placeholder="BIN"><input id="p_insignia" placeholder="Insignia no."></div>
+  <label>Project information (printed under "How to read this set" — parcel, APN, zoning, misc.)</label><textarea id="p_info" placeholder="APN 0000-000-00 · Zoning R-1 · Lot 7,500 sf&#10;Notes..."></textarea>
+  <label style="margin-top:12px;border-top:1px solid #ddd;padding-top:8px;">Images — click Replace to upload (saved into the project JSON)</label>
+  <div id="imgList"></div>
+  <label>Site image A caption</label><select id="p_capApre"><option>Aerial view — Google Maps</option><option>Parcel view — parcel info</option><option value="custom">Custom…</option></select><input id="p_capA" placeholder="custom caption" style="margin-top:4px;">
+  <label>Site image B caption</label><select id="p_capBpre"><option>Aerial view — Google Maps</option><option selected>Parcel view — parcel info</option><option value="custom">Custom…</option></select><input id="p_capB" placeholder="custom caption" style="margin-top:4px;">
+  <button class="btn" onclick="window.print()">Print / Save PDF (36×24)</button>
+  <button class="btn sec" onclick="exportJSON()">⤓ Save project (.json)</button>
+  <button class="btn sec" onclick="document.getElementById('p_file').click()">⤒ Load project</button>
+  <input type="file" id="p_file" accept=".json" hidden>
+  <div style="margin-top:10px;font-size:10px;color:#888;">Half-size print: set printer scaling to 50% on 18×12 / 11×17 (title block reads FULL SIZE 24×36).</div>
+</aside>
+
+<main class="stage" id="stage"></main>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   PROJECT — the single source of truth (mirrors the calc tool inputs)
+   ═══════════════════════════════════════════════════════════════════ */
+const PROJECT = {
+  firm:{ name:"Oasis Engineering", site:"boxablfoundations.com", line:"oasisengineering.com", entity:"Oasis Engineering LLC",
+         legal:"These drawings, details, notes and the design of this sheet are instruments of service and the copyrighted property of Oasis Engineering LLC. Their use is licensed solely for the project and site named on this sheet. Reuse, reproduction, modification or distribution, in whole or in part, without the written permission of Oasis Engineering LLC is prohibited.",
+         affil:"BoxablFoundations.com is an independent service operated by Oasis Engineering LLC. It is not affiliated with, endorsed by, or sponsored by Boxabl Inc. BOXABL is a trademark of Boxabl Inc.; Boxabl images and product data are the property of Boxabl Inc. and are used under Boxabl's affiliate program." },
+  engineered:false,   // false = published-safe; true only in a controlled project JSON
+  projNo:"____-___", client:"Client name", address:"Site address, City, ST ZIP",
+  date:"", rev:"0", status:"draft", eor:"", calcRef:"Site-specific structural calculations (controlled workflow)",
+  jurisdiction:"", info:"", capA:"Aerial view — Google Maps", capB:"Parcel view — parcel info",
+  flood:{ zone:"X", panel:"06071C____", date:"" },
+  fire:{ fhsz:"verify", sprinklers:"verify" },
+  hcd:{ bin:"", insignia:"" },
+  unit:{ model:"Boxabl 2 Door Casita — BXB-000009", L:19, B:19, h:10.75, esr:"ICC-ES ESR-4725", area:361 },
+  codes:"2025 California Building Code (CBC) · 2025 California Residential Code (CRC) · ASCE/SEI 7-22 · ACI 318-19 · 2025 CALGreen",
+  loads:{ roofDL:16, roofLL:20, floorDL:20, floorLL:40, wallDL:6 },
+  wind:{ V:100, exp:"C", risk:"II", Kd:0.85, G:0.85, GCpi:0.18, hm:10.5, Kzt:1.0, Ke:1.0, enclosure:"Enclosed" },
+  snow:{ pg:10, pf:8.4, pm:10, Ce:1.0, Ct:1.2, Is:1.0 },
+  seismic:{ Ss:1.94, S1:0.63, SMS:2.09, SM1:1.50, SDS:1.39, SD1:1.00, TL:8, siteClass:"Default (§11.4.2.1)", SDC:"D", R:6.5, Om:3.0, Cd:4.0, Ie:1.0, rho:1.0, Cs:0.214, system:"Bearing wall — Boxabl SIP shear walls per ESR-4725" },
+  soil:{ qall:2000, mu:0.25, basis:"Presumptive, CBC 2025 Table 1806.2 (sand, silty sand, clayey sand)", frost:12 },
+  conc:{ fc:null, fy:60000, cement:"ASTM C150 Type II (Type V where sulfate soils are identified)", slump:5, agg:1 },
+  footing:{ B:null, H:null, above:8, nL:null, szL:"#_", szS:"#_", sS:null, cover:null, lap:null },
+  slab:{ t:null, wwr:"W.W.R. per engineered design", gravel:6, vapor:"10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A)" },
+  sheets:[ ["S0.0","Cover Sheet, General Notes & Design Criteria"], ["S1.0","Foundation Plan & Details"] ]
+};
+
+/* ═══════════════════════════════════════════════════════════════════
+   DETAIL LIBRARY — images injected by build script (base64)
+   ═══════════════════════════════════════════════════════════════════ */
+const IMG = { logo:"__LOGO__", render:"__RENDER__", qr:"__QR__", aerial:"__AERIAL__", parcel:"__PARCEL__", plan:"__PLAN__", turndown:"__TURNDOWN__", slab:"__SLAB__", plates:"__PLATES__", rebar:"__REBAR__" };
+const IMG_LABELS = { logo:"Logo (title block)", render:"S0.0 unit image (Boxabl)", qr:"S0.0 QR code", aerial:"S0.0 site image A", parcel:"S0.0 site image B", plan:"S1.0 · 1 Foundation plan", turndown:"S1.0 · 2 Turndown section", slab:"S1.0 · 3 Slab-on-grade", plates:"S1.0 · 5 Boxabl plates", rebar:"S1.0 · 6 Rebar development" };
+const has = k => typeof IMG[k]==="string" && IMG[k].startsWith("data:");
+
+/* ═══════════════════════════════════════════════════════════════════
+   GENERAL NOTES — tagged data, ordered by construction sequence
+   tags: all | slab | pier | stem | sdcD | frost
+   ═══════════════════════════════════════════════════════════════════ */
+const NOTES_FN = () => [
+ {h:"General", items:[
+  "The governing code for this project is the 2025 California Building Code (2024 IBC) with the 2025 California Residential Code, ASCE/SEI 7-22, ACI 318-19 and 2025 CALGreen. The governing code prescribes which edition of each referenced standard applies.",
+  "To the best of our knowledge these structural drawings and notes comply with the applicable requirements of the governing code. Construction shall comply with the governing code and all applicable federal, state and local codes, standards, regulations and laws.",
+  "These foundation drawings shall be used together with the Boxabl installation manual, the Boxabl structural plans for the unit and ICC-ES ESR-4725. The foundation is designed for the unit reactions stated in the design criteria; the unit, its connections, hold-downs and anchorage hardware are by Boxabl and are a deferred submittal. Where a conflict exists, notify the engineer before proceeding; the more stringent requirement governs.",
+  "Details labeled \"TYP\" apply to all conditions that are the same or similar to those referenced, whether or not keyed at each location.",
+  "Do not scale drawings; use printed dimensions only. Verify all dimensions and conditions in the field and report discrepancies in writing to the engineer before proceeding. Do not change the size, location or reinforcing of any foundation element without written instruction from the engineer of record.",
+  "The contractor is solely responsible for construction means and methods, sequencing, scheduling, quantities and cost, jobsite safety including all OSHA requirements, temporary bracing and shoring, and protection of adjacent property, the work and the public. The build sequence and materials takeoff shown on S1.0 are provided for orientation only, are preliminary, and are not a contractor's estimate or a construction procedure; the engineer assumes no responsibility or liability for materials, quantities, sequencing, or means and methods of construction.",
+  "Before excavating, call 811 (Underground Service Alert / DigAlert) at least two working days in advance. The contractor is responsible for locating, protecting and repairing all utilities.",
+  "Foundation location, orientation, setbacks and finished-floor elevation are per the site plan by others, which is not part of this sealed set. Set the 0,0 layout corner and the orientation of the foundation from the site plan before layout; confirm the finished floor is a minimum of 8 in above finish grade and that grade slopes away from the foundation 5% for 10 ft (2% on impervious surfaces) per CRC R401.3 / CBC 1804.4.",
+ ]},
+ {h:"Coordination with Boxabl", items:[
+  "Verify the actual unit outside dimensions, wall-panel locations, stainless-steel plate locations and spacing, utility and plumbing penetration locations, and anchorage requirements against the Boxabl installation drawings for the unit's serial number before forming. Dimensions on these drawings are nominal from the Boxabl BXB-000009 data.",
+  "Boxabl stainless-steel plates (detail 5/S1.0) shall be set per the Boxabl template and installation manual, plumb, level and at the specified spacing, and secured to the forms or reinforcing before placement so they do not move during the pour. Plate anchorage to the concrete and the unit-to-plate connection are by Boxabl.",
+  `Top of slab shall be level within 1/4 in over the unit footprint and flat to 1/8 in in 10 ft (FF 25 / FL 20 minimum). Where the Boxabl installation manual is more stringent, it governs. Do not set the unit until the concrete has reached the specified strength (${ev(PROJECT.conc.fc," psi")}, 7 days minimum) or as required by Boxabl.`,
+  "Underslab plumbing, electrical sleeves and conduit shall be located per the Boxabl utility drawings and coordinated with the plumbing/electrical contractor before the vapor retarder is placed. Penetrations through the turned-down footing are not permitted; sleeve through the slab only.",
+ ]},
+ {h:"Foundation Design Basis", items:[
+  "Allowable soil bearing 2,000 psf and coefficient of friction 0.25 are presumptive values per CBC 2025 Table 1806.2 for sand, silty sand and clayey sand, based on visual classification. If a geotechnical investigation is required by the building official (CBC §1803.5.11, Seismic Design Category D) or is otherwise provided, its recommendations supersede these values; notify the engineer of any difference.",
+  "Should fill, expansive or collapsible soil, organics, debris, groundwater, rock or any condition other than firm native sand be encountered at the bearing elevation, stop work and notify the engineer before proceeding. The engineer will supply written direction; a letter attesting that site conditions match the design basis may be required by the building official.",
+  "Frost depth: 12 in. Bottom of all footings shall bear a minimum of 12 in below finish grade on undisturbed native soil (CBC §1809.4, §1809.5).",
+  "Center the turned-down footing under the wall line as detailed. The wall panel bears on the outer edge of the footing; the eccentricity shown in detail 2/S1.0 is part of the design — do not shift the wall line inward on the footing.",
+ ]},
+ {h:"Excavation, Subgrade & Base", items:[
+  "Strip vegetation, topsoil, organics and debris from the building pad plus 2 ft beyond. Excavate the footing trench to undisturbed native soil; trench sides may serve as forms where the soil stands neat and true — otherwise form both faces. Remove loose material from the bottom of the trench before placing reinforcing.",
+  "Scarify the top 8 in of subgrade under the slab and compact to 90% of maximum dry density per ASTM D1557. Where fill is required under the slab, use clean granular material with not more than 10% passing the #200 sieve and 1 in maximum size, placed in lifts not exceeding 6 in loose and compacted to 95% per ASTM D1557; one field density test (ASTM D1556 or D6938) per lift per 2,500 sf, minimum one.",
+  "Capillary break: 6 in of 1/2 in or larger clean, dry, washed aggregate under the slab (CALGreen §4.505.2.1 requires 4 in minimum), leveled and lightly compacted. Do not place aggregate in the footing trench.",
+  "Vapor retarder: 10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A) placed over the aggregate directly beneath the slab; lap joints 6 in minimum and tape; seal all penetrations, pipes and the perimeter with manufacturer's tape or mastic (CRC R506.2.3). Repair punctures before placing concrete.",
+  "Keep the excavation free of water. Do not place concrete on frozen, saturated, muddy or disturbed soil, and do not excavate within 1 ft of the angle of repose of any adjacent footing or slope.",
+ ]},
+ {h:"Reinforced Concrete", items:[
+  `Provide structural concrete and concreting practices complying with ACI 301 and ACI 318-19. Minimum specified compressive strength f'c = ${ev(PROJECT.conc.fc," psi")} at 28 days for footings and slab; normal-weight; maximum 1 in coarse aggregate (ASTM C33, size 57); maximum slump 5 in before admixtures; maximum water–cement ratio 0.50. Cement ASTM C150 Type II; use Type V where sulfate-bearing soils are identified. No calcium chloride. Submit the mix design for review before the pour.`,
+  "Hot-weather concreting per ACI 305R when the ambient temperature exceeds 85°F: use a Type D or G retarding admixture, keep the subgrade and forms damp, and place, finish and start curing without delay. Cold-weather concreting per ACI 306R below 40°F.",
+  "Cast the turned-down footing and the slab monolithically in one continuous placement. No cold joint is permitted between the footing and the slab. Construction joints, if unavoidable, shall be located and detailed with the engineer's approval per ACI 318-19 §26.5.6 with keyways and dowels.",
+  `Reinforcing steel: ASTM A615 Grade 60 deformed bars; welded wire reinforcement ASTM A1064, supplied in flat sheets only. Place accurately, support on chairs or precast blocks and tie firmly per ACI 315 and the CRSI Manual of Standard Practice. Clear cover: footings ${ev(PROJECT.footing.cover," in")} all faces (cast against earth); slab W.W.R. at mid-depth on chairs.`,
+  `Lap continuous bars ${ev(PROJECT.footing.lap," in")} minimum (Class B — see schedule 6/S1.0); stagger laps 4 ft; lap W.W.R. two mesh spacings. At corners provide bent corner bars in each face of the footing per detail 4/S1.0. Hook discontinuous ends with standard 90° hooks. Terminate the slab W.W.R. into the footing with a standard 90° hook.`,
+  "Conduit and pipes up to 1 in diameter may be embedded in the slab where reinforcing congestion permits, spaced 3 diameters on center and placed at mid-depth between reinforcing; nothing shall be embedded in or pass through the turned-down footing. Sleeve all pipes passing through the slab.",
+  "Sample and test per ACI 301: one set of four cylinders (ASTM C31/C39) per 50 cu yd or fraction thereof placed each day, with a slump test (ASTM C143) and air/temperature for each set. Test one cylinder at 7 days and two at 28 days; hold one. No concrete test will be accepted if water is added after the sample is taken.",
+  "Provide 3/4 in chamfer at all exposed corners. Cure by wet cover or liquid membrane curing compound (ASTM C309) for 7 days minimum; keep the slab free of construction loads for 7 days. Provide the reinforcing placer with a set of these drawings for field reference.",
+ ]},
+ {h:"Site Hazards, Fire & Unit Certification", items:[
+  `Flood: the site is shown in FEMA flood zone ${esc(PROJECT.flood.zone)} on FIRM panel ${esc(PROJECT.flood.panel||"____")}${PROJECT.flood.date?" effective "+esc(PROJECT.flood.date):""}. This slab-on-grade foundation is designed for a site outside the Special Flood Hazard Area (Zone X). If the parcel is in Zones A, AE, AH, AO or V, this design is not applicable — the lowest floor must be elevated above the base flood elevation per CBC §1612 / CRC R322 and the engineer shall be notified. Owner/contractor to verify the zone with the FEMA Flood Map Service Center and the local floodplain administrator before permit application.`,
+  `Fire Hazard Severity Zone: ${esc(FHSZ_TXT[PROJECT.fire.fhsz]||"")}. Where the site lies in a State Responsibility Area or a Very High or High Fire Hazard Severity Zone as designated by the AHJ, the exterior of the unit shall comply with CBC Chapter 7A / CRC R337 (ignition-resistant construction, vents, exterior openings) — this is part of the manufacturer's HCD-approved unit design, not of this foundation; and defensible space shall be maintained per PRC §4291 / Gov. Code §51182 by the owner. Slab-on-grade construction has no underfloor area or crawlspace vents.`,
+  `Fire sprinklers: ${esc(SPR_TXT[PROJECT.fire.sprinklers]||"")}. Any underground fire-service line, backflow device and water supply are by others and are not shown.`,
+  "Fire separation distance, exterior wall protection near property lines (CRC R302.1), fire apparatus access, water supply for fire flow (CFC Ch. 5 / San Bernardino County Fire) and visible address numbers (CRC R319) are site-plan items by others; confirm with the fire authority before permit issuance.",
+  `Unit certification: the Boxabl unit is delivered as California Factory-Built Housing under Health and Safety Code Div. 13 Part 6 (§19960 et seq.) and Title 25 CCR Div. 1 Ch. 3 Subch. 1 and shall bear an HCD Insignia of Approval affixed before shipment (H&SC §19980). The unit itself is inspected and approved by HCD-certified third-party agencies; the local building department permits and inspects this foundation, the site work, the utility connections and the installation. The owner/contractor is responsible for obtaining from Boxabl, verifying against the delivered unit, and submitting to the building department: (a) the HCD/DAA-approved, state-stamped unit plans, (b) the unit serial number (BIN)${PROJECT.hcd.bin?" — "+esc(PROJECT.hcd.bin):" — to be provided by Boxabl"}, and (c) the HCD insignia number${PROJECT.hcd.insignia?" — "+esc(PROJECT.hcd.insignia):" — to be provided by Boxabl"}, matching the insignia on the unit. Units not bearing an HCD insignia shall not be installed. Alterations to the unit after manufacture require HCD approval before installation and building-department approval after.`,
+ ]},
+ {h:"Inspection & Submittals", items:[
+  "Building-department inspections (hold points — do not proceed without approval): (1) footing excavation, forms, reinforcing, vapor retarder and Boxabl plates in place before concrete; (2) slab finish, plate locations and elevations after the pour and before the unit is set; (3) final.",
+  "Special inspection of concrete is not required for continuous footings supporting light-frame walls designed with f'c ≤ 2,500 psi (CBC 2025 §1705.3 Exception 2) or for the nonstructural slab on ground (Exception 3), subject to concurrence of the building official; where the engineered design specifies a higher f'c, verify with the building official.",
+  "Deferred submittal: Boxabl unit structural plans, unit-to-foundation connection and plate anchorage (ICC-ES ESR-4725 and the Boxabl approved plans), to be submitted to the building official before the unit is set.",
+  "Structural calculations: " + PROJECT.calcRef + ", Oasis Engineering, on file with this submittal. Termite protection per CRC R318 where required by the building official.",
+ ]},
+];
+
+/* ═══════════════════════════════════════════════════════════════════
+   HELPERS
+   ═══════════════════════════════════════════════════════════════════ */
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const num = (x,dp=0)=> Number.isFinite(x)? x.toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp}) : "—";
+const ft = x => `${Math.floor(x)}'-${Math.round((x-Math.floor(x))*12)}"`;
+const STATUS = { draft:"PRELIMINARY — NOT FOR CONSTRUCTION", review:"RELEASED FOR REVIEW", permit:"RELEASED FOR PERMIT", construction:"RELEASED FOR CONSTRUCTION" };
+
+/* ── controlled-value gate: prints "per engineered design" unless PROJECT.engineered ── */
+const ENG = () => !!PROJECT.engineered;
+const ev = (v, suffix="", dp=0) => ENG() && v!==null && v!==undefined && v!=="" ? (typeof v==="number" ? num(v,dp) : esc(v)) + suffix : "per engineered design";
+const evb = (v, suffix="") => ENG() && v!==null && v!==undefined && v!=="" ? String(v)+suffix : "—";
+
+/* ── site hazard text ─────────────────────────────────────────── */
+const FHSZ_TXT = { verify:"To be verified by owner/contractor on the CAL FIRE FHSZ viewer before permit application", none:"Not within a Fire Hazard Severity Zone", moderate:"Moderate Fire Hazard Severity Zone (LRA)", high:"High Fire Hazard Severity Zone (LRA)", vhigh:"Very High Fire Hazard Severity Zone (LRA)", sra:"State Responsibility Area (SRA)" };
+const SPR_TXT = { verify:"Per AHJ and the HCD-approved unit plans — verify", required:"Required — new one-family dwelling, CRC R313.2 (unit system by manufacturer; supply by others)", adu:"Not required — accessory dwelling unit exception, Gov. Code §66323 (verify primary dwelling status)" };
+const inSFHA = P => /^(A|V)/i.test((P.flood.zone||"").trim());
+const wui = P => ["high","vhigh","sra"].includes(P.fire.fhsz);
+
+/* ── materials takeoff, from the same numbers the calc uses ──────── */
+function takeoff(P){
+  const Bf=P.footing.B/12, Hf=P.footing.H/12, ts=P.slab.t/12;
+  const cl = 2*((P.unit.L-Bf)+(P.unit.B-Bf));                 // ft   footing centerline perimeter
+  const vFtg = Bf*Hf*cl;                                      // ft³
+  const vSlab = (P.unit.L-2*Bf)*(P.unit.B-2*Bf)*ts;           // ft³
+  const cy = (vFtg+vSlab)/27;                                 // cy
+  const laps = Math.ceil(cl/20);                              // one lap per 20-ft stock bar, per bar
+  const lfLong = P.footing.nL*(cl + laps*P.footing.lap/12);   // lf  continuous bars incl. laps
+  const lfCorner = 4*2*2*(2*P.footing.lap/12);                // lf  (2) bars × 2 faces × 4 corners × 2 legs
+  const nStir = Math.ceil(cl*12/P.footing.sS);
+  const lStir = (2*(P.footing.B-2*P.footing.cover)+2*(P.footing.H-2*P.footing.cover)+12)/12;  // lf incl. hooks
+  const lfStir = nStir*lStir;
+  const sfWWR = P.unit.L*P.unit.B*1.15;
+  const sfVapor = P.unit.L*P.unit.B*1.15;
+  const cyGravel = P.unit.L*P.unit.B*(P.slab.gravel/12)/27;
+  return { cy:cy*1.10, cyNet:cy, lfLong, lfCorner, nStir, lfStir, lbRebar:(lfLong+lfCorner+lfStir)*0.668, sfWWR, sfVapor, cyGravel, cl };
+}
+
+/* ── isometric of the box on its slab (SVG, from unit dims) ─────── */
+function isoBox(P, w=560, h=400){
+  const L=P.unit.L, B=P.unit.B, H=P.unit.h, s=w/(L+B)/1.05;
+  const c=Math.cos(Math.PI/6), n=Math.sin(Math.PI/6);
+  const px=(x,y,z)=>[w/2+(x-y)*c*s, h*0.78-(x+y)*n*s-z*s];
+  const poly=(pts,f,st="#222",sw=1.2)=>`<polygon points="${pts.map(p=>p.join(",")).join(" ")}" fill="${f}" stroke="${st}" stroke-width="${sw}" stroke-linejoin="round"/>`;
+  const o=1.0, t=0.67;   // slab overhang & thickness (ft) for the drawing only
+  let g="";
+  g+=poly([px(-o,-o,-t),px(L+o,-o,-t),px(L+o,-o,0),px(-o,-o,0)],"#c9ccd1");
+  g+=poly([px(L+o,-o,-t),px(L+o,B+o,-t),px(L+o,B+o,0),px(L+o,-o,0)],"#b3b7bd");
+  g+=poly([px(-o,-o,0),px(L+o,-o,0),px(L+o,B+o,0),px(-o,B+o,0)],"#e3e5e8");
+  g+=poly([px(0,0,0),px(L,0,0),px(L,0,H),px(0,0,H)],"#f2f4f7");
+  g+=poly([px(L,0,0),px(L,B,0),px(L,B,H),px(L,0,H)],"#d8dce3");
+  g+=poly([px(0,0,H),px(L,0,H),px(L,B,H),px(0,B,H)],"#fafbfc");
+  // door + windows on front face
+  const rect=(x0,x1,z0,z1,f)=>poly([px(x0,0,z0),px(x1,0,z0),px(x1,0,z1),px(x0,0,z1)],f,"#333",0.8);
+  g+=rect(L*0.42,L*0.58,0,7,"#5a6a85"); g+=rect(L*0.1,L*0.3,3,7,"#9fb6d9"); g+=rect(L*0.7,L*0.9,3,7,"#9fb6d9");
+  const rectS=(y0,y1,z0,z1,f)=>poly([px(L,y0,z0),px(L,y1,z0),px(L,y1,z1),px(L,y0,z1)],f,"#333",0.8);
+  g+=rectS(B*0.3,B*0.5,3,7,"#8ea6c9"); g+=rectS(B*0.6,B*0.8,3,7,"#8ea6c9");
+  const lab=(p,t)=>`<text x="${p[0]}" y="${p[1]}" font-family="Arial" font-size="12" text-anchor="middle" fill="#222">${t}</text>`;
+  g+=lab([px(L/2,-o,-t)[0],px(L/2,-o,-t)[1]+18],`${ft(L)}`);
+  g+=lab([px(L+o,B/2,-t)[0]+34,px(L+o,B/2,-t)[1]+12],`${ft(B)}`);
+  g+=lab([px(L+o,B+o,H/2)[0]+40,px(L+o,B+o,H/2)[1]],`${ft(H)} wall`);
+  return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+
+/* ── turndown corner detail, plan view (parametric SVG) ─────────── */
+function cornerDetail(P){
+  const E=ENG(), Bin=E?P.footing.B:16, cvin=E?P.footing.cover:3, lapin=E?P.footing.lap:32;
+  const s=40, B=Bin/12*s, leg=3.2*s, cv=cvin/12*s, lap=lapin/12*s;
+  const W=leg+40, H=leg+40, x0=20, y0=20;
+  let g=`<rect x="${x0}" y="${y0}" width="${B}" height="${leg}" fill="#d4d4d4" stroke="#222" stroke-width="1.5"/>`;
+  g+=`<rect x="${x0}" y="${y0}" width="${leg}" height="${B}" fill="#d4d4d4" stroke="#222" stroke-width="1.5"/>`;
+  g+=`<rect x="${x0}" y="${y0}" width="${B}" height="${B}" fill="#d4d4d4" stroke="none"/>`;
+  g+=`<line x1="${x0+B}" y1="${y0+B}" x2="${x0+B}" y2="${y0+leg}" stroke="#222" stroke-width="1.5"/><line x1="${x0+B}" y1="${y0+B}" x2="${x0+leg}" y2="${y0+B}" stroke="#222" stroke-width="1.5"/>`;
+  // continuous bars, outer and inner faces (bottom layer shown)
+  const bar=(x1,y1,x2,y2,c="#111",w=2.2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`;
+  g+=bar(x0+cv,y0+cv,x0+cv,y0+leg); g+=bar(x0+cv,y0+cv,x0+leg,y0+cv);
+  g+=bar(x0+B-cv,y0+B-cv,x0+B-cv,y0+leg); g+=bar(x0+B-cv,y0+B-cv,x0+leg,y0+B-cv);
+  // corner bars (orange) lapped with continuous bars
+  const cb="#F26A1B";
+  g+=bar(x0+cv+5,y0+cv+5,x0+cv+5,y0+cv+5+lap,cb,3); g+=bar(x0+cv+5,y0+cv+5,x0+cv+5+lap,y0+cv+5,cb,3);
+  g+=bar(x0+B-cv-5,y0+B-cv-5,x0+B-cv-5,y0+B-cv-5+lap,cb,3); g+=bar(x0+B-cv-5,y0+B-cv-5,x0+B-cv-5+lap,y0+B-cv-5,cb,3);
+  const t=(x,y,s,a="start")=>`<text x="${x}" y="${y}" font-family="Arial" font-size="11" text-anchor="${a}" fill="#111">${s}</text>`;
+  const ld=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#111" stroke-width="0.8"/>`;
+  const lx=x0+leg+14;
+  g+=t(lx,y0+10,E?`(${P.footing.nL/2}) ${P.footing.szL} CONTINUOUS EACH FACE,`:"CONTINUOUS BARS EACH FACE,"); g+=t(lx,y0+24,E?`TOP & BOTTOM — LAP ${P.footing.lap}" MIN.`:"TOP & BOTTOM — SIZE, COUNT & LAP PER ENGINEERED DESIGN");
+  g+=ld(lx-4,y0+14,x0+leg-2,y0+cv);
+  g+=t(lx,y0+58,E?`(2) ${P.footing.szL} CORNER BARS EACH FACE,`:"CORNER BARS EACH FACE,"); g+=t(lx,y0+72,E?`TOP & BOTTOM, ${P.footing.lap}" LEGS,`:"TOP & BOTTOM, LEGS PER ENGINEERED DESIGN,"); g+=t(lx,y0+86,`LAP WITH CONTINUOUS BARS`);
+  g+=ld(lx-4,y0+66,x0+cv+5+lap,y0+cv+5);
+  g+=t(lx,y0+118,E?`${P.footing.szS} CLOSED STIRRUPS @ ${P.footing.sS}" O.C.`:"CLOSED STIRRUPS PER ENGINEERED DESIGN"); g+=t(lx,y0+132,`CONTINUE AROUND CORNER`);
+  g+=ld(lx-4,y0+124,x0+leg-2,y0+B-cv);
+  g+=ld(x0,y0+leg+14,x0+B,y0+leg+14); g+=t(x0+B/2,y0+leg+30,E?`${P.footing.B}" TURNDOWN`:"TURNDOWN WIDTH PER DESIGN","middle");
+  g+=t(x0+B+20,y0+leg+30,E?`${P.footing.cover}" CLR TYP · OUTSIDE FACE OF TURNDOWN = WALL LINE`:"OUTSIDE FACE OF TURNDOWN = WALL LINE · COVER PER DESIGN");
+  return `<svg viewBox="0 0 ${W+420} ${H+30}" xmlns="http://www.w3.org/2000/svg">${g}</svg>`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SHEET CHROME
+   ═══════════════════════════════════════════════════════════════════ */
+function titleBlock(P, sheetNo, sheetName){
+  const stat = STATUS[P.status]||"";
+  return `<div class="tb">
+    <div class="logo">${has("logo")?`<img src="${IMG.logo}" alt="logo">`:`<b>${esc(P.firm.name)}</b>`}</div>
+    <div><div class="lbl">Prepared by</div><div class="big">${esc(P.firm.name)}</div><div style="font-size:7pt">${esc(P.firm.site)} · ${esc(P.firm.line)}</div></div>
+    <div><div class="lbl">Project</div><div class="big">${esc(P.unit.model)}</div><div style="font-size:7pt">Concrete slab-on-grade foundation</div></div>
+    <div><div class="lbl">Client / Site</div><div style="font-size:8pt;font-weight:700">${esc(P.client)}</div><div style="font-size:7pt">${esc(P.address)}</div></div>
+    <div><div class="lbl">Design criteria</div><div style="font-size:7pt;line-height:1.35">${P.codes.split(" · ").slice(0,4).join(" · ")}<br>Wind ${P.wind.V} mph Exp ${P.wind.exp} · SDC ${P.seismic.SDC} (S<sub>DS</sub> ${P.seismic.SDS.toFixed(2)}g) · Snow ${P.snow.pg} psf · Frost ${P.soil.frost} in · Soil ${num(P.soil.qall)} psf · f'c ${num(P.conc.fc)} psi</div></div>
+    <div class="stamp">${P.eor?`<div><b>${esc(P.eor)}</b><br>Engineer of Record</div>`:"P.E. stamp"}</div>
+    <div><div class="lbl">Revisions</div><table><tr><th>No.</th><th>Description</th><th>Date</th></tr><tr><td>${esc(P.rev)}</td><td>${esc(stat)}</td><td>${esc(P.date)}</td></tr><tr><td>&nbsp;</td><td></td><td></td></tr><tr><td>&nbsp;</td><td></td><td></td></tr></table></div>
+    <div class="flex1"><div class="lbl">Sheet index</div>${P.sheets.map(s=>`<div style="font-size:7pt"><b>${s[0]}</b> ${esc(s[1])}</div>`).join("")}<div class="lbl" style="margin-top:0.08in">Site plan</div><div style="font-size:7pt">By others — not part of this set</div></div>
+    <div><div class="lbl">Ownership &amp; use</div><div style="font-size:5.9pt;line-height:1.28;color:#333;">© ${new Date(P.date||Date.now()).getFullYear()} ${esc(P.firm.entity)}. All rights reserved. ${esc(P.firm.legal)}<br><span style="color:#555">${esc(P.firm.affil)}</span></div></div>
+    <div><div class="lbl">Template</div><div style="font-size:6pt;color:#555;">Sheet set built on ephemeral-eng · Oasis Engineering · github.com/oasiseng — credit appreciated when reused.</div></div>
+    <div><div class="lbl">Project no. · Date · Rev</div><div style="font-size:8pt;font-family:monospace;font-weight:700">${esc(P.projNo)} · ${esc(P.date)} · ${esc(P.rev)}</div></div>
+    <div><div class="lbl">Sheet</div><div class="huge">${sheetNo}</div><div style="font-size:8pt;font-weight:700;margin-top:0.04in">${esc(sheetName)}</div><div style="font-size:6.5pt;color:var(--grey)">FULL SIZE 24×36 · check 1 in square</div></div>
+  </div>`;
+}
+function chrome(P, sheetNo, sheetName, inner){
+  const stat = STATUS[P.status]||"";
+  return `<section class="sheet">
+    <div class="status-band ${P.status==='construction'?'hidden':''}">${esc(stat)}</div>
+    <div class="border"></div>
+    <div class="wm ${P.status==='construction'?'hidden':''}"><span>${P.status==='draft'?'PRELIMINARY':''}</span></div>
+    <div class="content">${inner}</div>
+    <div class="sq">1 in × 1 in<br>at full size</div>
+    ${titleBlock(P, sheetNo, sheetName)}
+  </section>`;
+}
+const slot = (id,x,y,w,h,num_,title,scale,body) => `<div class="slot" id="${id}" style="left:${x}in;top:${y}in;width:${w}in;height:${h}in;"><div class="body">${body}</div><div class="head"><div class="num">${num_}</div><div class="ttl">${title}</div><div class="scl">${scale}</div></div></div>`;
+const block = (x,y,w,h,inner) => `<div class="block" style="left:${x}in;top:${y}in;width:${w}in;height:${h}in;">${inner}</div>`;
+
+/* ═══════════════════════════════════════════════════════════════════
+   S0.0 — COVER · NOTES · CRITERIA
+   ═══════════════════════════════════════════════════════════════════ */
+function sheetS0(P){
+  const s=P.seismic, w=P.wind, sn=P.snow;
+  const what = `<h2>What you are building</h2>
+    ${has("render") ? `
+    <div style="height:4.9in;display:flex;align-items:center;justify-content:center;"><img src="${IMG.render}" alt="Boxabl Casita" style="max-width:100%;max-height:100%;"></div>
+    <div style="display:flex;gap:0.12in;align-items:center;margin:0.04in 0 0.1in;">
+      ${has("qr")?`<img src="${IMG.qr}" alt="QR" style="width:0.85in;height:0.85in;">`:""}
+      <div style="font-size:8.2pt;line-height:1.3;color:#333;"><b>${esc(P.unit.model)}. Source: Boxabl.</b> Image courtesy of Boxabl; furnishings, decks and finishes shown are not part of this foundation design.${has("qr")?" Scan for unit information.":""}</div>
+    </div>` : `<div style="height:5.2in;display:flex;align-items:center;justify-content:center;">${isoBox(P,560,330)}</div>`}
+    <table class="kv">
+      <tr><td>Unit</td><td>${esc(P.unit.model)}</td></tr>
+      <tr><td>Footprint (nominal, verify with Boxabl)</td><td>${ft(P.unit.L)} × ${ft(P.unit.B)} · ${num(P.unit.area)} sf</td></tr>
+      <tr><td>Wall height</td><td>${ft(P.unit.h)}</td></tr>
+      <tr><td>Foundation</td><td>Slab-on-grade, turned-down footing</td></tr>
+      <tr><td>Turndown · slab</td><td>${ENG()?`${P.footing.B}" × ${P.footing.H}" · ${P.slab.t}" slab`:"per engineered design"}</td></tr>
+      <tr><td>Panel certification</td><td>${esc(P.unit.esr)}</td></tr>
+      <tr><td>Site plan / setbacks</td><td>By others (not this set)</td></tr>
+    </table>`;
+  const crit = `<h2>Design criteria${ENG()?"":' <span style="font-size:8pt;font-weight:400;color:var(--accent);text-transform:none;letter-spacing:0;">— example site values shown; replace with the site-specific ASCE 7 Hazard Tool data</span>'}</h2>
+    <h3>Superimposed loads (CBC §1606–1607)</h3>
+    <table class="grid"><tr><th>Element</th><th>Dead</th><th>Live</th></tr>
+      <tr><td>Roof</td><td>${P.loads.roofDL} psf</td><td>${P.loads.roofLL} psf (L<sub>r</sub>)</td></tr>
+      <tr><td>Floor</td><td>${P.loads.floorDL} psf</td><td>${P.loads.floorLL} psf</td></tr>
+      <tr><td>Wall</td><td>${P.loads.wallDL} psf</td><td>—</td></tr></table>
+    <h3>Wind (CBC §1609; ASCE 7-22 Ch. 26–27)</h3>
+    <table class="kv"><tr><td>Basic wind speed, Risk Category ${w.risk}</td><td>V = ${w.V} mph</td></tr>
+      <tr><td>Exposure · enclosure</td><td>${w.exp} · ${w.enclosure}</td></tr>
+      <tr><td>Mean roof height</td><td>${ft(w.hm)}</td></tr>
+      <tr><td>K<sub>d</sub> · K<sub>zt</sub> · K<sub>e</sub> · G · GC<sub>pi</sub></td><td>${w.Kd} · ${w.Kzt} · ${w.Ke} · ${w.G} · ±${w.GCpi}</td></tr></table>
+    <h3>Snow (CBC §1608; ASCE 7-22 Ch. 7)</h3>
+    <table class="kv"><tr><td>Ground snow load p<sub>g</sub></td><td>${sn.pg} psf</td></tr><tr><td>Flat roof p<sub>f</sub> (C<sub>e</sub> ${sn.Ce}, C<sub>t</sub> ${sn.Ct}, I<sub>s</sub> ${sn.Is}) · minimum p<sub>m</sub></td><td>${sn.pf} · ${sn.pm} psf</td></tr></table>
+    <h3>Seismic (CBC §1613; ASCE 7-22 Ch. 11–12)</h3>
+    <table class="kv"><tr><td>Site class</td><td>${esc(s.siteClass)}</td></tr>
+      <tr><td>S<sub>S</sub> · S<sub>1</sub></td><td>${s.Ss.toFixed(3)} · ${s.S1.toFixed(3)} g</td></tr>
+      <tr><td>S<sub>DS</sub> · S<sub>D1</sub> · T<sub>L</sub></td><td>${s.SDS.toFixed(2)} · ${s.SD1.toFixed(2)} g · ${s.TL} s</td></tr>
+      <tr><td>Seismic design category · I<sub>e</sub></td><td>${s.SDC} · ${s.Ie.toFixed(1)}</td></tr>
+      <tr><td>System (ESR-4725, SDC D–F)</td><td>R ${s.R} · Ω<sub>0</sub> ${s.Om} · C<sub>d</sub> ${s.Cd}</td></tr>
+      <tr><td>Seismic response coefficient · ρ</td><td>C<sub>s</sub> ${s.Cs.toFixed(3)} · ${s.rho.toFixed(1)}</td></tr></table>
+    <h3>Foundation (CBC Ch. 18)</h3>
+    <table class="kv"><tr><td>Allowable bearing · friction</td><td>${num(P.soil.qall)} psf · ${P.soil.mu}</td></tr>
+      <tr><td>Basis</td><td style="white-space:normal;font-weight:400;font-family:inherit;text-align:right">${esc(P.soil.basis)}</td></tr>
+      <tr><td>Frost depth · min. embedment</td><td>${P.soil.frost} in · 12 in</td></tr>
+      <tr><td>Concrete f'c · reinforcing f<sub>y</sub></td><td>${ev(P.conc.fc," psi")} · ${num(P.conc.fy)} psi</td></tr></table>`;
+  const code = `<h2>Code summary</h2>
+    <table class="kv"><tr><td>Governing codes</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.codes)}</td></tr>
+      <tr><td>Occupancy · construction</td><td>R-3 (one dwelling unit) · Type V-B (unit by Boxabl)</td></tr>
+      <tr><td>Scope of this set</td><td style="white-space:normal;font-weight:400;font-family:inherit">Foundation only — slab-on-grade with turned-down perimeter footing for the Boxabl unit. Unit structure, connections and anchorage hardware by Boxabl (ESR-4725).</td></tr>
+      <tr><td>Special inspection</td><td style="white-space:normal;font-weight:400;font-family:inherit">Not required — CBC §1705.3 Exceptions 2 and 3 (f'c ≤ 2,500 psi continuous footings; slab on ground). Verify with AHJ.</td></tr>
+      <tr><td>Deferred submittal</td><td style="white-space:normal;font-weight:400;font-family:inherit">Boxabl unit structural plans and unit-to-foundation anchorage.</td></tr>
+      <tr><td>Geotechnical</td><td style="white-space:normal;font-weight:400;font-family:inherit">Presumptive values used; soils report per CBC §1803.5.11 if required by AHJ.</td></tr>
+      <tr><td>Unit certification</td><td style="white-space:normal;font-weight:400;font-family:inherit">California Factory-Built Housing — HCD Insignia of Approval (H&SC §19980). Approved unit plans, BIN${P.hcd.bin?" "+esc(P.hcd.bin):""} and insignia no.${P.hcd.insignia?" "+esc(P.hcd.insignia):""} to be submitted by owner/contractor.</td></tr>
+      <tr><td>Structural calculations</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.calcRef)}</td></tr></table>
+    <h2 style="margin-top:0.15in">Location</h2>
+    <table class="kv"><tr><td>Site</td><td style="white-space:normal;font-weight:700;font-family:inherit">${esc(P.address)}</td></tr>
+      <tr><td>Jurisdiction</td><td>${esc(P.jurisdiction||"—")}</td></tr>
+      <tr><td>Hazard data source</td><td>ASCE 7 Hazard Tool (see calculations)</td></tr>
+      <tr><td>Flood zone (FEMA FIRM)</td><td style="${inSFHA(P)?'color:var(--fail);':''}">Zone ${esc(P.flood.zone)} · panel ${esc(P.flood.panel||"____")}${P.flood.date?" · "+esc(P.flood.date):""}${inSFHA(P)?" · SFHA — DESIGN NOT APPLICABLE":""}</td></tr>
+      <tr><td>Fire Hazard Severity Zone</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc(FHSZ_TXT[P.fire.fhsz]||"")}${wui(P)?" — CBC Ch. 7A / CRC R337 applies to unit":""}</td></tr>
+      <tr><td>Fire sprinklers</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc((SPR_TXT[P.fire.sprinklers]||"").split(" (")[0])}</td></tr>
+      <tr><td>Site plan, setbacks, drainage, utilities</td><td>By others — separate submittal</td></tr></table>
+    <h2 style="margin-top:0.15in">How to read this set</h2>
+    <div style="font-size:9.2pt;line-height:1.3">
+      <b>S0.0 (this sheet)</b> is for the plan checker and the office: criteria, code summary, general notes.<br>
+      <b>S1.0</b> is the field sheet: the plan with every detail placed where it occurs, a build sequence with inspection hold points, and a materials takeoff. It is designed to be the only sheet needed on site.<br>
+      Callouts read <b>detail / sheet</b>. All details are on S1.0.</div>
+    ${P.info && P.info.trim() ? `<h2 style="margin-top:0.15in">Project information</h2><div class="prose">${esc(P.info)}</div>` : ""}`;
+  const siteImgs = [["aerial",P.capA],["parcel",P.capB]].filter(x=>has(x[0]));
+  const notesH = siteImgs.length ? 16.3 : 21.7;
+  const notes = `<h2>General notes</h2><div class="notes" style="column-count:2;height:${notesH}in;${siteImgs.length?'font-size:9.4pt;line-height:1.28;':''}">${NOTES_FN().map(g=>`<h3>${esc(g.h)}</h3><ol>${g.items.map(i=>`<li>${i}</li>`).join("")}</ol>`).join("")}</div>`;
+  const site = siteImgs.length ? `<div class="siteimgs" style="left:8.9in;top:16.9in;width:14.4in;height:5.5in;">${siteImgs.map(x=>`<div class="si ${siteImgs.length===1?'single':''}"><div class="im"><img src="${IMG[x[0]]}" alt=""></div><div class="cap">${esc(x[1])} <span>· ${esc(P.address)} · not to scale · for reference only</span></div></div>`).join("")}</div>` : "";
+  const inner = block(0,0,8.6,10.4,what) + block(0,10.6,8.6,11.8,crit) + block(8.9,0,14.4,22.4,notes) + site + block(23.6,0,7.9,22.4,code);
+  return chrome(P,"S0.0",P.sheets[0][1],inner);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   S1.0 — FOUNDATION PLAN & DETAILS (the field sheet)
+   ═══════════════════════════════════════════════════════════════════ */
+function sheetS1(P){
+  const T = ENG() ? takeoff(P) : null, F=P.footing;
+  const stub = `<div class="stub">
+    <div><div class="k">Concrete</div><div class="v">${ENG()?"f'c "+num(P.conc.fc):"f'c —"}</div><div class="s">${ENG()?"psi · Type II · 5\" slump max":"per engineered design"}</div></div>
+    <div><div class="k">Turndown</div><div class="v">${ENG()?`${F.B}"×${F.H}"`:"—"}</div><div class="s">${ENG()?`(${F.nL}) ${F.szL} T&B · ${F.szS}@${F.sS}" stirrups`:"per engineered design"}</div></div>
+    <div><div class="k">Slab</div><div class="v">${ENG()?P.slab.t+'"':"—"}</div><div class="s">${ENG()?esc(P.slab.wwr)+" mid-depth":"per engineered design"}</div></div>
+    <div><div class="k">Cover · lap</div><div class="v">${ENG()?`${F.cover}" · ${F.lap}"`:"—"}</div><div class="s">${ENG()?"footing all faces · Class B":"per engineered design"}</div></div>
+    <div><div class="k">Bottom of footing</div><div class="v">≥ ${P.soil.frost}"</div><div class="s">below finish grade, native soil</div></div>
+    <div><div class="k">Top of slab</div><div class="v">+${F.above}"</div><div class="s">min. above grade · level ±1/4"</div></div>
+    <div><div class="k">Base</div><div class="v">${P.slab.gravel}" · 10 mil</div><div class="s">clean gravel · vapor retarder</div></div>
+    <div><div class="k">Soil</div><div class="v">${num(P.soil.qall)} psf</div><div class="s">firm native sand — call if different</div></div>
+  </div>`;
+  // plan with overlaid callouts (fractions of the cropped image, 1227×1230)
+  const co = (x,y,n)=>`<div class="callout" style="left:${x*100}%;top:${y*100}%;">${n}<span>S1.0</span></div>`;
+  const plan = !has("plan") ? `<div style="color:#999;text-align:center;font-size:11pt;">Foundation plan image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.plan}" alt="foundation plan">
+      ${co(0.291,0.079,2)}${co(0.209,0.563,2)}${co(0.291,0.796,2)}${co(0.935,0.734,2)}
+      <div class="overlay-txt" style="left:40.5%;top:52.6%;">SEE 3/S1.0</div>
+      <div style="position:absolute;left:10.2%;top:88.2%;width:0.22in;height:0.22in;border:0.02in solid var(--accent);border-radius:50%;transform:translate(-50%,-50%);"></div>
+      <div class="overlay-txt" style="left:12%;top:91.5%;font-weight:700;color:var(--accent);">◄ 0,0 LAYOUT CORNER (OUTSIDE CORNER OF TURNDOWN) — SET LOCATION & ORIENTATION FROM SITE PLAN BY OTHERS</div>
+      <div class="overlay-txt" style="left:2%;top:97%;">${ft(P.unit.L)} × ${ft(P.unit.B)} OUT-TO-OUT OF WALL PANELS (VERIFY W/ BOXABL) · TURNDOWN ${evb(F.B,'"')} WIDE, WALL ON OUTER EDGE · BOXABL PLATES AT SPACING PER BOXABL TEMPLATE</div>
+    </div>`;
+  const td = !has("turndown") ? `<div style="color:#999;text-align:center;font-size:11pt;">Turndown section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.turndown}" alt="turndown"><div class="overlay-txt" style="left:84%;top:74%;">SEE 3/S1.0</div><div class="overlay-txt" style="left:2%;top:95%;font-weight:700;">BOTTOM OF FOOTING MIN. ${P.soil.frost}" BELOW FINISH GRADE</div></div>`;
+  const slab = !has("slab") ? `<div style="color:#999;text-align:center;font-size:11pt;">Slab-on-grade section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.slab}" alt="slab"><div class="overlay-txt" style="left:64%;top:21%;background:#fff;">10 MIL VAPOR RETARDER (STEGO WRAP OR EQUAL),</div><div class="overlay-txt" style="left:64%;top:28%;background:#fff;">LAPPED 6" & TAPED, AT INTERIOR CONDITIONS</div></div>`;
+  const seq = `<div class="seq" style="left:0;top:20.15in;width:31.5in;height:1.05in;">
+    <div class="step"><b><span class="n">1</span>Permits, utilities, layout</b>Secure all permits and approvals first. Call 811 and locate existing utilities before any digging. Set 0,0 corner and orientation from the site plan. Strip pad + 2 ft; trench ${evb(F.B,'"')} wide to ${P.soil.frost}" below finish grade on native soil; compact subgrade 90%.</div>
+    <div class="step hold"><b><span class="n">2</span>Underslab plumbing & utilities <span class="hp">HOLD 1</span></b>Rough-in plumbing, sleeves and conduit per Boxabl utility drawings — nothing through the turndown. Pressure-test, cap and brace all stubs. <b>Plumbing rough inspection before backfill.</b></div>
+    <div class="step"><b><span class="n">3</span>Base & vapor retarder</b>${P.slab.gravel}" clean 1/2"+ gravel under slab only (not in trench). 10 mil vapor retarder over gravel, lapped 6", taped, sealed at every pipe and sleeve. Repair punctures.</div>
+    <div class="step hold"><b><span class="n">4</span>Rebar, cover & plates <span class="hp">HOLD 2</span></b>${ENG()?`(${F.nL}) ${F.szL} cont. T&B, ${F.szS} stirrups @ ${F.sS}", corner bars`:"Reinforcing per engineered design"}; WWR mid-depth on chairs, hooked into footing. Provide concrete cover: ${evb(F.cover,'"')} in footing on dobies/chairs. Set Boxabl plates per template. <b>Call for inspection before pour.</b></div>
+    <div class="step"><b><span class="n">5</span>Pour monolithic</b>Footing and slab in one placement, no cold joint. f'c ${evb(P.conc.fc," psi")}, 5" slump, Type D/G retarder above 85°F. Protect plumbing stubs and sleeves during placement; do not displace bars or plates. Cylinders + slump each pour.</div>
+    <div class="step hold"><b><span class="n">6</span>Finish, cure, verify <span class="hp">HOLD 3</span></b>Level ±1/4", flat 1/8"/10 ft. Cure 7 days. Verify plate locations, elevations and stub locations. <b>Inspection before unit is set.</b></div>
+    <div class="step"><b><span class="n">7</span>Set unit</b>Not before 7 days / specified f'c. Boxabl connection to plates per Boxabl manual (deferred submittal). Grade 5% away for 10 ft. Final inspection.</div>
+  </div>`;
+  const take = ENG() ? `<div class="block takeoff" style="left:1.2in;top:21.3in;width:30.3in;height:0.55in;">
+    <table class="grid"><tr><th>Materials takeoff — PRELIMINARY ESTIMATE, NOT A CONTRACTOR'S ESTIMATE</th><th>Concrete, incl. 10% waste</th><th>${F.szL} continuous + corner bars</th><th>${F.szS} stirrups</th><th>Rebar weight</th><th>W.W.R. (${esc(P.slab.wwr)})</th><th>Vapor retarder</th><th>Gravel, ${P.slab.gravel}"</th></tr>
+      <tr><td>Turndown ${F.B}"×${F.H}" on ${num(T.cl,1)} lf centerline + ${P.slab.t}" slab, ${ft(P.unit.L)} × ${ft(P.unit.B)}</td><td>${num(T.cy,1)} cy (${num(T.cyNet,1)} net)</td><td>${num(T.lfLong+T.lfCorner)} lf</td><td>${T.nStir} ea · ${num(T.lfStir)} lf</td><td>${num(T.lbRebar)} lb</td><td>${num(T.sfWWR)} sf incl. laps</td><td>${num(T.sfVapor)} sf</td><td>${num(T.cyGravel,1)} cy</td></tr></table>
+  </div>` : `<div class="block takeoff" style="left:1.2in;top:21.3in;width:30.3in;height:0.55in;"><table class="grid"><tr><th>Materials takeoff — PRELIMINARY ESTIMATE, NOT A CONTRACTOR'S ESTIMATE</th></tr><tr><td>Generated from the engineered design values in the controlled project file (turndown and slab volumes, bar lengths incl. laps and corner bars, stirrup count, W.W.R., vapor retarder and gravel). Not available in the published template.</td></tr></table></div>`;
+  const disclaim = `<div class="disclaim" style="left:1.2in;top:21.9in;width:30.3in;height:0.45in;"><b>Sequence &amp; quantities are for orientation only.</b> The build sequence and materials takeoff above are preliminary, are not a contractor's estimate or a construction procedure, and do not relieve the contractor of any responsibility. Means, methods, sequencing, scheduling, quantities, ordering and cost are solely the contractor's responsibility; the engineer assumes no liability for them. Inspection hold points are in addition to any required by the building official.</div>`;
+  const inner = stub + disclaim
+    + slot("d1", 8.7, 1.15, 13.7, 18.85, 1, "Foundation plan", "N.T.S. · DIMENSIONS GOVERN", plan)
+    + slot("d2", 0, 1.15, 8.5, 8.6, 2, "Turned-down footing at perimeter wall", "N.T.S.", td)
+    + slot("d3", 0, 9.95, 8.5, 4.4, 3, "Slab-on-grade", "N.T.S.", slab)
+    + slot("d4", 0, 14.55, 8.5, 5.45, 4, "Footing corner reinforcing (plan)", "N.T.S.", cornerDetail(P))
+    + slot("d5", 22.6, 1.15, 8.9, 9.5, 5, "Boxabl stainless steel plates", "N.T.S. · LOCATE PER BOXABL", has("plates")?`<div class="imgwrap tall"><img src="${IMG.plates}" alt="plates"></div>`:`<div style="color:#999;text-align:center;font-size:11pt;">Manufacturer plate detail<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>`)
+    + slot("d6", 22.6, 10.85, 8.9, 9.15, 6, "Rebar development, laps & hooks", "N.T.S.", has("rebar")?`<div class="imgwrap tall"><img src="${IMG.rebar}" alt="rebar"></div>`:`<div style="color:#999;text-align:center;font-size:11pt;">Rebar development, lap &amp; hook schedule<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>`)
+    + seq + take;
+  return chrome(P,"S1.0",P.sheets[1][1],inner);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RENDER LOOP + JSON
+   ═══════════════════════════════════════════════════════════════════ */
+const $=id=>document.getElementById(id);
+function capVal(pre,cus){ const p=$(pre).value; return p==="custom" ? ($(cus).value||"") : p; }
+function gather(){
+  PROJECT.info=$("p_info").value;
+  PROJECT.flood={ zone:$("p_floodZone").value.trim()||"—", panel:$("p_floodPanel").value.trim(), date:$("p_floodDate").value.trim() };
+  PROJECT.fire={ fhsz:$("p_fhsz").value, sprinklers:$("p_spr").value };
+  PROJECT.hcd={ bin:$("p_bin").value.trim(), insignia:$("p_insignia").value.trim() }; PROJECT.capA=capVal("p_capApre","p_capA"); PROJECT.capB=capVal("p_capBpre","p_capB");
+  PROJECT.projNo=$("p_projNo").value; PROJECT.client=$("p_client").value; PROJECT.address=$("p_address").value; PROJECT.jurisdiction=$("p_juris").value;
+  PROJECT.date=$("p_date").value; PROJECT.rev=$("p_rev").value; PROJECT.status=$("p_status").value; PROJECT.eor=$("p_eor").value; PROJECT.calcRef=$("p_calcRef").value;
+}
+function fill(){ $("p_info").value=PROJECT.info||""; $("p_floodZone").value=PROJECT.flood.zone; $("p_floodPanel").value=PROJECT.flood.panel; $("p_floodDate").value=PROJECT.flood.date; $("p_fhsz").value=PROJECT.fire.fhsz; $("p_spr").value=PROJECT.fire.sprinklers; $("p_bin").value=PROJECT.hcd.bin; $("p_insignia").value=PROJECT.hcd.insignia; $("p_projNo").value=PROJECT.projNo; $("p_client").value=PROJECT.client; $("p_address").value=PROJECT.address; $("p_juris").value=PROJECT.jurisdiction||""; $("p_date").value=PROJECT.date||new Date().toISOString().slice(0,10); $("p_rev").value=PROJECT.rev; $("p_status").value=PROJECT.status; $("p_eor").value=PROJECT.eor; $("p_calcRef").value=PROJECT.calcRef; }
+function render(){ gather(); const mb=$("modeBanner"); mb.style.background=ENG()?"#e8f5ea":"#fff4e5"; mb.style.color=ENG()?"#1e7a3b":"#b85c00"; mb.textContent=ENG()?"CONTROLLED PROJECT LOADED — engineered values and details shown":"PUBLISHED-SAFE MODE — controlled values print as “per engineered design”"; $("stage").innerHTML = (inSFHA(PROJECT)?`<div style="background:#c0392b;color:#fff;padding:8px 14px;font-weight:700;margin-bottom:12px;">Flood zone ${esc(PROJECT.flood.zone)} is a Special Flood Hazard Area — this slab-on-grade design does not apply. Foundation must be re-designed above BFE.</div>`:"") + sheetS0(PROJECT) + sheetS1(PROJECT); imgPanel(); }
+function imgPanel(){
+  $("imgList").innerHTML = Object.keys(IMG_LABELS).map(k=>`<div class="img-row">${has(k)?`<img src="${IMG[k]}">`:`<div style="width:34px;height:34px;border:1px dashed #bbb;"></div>`}<div class="nm">${IMG_LABELS[k]}</div><button onclick="pickImg('${k}')">Replace</button>${(k==="aerial"||k==="parcel"||k==="render")&&has(k)?`<button onclick="clearImg('${k}')">×</button>`:""}</div>`).join("");
+}
+function pickImg(k){ const inp=document.createElement("input"); inp.type="file"; inp.accept="image/*"; inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ IMG[k]=rd.result; render(); }; rd.readAsDataURL(f); }; inp.click(); }
+function clearImg(k){ IMG[k]=""; render(); }
+function exportJSON(){ gather(); const images={}; Object.keys(IMG).forEach(k=>{ if(has(k)) images[k]=IMG[k]; }); const blob=new Blob([JSON.stringify({_meta:{framework:"ephemeral-eng",tool:"Foundation Sheet Set",toolVersion:"V1.0",saved:new Date().toISOString(),source:"user"},project:PROJECT,images},null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${PROJECT.projNo.replace(/[^\w-]+/g,"_")}_sheets_project.json`; a.click(); }
+$("p_file").addEventListener("change",e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const st=JSON.parse(rd.result); Object.assign(PROJECT, st.project||st); if(st.images) Object.assign(IMG, st.images); fill(); render(); }catch(err){ alert("Could not parse JSON"); } }; rd.readAsText(f); e.target.value=""; });
+document.querySelectorAll(".panel input,.panel select,.panel textarea").forEach(el=>{ el.addEventListener("input",render); el.addEventListener("change",render); });
+fill(); render();
+</script>
+</body>
+</html>
