@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foundation Sheet Set — ephemeral-eng template V1.1</title>
+<title>Foundation Sheet Set — ephemeral-eng template V1.3</title>
 <!--
 ═══════════════════════════════════════════════════════════════════════════
   ephemeral-eng SHEET-SET TEMPLATE · V1.0 · Oasis Engineering
@@ -67,10 +67,10 @@
   .slot .body{position:absolute;left:0.1in;right:0.1in;top:0.1in;bottom:0.5in;display:flex;align-items:center;justify-content:center;}
   .slot .body img{max-width:100%;max-height:100%;}
   .slot .body svg{max-width:100%;max-height:100%;}
-  .imgwrap{position:relative;display:block;width:100%;max-height:100%;}
-  .imgwrap img{display:block;width:100%;height:auto;}
-  .imgwrap.tall{width:auto;height:100%;}
-  .imgwrap.tall img{width:auto;height:100%;}
+  .imgwrap{position:relative;display:block;width:100%;height:100%;}
+  .imgwrap img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;}
+  .imgwrap.tall{width:100%;height:100%;}
+  .imgwrap.tall img{width:100%;height:100%;object-fit:contain;}
   .callout{position:absolute;transform:translate(-50%,-50%);width:0.55in;height:0.55in;border:0.012in solid var(--rule);border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10pt;font-weight:700;line-height:1;}
   .callout span{font-size:7pt;font-weight:400;border-top:0.008in solid var(--rule);padding-top:0.02in;margin-top:0.02in;}
   .overlay-txt{position:absolute;font-size:8.5pt;background:#fff;padding:0 0.02in;white-space:nowrap;}
@@ -134,25 +134,32 @@
 </head>
 <body>
 <aside class="panel">
-  <h1>Foundation Sheet Set <span style="font-size:10px;color:#888">V1.1</span></h1>
+  <h1>Foundation Sheet Set <span style="font-size:10px;color:#888">V1.3</span></h1>
   <div style="font-size:11px;color:#666;">Edit the common fields here, or load a project JSON. Everything else renders from <code>PROJECT</code>.</div><div id="modeBanner" style="margin-top:6px;padding:6px 8px;border-radius:4px;font-size:11px;font-weight:700;"></div>
+  <label>Code family</label><select id="p_codeFam"><option value="ibc2024">2024 IBC / 2024 IRC</option><option value="ibc2021">2021 IBC / 2021 IRC (with amendments)</option><option value="cbc2025">2025 CBC / 2025 CRC (California)</option><option value="fbc2023">2023 FBC 8th Ed. (Florida)</option><option value="custom">Custom…</option></select>
+  <div id="codeCustom" style="display:none;border:1px dashed #bbb;padding:6px;margin-top:4px;">
+    <input id="p_cbc" placeholder="Building code, e.g. 2021 Texas … (IBC)" style="margin-bottom:4px;"><input id="p_crc" placeholder="Residential code" style="margin-bottom:4px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><input id="p_cB" placeholder="Bldg. abbrev. (IBC)"><input id="p_cR" placeholder="Res. abbrev. (IRC)"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:4px;"><input id="p_casce" placeholder="ASCE/SEI 7-22"><input id="p_caci" placeholder="ACI 318-19"></div>
+    <input id="p_cgreen" placeholder="Green / energy code (optional)" style="margin-top:4px;"><input id="p_cmod" placeholder="Modular program name (optional)" style="margin-top:4px;"><input id="p_cmodref" placeholder="Modular program statute (optional)" style="margin-top:4px;">
+  </div>
   <label>Project no.</label><input id="p_projNo">
   <label>Client</label><input id="p_client">
   <label>Site address</label><input id="p_address">
   <label>Jurisdiction (city / county)</label><input id="p_juris">
   <label>Date</label><input id="p_date" type="date">
   <label>Revision</label><input id="p_rev">
-  <label>Status</label><select id="p_status"><option value="draft">PRELIMINARY — NOT FOR CONSTRUCTION</option><option value="review">RELEASED FOR REVIEW</option><option value="permit">RELEASED FOR PERMIT</option><option value="construction">RELEASED FOR CONSTRUCTION</option></select>
+  <label>Status</label><select id="p_status"><option value="draft">PRELIMINARY — NOT FOR CONSTRUCTION</option><option value="sample">SAMPLE — NOT FOR CONSTRUCTION</option><option value="review">RELEASED FOR REVIEW</option><option value="permit">RELEASED FOR PERMIT</option><option value="construction">RELEASED FOR CONSTRUCTION</option></select>
   <label>Engineer of record</label><input id="p_eor">
   <label>Calc reference</label><input id="p_calcRef">
   <label style="margin-top:12px;border-top:1px solid #ddd;padding-top:8px;">Flood zone (FEMA FIRM)</label>
   <div style="display:grid;grid-template-columns:1fr 2fr;gap:4px;"><input id="p_floodZone" placeholder="X"><input id="p_floodPanel" placeholder="FIRM panel no."></div>
   <input id="p_floodDate" placeholder="FIRM effective date" style="margin-top:4px;">
-  <label>Fire Hazard Severity Zone</label>
-  <select id="p_fhsz"><option value="verify">To be verified — CAL FIRE FHSZ viewer</option><option value="none">Not in a Fire Hazard Severity Zone</option><option value="moderate">Moderate FHSZ (LRA)</option><option value="high">High FHSZ (LRA)</option><option value="vhigh">Very High FHSZ (LRA)</option><option value="sra">State Responsibility Area (SRA)</option></select>
+  <label id="lblFire">Wildfire hazard</label>
+  <select id="p_fhsz"></select>
   <label>Fire sprinklers</label>
-  <select id="p_spr"><option value="verify">Per AHJ and HCD-approved unit plans — verify</option><option value="required">Required — new dwelling, CRC R313</option><option value="adu">Not required — ADU exception (Gov. Code §66323)</option></select>
-  <label>HCD unit serial (BIN) · insignia no. <span style="font-weight:400;color:#888">(leave blank to print "to be provided")</span></label>
+  <select id="p_spr"></select>
+  <label>Unit serial no. · state insignia / label no. <span style="font-weight:400;color:#888">(leave blank to print "to be provided")</span></label>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;"><input id="p_bin" placeholder="BIN"><input id="p_insignia" placeholder="Insignia no."></div>
   <label>Project information (printed under "How to read this set" — parcel, APN, zoning, misc.)</label><textarea id="p_info" placeholder="APN 0000-000-00 · Zoning R-1 · Lot 7,500 sf&#10;Notes..."></textarea>
   <label style="margin-top:12px;border-top:1px solid #ddd;padding-top:8px;">Images — click Replace to upload (saved into the project JSON)</label>
@@ -184,12 +191,13 @@ const PROJECT = {
   fire:{ fhsz:"verify", sprinklers:"verify" },
   hcd:{ bin:"", insignia:"" },
   unit:{ model:"Boxabl 2 Door Casita — BXB-000009", L:19, B:19, h:10.75, esr:"ICC-ES ESR-4725", area:361 },
-  codes:"2025 California Building Code (CBC) · 2025 California Residential Code (CRC) · ASCE/SEI 7-22 · ACI 318-19 · 2025 CALGreen",
+  code:{ family:"ibc2024", custom:{ bc:"", rc:"", B:"IBC", R:"IRC", asce:"ASCE/SEI 7-22", aci:"ACI 318-19", green:"", modular:"", modularRef:"" } },
+  get codes(){ return CODE().text; },
   loads:{ roofDL:16, roofLL:20, floorDL:20, floorLL:40, wallDL:6 },
   wind:{ V:100, exp:"C", risk:"II", Kd:0.85, G:0.85, GCpi:0.18, hm:10.5, Kzt:1.0, Ke:1.0, enclosure:"Enclosed" },
   snow:{ pg:10, pf:8.4, pm:10, Ce:1.0, Ct:1.2, Is:1.0 },
   seismic:{ Ss:1.94, S1:0.63, SMS:2.09, SM1:1.50, SDS:1.39, SD1:1.00, TL:8, siteClass:"Default (§11.4.2.1)", SDC:"D", R:6.5, Om:3.0, Cd:4.0, Ie:1.0, rho:1.0, Cs:0.214, system:"Bearing wall — Boxabl SIP shear walls per ESR-4725" },
-  soil:{ qall:2000, mu:0.25, basis:"Presumptive, CBC 2025 Table 1806.2 (sand, silty sand, clayey sand)", frost:12 },
+  soil:{ qall:2000, mu:0.25, basis:"Presumptive values, building-code Table 1806.2 (sand, silty sand, clayey sand)", frost:12 },
   conc:{ fc:null, fy:60000, cement:"ASTM C150 Type II (Type V where sulfate soils are identified)", slump:5, agg:1 },
   footing:{ B:null, H:null, above:8, nL:null, szL:"#_", szS:"#_", sS:null, cover:null, lap:null },
   slab:{ t:null, wwr:"W.W.R. per engineered design", gravel:6, vapor:"10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A)" },
@@ -199,8 +207,8 @@ const PROJECT = {
 /* ═══════════════════════════════════════════════════════════════════
    DETAIL LIBRARY — images injected by build script (base64)
    ═══════════════════════════════════════════════════════════════════ */
-const IMG = { logo:"__LOGO__", render:"__RENDER__", qr:"__QR__", aerial:"__AERIAL__", parcel:"__PARCEL__", plan:"__PLAN__", turndown:"__TURNDOWN__", slab:"__SLAB__", plates:"__PLATES__", rebar:"__REBAR__" };
-const IMG_LABELS = { logo:"Logo (title block)", render:"S0.0 unit image (Boxabl)", qr:"S0.0 QR code", aerial:"S0.0 site image A", parcel:"S0.0 site image B", plan:"S1.0 · 1 Foundation plan", turndown:"S1.0 · 2 Turndown section", slab:"S1.0 · 3 Slab-on-grade", plates:"S1.0 · 5 Boxabl plates", rebar:"S1.0 · 6 Rebar development" };
+const IMG = { logo:"__LOGO__", render:"__RENDER__", qr:"__QR__", aerial:"__AERIAL__", parcel:"__PARCEL__", plan:"__PLAN__", turndown:"__TURNDOWN__", slab:"__SLAB__", plates:"__PLATES__", rebar:"__REBAR__", corner:"__CORNER__" };
+const IMG_LABELS = { logo:"Logo (title block)", render:"S0.0 unit image (Boxabl)", qr:"S0.0 QR code", aerial:"S0.0 site image A", parcel:"S0.0 site image B", plan:"S1.0 · 1 Foundation plan", turndown:"S1.0 · 2 Turndown section", slab:"S1.0 · 3 Slab-on-grade", plates:"S1.0 · 5 Boxabl plates", rebar:"S1.0 · 6 Rebar development", corner:"S1.0 · 4 Footing corner (replaces drawn detail)" };
 const has = k => typeof IMG[k]==="string" && IMG[k].startsWith("data:");
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -209,14 +217,14 @@ const has = k => typeof IMG[k]==="string" && IMG[k].startsWith("data:");
    ═══════════════════════════════════════════════════════════════════ */
 const NOTES_FN = () => [
  {h:"General", items:[
-  "The governing code for this project is the 2025 California Building Code (2024 IBC) with the 2025 California Residential Code, ASCE/SEI 7-22, ACI 318-19 and 2025 CALGreen. The governing code prescribes which edition of each referenced standard applies.",
+  `The governing code for this project is the ${CODE().bc} with the ${CODE().rc}, ${CODE().asce} and ${CODE().aci}${CODE().green?" and the "+CODE().green:""}. The governing code prescribes which edition of each referenced standard applies.`,
   "To the best of our knowledge these structural drawings and notes comply with the applicable requirements of the governing code. Construction shall comply with the governing code and all applicable federal, state and local codes, standards, regulations and laws.",
   "These foundation drawings shall be used together with the Boxabl installation manual, the Boxabl structural plans for the unit and ICC-ES ESR-4725. The foundation is designed for the unit reactions stated in the design criteria; the unit, its connections, hold-downs and anchorage hardware are by Boxabl and are a deferred submittal. Where a conflict exists, notify the engineer before proceeding; the more stringent requirement governs.",
   "Details labeled \"TYP\" apply to all conditions that are the same or similar to those referenced, whether or not keyed at each location.",
   "Do not scale drawings; use printed dimensions only. Verify all dimensions and conditions in the field and report discrepancies in writing to the engineer before proceeding. Do not change the size, location or reinforcing of any foundation element without written instruction from the engineer of record.",
   "The contractor is solely responsible for construction means and methods, sequencing, scheduling, quantities and cost, jobsite safety including all OSHA requirements, temporary bracing and shoring, and protection of adjacent property, the work and the public. The build sequence and materials takeoff shown on S1.0 are provided for orientation only, are preliminary, and are not a contractor's estimate or a construction procedure; the engineer assumes no responsibility or liability for materials, quantities, sequencing, or means and methods of construction.",
-  "Before excavating, call 811 (Underground Service Alert / DigAlert) at least two working days in advance. The contractor is responsible for locating, protecting and repairing all utilities.",
-  "Foundation location, orientation, setbacks and finished-floor elevation are per the site plan by others, which is not part of this sealed set. Set the 0,0 layout corner and the orientation of the foundation from the site plan before layout; confirm the finished floor is a minimum of 8 in above finish grade and that grade slopes away from the foundation 5% for 10 ft (2% on impervious surfaces) per CRC R401.3 / CBC 1804.4.",
+  `Before excavating, ${CODE().locate} at least two working days in advance. The contractor is responsible for locating, protecting and repairing all utilities.`,
+  `Foundation location, orientation, setbacks and finished-floor elevation are per the site plan by others, which is not part of this sealed set. Set the 0,0 layout corner and the orientation of the foundation from the site plan before layout; confirm the finished floor is a minimum of 8 in above finish grade and that grade slopes away from the foundation 5% for 10 ft (2% on impervious surfaces) per ${CODE().R} R401.3 / ${CODE().B} §1804.4.`,
  ]},
  {h:"Coordination with Boxabl", items:[
   "Verify the actual unit outside dimensions, wall-panel locations, stainless-steel plate locations and spacing, utility and plumbing penetration locations, and anchorage requirements against the Boxabl installation drawings for the unit's serial number before forming. Dimensions on these drawings are nominal from the Boxabl BXB-000009 data.",
@@ -225,22 +233,22 @@ const NOTES_FN = () => [
   "Underslab plumbing, electrical sleeves and conduit shall be located per the Boxabl utility drawings and coordinated with the plumbing/electrical contractor before the vapor retarder is placed. Penetrations through the turned-down footing are not permitted; sleeve through the slab only.",
  ]},
  {h:"Foundation Design Basis", items:[
-  "Allowable soil bearing 2,000 psf and coefficient of friction 0.25 are presumptive values per CBC 2025 Table 1806.2 for sand, silty sand and clayey sand, based on visual classification. If a geotechnical investigation is required by the building official (CBC §1803.5.11, Seismic Design Category D) or is otherwise provided, its recommendations supersede these values; notify the engineer of any difference.",
+  `Allowable soil bearing ${num(PROJECT.soil.qall)} psf and coefficient of friction ${PROJECT.soil.mu} are presumptive values per ${CODE().B} Table 1806.2 for sand, silty sand and clayey sand, based on visual classification. If a geotechnical investigation is required by the building official (${CODE().B} §1803) or is otherwise provided, its recommendations supersede these values; notify the engineer of any difference.`,
   "Should fill, expansive or collapsible soil, organics, debris, groundwater, rock or any condition other than firm native sand be encountered at the bearing elevation, stop work and notify the engineer before proceeding. The engineer will supply written direction; a letter attesting that site conditions match the design basis may be required by the building official.",
-  "Frost depth: 12 in. Bottom of all footings shall bear a minimum of 12 in below finish grade on undisturbed native soil (CBC §1809.4, §1809.5).",
+  `Frost depth: ${PROJECT.soil.frost} in. Bottom of all footings shall bear a minimum of ${Math.max(PROJECT.soil.frost,12)} in below finish grade on undisturbed native soil (${CODE().B} §1809.4, §1809.5).`,
   "Center the turned-down footing under the wall line as detailed. The wall panel bears on the outer edge of the footing; the eccentricity shown in detail 2/S1.0 is part of the design — do not shift the wall line inward on the footing.",
  ]},
  {h:"Excavation, Subgrade & Base", items:[
   "Strip vegetation, topsoil, organics and debris from the building pad plus 2 ft beyond. Excavate the footing trench to undisturbed native soil; trench sides may serve as forms where the soil stands neat and true — otherwise form both faces. Remove loose material from the bottom of the trench before placing reinforcing.",
   "Scarify the top 8 in of subgrade under the slab and compact to 90% of maximum dry density per ASTM D1557. Where fill is required under the slab, use clean granular material with not more than 10% passing the #200 sieve and 1 in maximum size, placed in lifts not exceeding 6 in loose and compacted to 95% per ASTM D1557; one field density test (ASTM D1556 or D6938) per lift per 2,500 sf, minimum one.",
-  "Capillary break: 6 in of 1/2 in or larger clean, dry, washed aggregate under the slab (CALGreen §4.505.2.1 requires 4 in minimum), leveled and lightly compacted. Do not place aggregate in the footing trench.",
-  "Vapor retarder: 10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A) placed over the aggregate directly beneath the slab; lap joints 6 in minimum and tape; seal all penetrations, pipes and the perimeter with manufacturer's tape or mastic (CRC R506.2.3). Repair punctures before placing concrete.",
+  `Capillary break: ${PROJECT.slab.gravel} in of 1/2 in or larger clean, dry, washed aggregate under the slab (${CA()?"CALGreen §4.505.2.1":CODE().R+" R506.2.2"} requires 4 in minimum), leveled and lightly compacted. Do not place aggregate in the footing trench.`,
+  `Vapor retarder: 10 mil polyethylene (Stego Wrap or equal, ASTM E1745 Class A) placed over the aggregate directly beneath the slab; lap joints 6 in minimum and tape; seal all penetrations, pipes and the perimeter with manufacturer's tape or mastic (${CODE().R} R506.2.3). Repair punctures before placing concrete.`,
   "Keep the excavation free of water. Do not place concrete on frozen, saturated, muddy or disturbed soil, and do not excavate within 1 ft of the angle of repose of any adjacent footing or slope.",
  ]},
  {h:"Reinforced Concrete", items:[
-  `Provide structural concrete and concreting practices complying with ACI 301 and ACI 318-19. Minimum specified compressive strength f'c = ${ev(PROJECT.conc.fc," psi")} at 28 days for footings and slab; normal-weight; maximum 1 in coarse aggregate (ASTM C33, size 57); maximum slump 5 in before admixtures; maximum water–cement ratio 0.50. Cement ASTM C150 Type II; use Type V where sulfate-bearing soils are identified. No calcium chloride. Submit the mix design for review before the pour.`,
+  `Provide structural concrete and concreting practices complying with ACI 301 and ${CODE().aci}. Minimum specified compressive strength f'c = ${ev(PROJECT.conc.fc," psi")} at 28 days for footings and slab; normal-weight; maximum 1 in coarse aggregate (ASTM C33, size 57); maximum slump 5 in before admixtures; maximum water–cement ratio 0.50. Cement ASTM C150 Type II; use Type V where sulfate-bearing soils are identified. No calcium chloride. Submit the mix design for review before the pour.`,
   "Hot-weather concreting per ACI 305R when the ambient temperature exceeds 85°F: use a Type D or G retarding admixture, keep the subgrade and forms damp, and place, finish and start curing without delay. Cold-weather concreting per ACI 306R below 40°F.",
-  "Cast the turned-down footing and the slab monolithically in one continuous placement. No cold joint is permitted between the footing and the slab. Construction joints, if unavoidable, shall be located and detailed with the engineer's approval per ACI 318-19 §26.5.6 with keyways and dowels.",
+  `Cast the turned-down footing and the slab monolithically in one continuous placement. No cold joint is permitted between the footing and the slab. Construction joints, if unavoidable, shall be located and detailed with the engineer's approval per ${CODE().aci} §26.5.6 with keyways and dowels.`,
   `Reinforcing steel: ASTM A615 Grade 60 deformed bars; welded wire reinforcement ASTM A1064, supplied in flat sheets only. Place accurately, support on chairs or precast blocks and tie firmly per ACI 315 and the CRSI Manual of Standard Practice. Clear cover: footings ${ev(PROJECT.footing.cover," in")} all faces (cast against earth); slab W.W.R. at mid-depth on chairs.`,
   `Lap continuous bars ${ev(PROJECT.footing.lap," in")} minimum (Class B — see schedule 6/S1.0); stagger laps 4 ft; lap W.W.R. two mesh spacings. At corners provide bent corner bars in each face of the footing per detail 4/S1.0. Hook discontinuous ends with standard 90° hooks. Terminate the slab W.W.R. into the footing with a standard 90° hook.`,
   "Conduit and pipes up to 1 in diameter may be embedded in the slab where reinforcing congestion permits, spaced 3 diameters on center and placed at mid-depth between reinforcing; nothing shall be embedded in or pass through the turned-down footing. Sleeve all pipes passing through the slab.",
@@ -248,17 +256,23 @@ const NOTES_FN = () => [
   "Provide 3/4 in chamfer at all exposed corners. Cure by wet cover or liquid membrane curing compound (ASTM C309) for 7 days minimum; keep the slab free of construction loads for 7 days. Provide the reinforcing placer with a set of these drawings for field reference.",
  ]},
  {h:"Site Hazards, Fire & Unit Certification", items:[
-  `Flood: the site is shown in FEMA flood zone ${esc(PROJECT.flood.zone)} on FIRM panel ${esc(PROJECT.flood.panel||"____")}${PROJECT.flood.date?" effective "+esc(PROJECT.flood.date):""}. This slab-on-grade foundation is designed for a site outside the Special Flood Hazard Area (Zone X). If the parcel is in Zones A, AE, AH, AO or V, this design is not applicable — the lowest floor must be elevated above the base flood elevation per CBC §1612 / CRC R322 and the engineer shall be notified. Owner/contractor to verify the zone with the FEMA Flood Map Service Center and the local floodplain administrator before permit application.`,
-  `Fire Hazard Severity Zone: ${esc(FHSZ_TXT[PROJECT.fire.fhsz]||"")}. Where the site lies in a State Responsibility Area or a Very High or High Fire Hazard Severity Zone as designated by the AHJ, the exterior of the unit shall comply with CBC Chapter 7A / CRC R337 (ignition-resistant construction, vents, exterior openings) — this is part of the manufacturer's HCD-approved unit design, not of this foundation; and defensible space shall be maintained per PRC §4291 / Gov. Code §51182 by the owner. Slab-on-grade construction has no underfloor area or crawlspace vents.`,
-  `Fire sprinklers: ${esc(SPR_TXT[PROJECT.fire.sprinklers]||"")}. Any underground fire-service line, backflow device and water supply are by others and are not shown.`,
-  "Fire separation distance, exterior wall protection near property lines (CRC R302.1), fire apparatus access, water supply for fire flow (CFC Ch. 5 / San Bernardino County Fire) and visible address numbers (CRC R319) are site-plan items by others; confirm with the fire authority before permit issuance.",
-  `Unit certification: the Boxabl unit is delivered as California Factory-Built Housing under Health and Safety Code Div. 13 Part 6 (§19960 et seq.) and Title 25 CCR Div. 1 Ch. 3 Subch. 1 and shall bear an HCD Insignia of Approval affixed before shipment (H&SC §19980). The unit itself is inspected and approved by HCD-certified third-party agencies; the local building department permits and inspects this foundation, the site work, the utility connections and the installation. The owner/contractor is responsible for obtaining from Boxabl, verifying against the delivered unit, and submitting to the building department: (a) the HCD/DAA-approved, state-stamped unit plans, (b) the unit serial number (BIN)${PROJECT.hcd.bin?" — "+esc(PROJECT.hcd.bin):" — to be provided by Boxabl"}, and (c) the HCD insignia number${PROJECT.hcd.insignia?" — "+esc(PROJECT.hcd.insignia):" — to be provided by Boxabl"}, matching the insignia on the unit. Units not bearing an HCD insignia shall not be installed. Alterations to the unit after manufacture require HCD approval before installation and building-department approval after.`,
+  `Flood: the site is shown in FEMA flood zone ${esc(PROJECT.flood.zone)} on FIRM panel ${esc(PROJECT.flood.panel||"____")}${PROJECT.flood.date?" effective "+esc(PROJECT.flood.date):""}. This slab-on-grade foundation is designed for a site outside the Special Flood Hazard Area (Zone X). If the parcel is in Zones A, AE, AH, AO or V, this design is not applicable — the lowest floor must be elevated above the base flood elevation per ${CODE().B} §1612 / ${CODE().R} R322 and the engineer shall be notified. Owner/contractor to verify the zone with the FEMA Flood Map Service Center and the local floodplain administrator before permit application.`,
+  !CA()
+    ? `Wildfire: ${esc(fireTxt(PROJECT))}. Where the authority having jurisdiction has adopted the International Wildland-Urban Interface Code or a local wildland-fire ordinance, ignition-resistant exterior requirements apply to the unit — part of the manufacturer's state-approved unit design, not of this foundation — and defensible-space and access requirements apply to the owner. Slab-on-grade construction has no underfloor area or crawlspace vents.`
+    : PROJECT.fire.fhsz==="fra"
+    ? `Fire hazard: the parcel is mapped by CAL FIRE as a Federal Responsibility Area, which carries no Fire Hazard Severity Zone designation; CBC Chapter 7A / CRC R337 is therefore not triggered by zone designation. The local fire protection agency is San Bernardino County Fire, whose access, water-supply and addressing requirements apply. Wildland-fire mitigation, defensible space and any requirement of the federal land-management agency or County Fire for this parcel are site items by others and are not part of this foundation set. Slab-on-grade construction has no underfloor area or crawlspace vents.`
+    : `Fire Hazard Severity Zone: ${esc(fireTxt(PROJECT))}. Where the site lies in a State Responsibility Area or a Very High or High Fire Hazard Severity Zone as designated by the AHJ, the exterior of the unit shall comply with CBC Chapter 7A / CRC R337 (ignition-resistant construction, vents, exterior openings) — this is part of the manufacturer's HCD-approved unit design, not of this foundation; and defensible space shall be maintained per PRC §4291 / Gov. Code §51182 by the owner. Slab-on-grade construction has no underfloor area or crawlspace vents.`,
+  `Fire sprinklers: ${esc(sprTxt(PROJECT))}. Any underground fire-service line, backflow device and water supply are by others and are not shown.`,
+  `Fire separation distance, exterior wall protection near property lines (${CODE().R} R302.1), fire apparatus access, water supply for fire flow (fire code Ch. 5 / local fire authority) and visible address numbers (${CODE().R} R319) are site-plan items by others; confirm with the fire authority before permit issuance.`,
+  CA()
+    ? `Unit certification: the Boxabl unit is delivered as California Factory-Built Housing under Health and Safety Code Div. 13 Part 6 (§19960 et seq.) and Title 25 CCR Div. 1 Ch. 3 Subch. 1 and shall bear an HCD Insignia of Approval affixed before shipment (H&SC §19980). The unit itself is inspected and approved by HCD-certified third-party agencies; the local building department permits and inspects this foundation, the site work, the utility connections and the installation. The owner/contractor is responsible for obtaining from Boxabl, verifying against the delivered unit, and submitting to the building department: (a) the HCD/DAA-approved, state-stamped unit plans, (b) the unit serial number (BIN)${PROJECT.hcd.bin?" — "+esc(PROJECT.hcd.bin):" — to be provided by Boxabl"}, and (c) the HCD insignia number${PROJECT.hcd.insignia?" — "+esc(PROJECT.hcd.insignia):" — to be provided by Boxabl"}, matching the insignia on the unit. Units not bearing an HCD insignia shall not be installed. Alterations to the unit after manufacture require HCD approval before installation and building-department approval after.`
+    : `Unit certification: the Boxabl unit is delivered as a factory-built (modular) unit approved under ${CODE().modular} (${CODE().modularRef}) and shall bear the program's insignia or label affixed at the factory. The unit itself is inspected and approved under that program; the local building department permits and inspects this foundation, the site work, the utility connections and the installation. The owner/contractor is responsible for obtaining from Boxabl, verifying against the delivered unit, and submitting to the building department: (a) the program-approved unit plans, (b) the unit serial number${PROJECT.hcd.bin?" — "+esc(PROJECT.hcd.bin):" — to be provided by Boxabl"}, and (c) the insignia/label number${PROJECT.hcd.insignia?" — "+esc(PROJECT.hcd.insignia):" — to be provided by Boxabl"}, matching the label on the unit. Units not bearing the program insignia shall not be installed. Alterations to the unit after manufacture require program approval before installation and building-department approval after.`
  ]},
  {h:"Inspection & Submittals", items:[
   "Building-department inspections (hold points — do not proceed without approval): (1) footing excavation, forms, reinforcing, vapor retarder and Boxabl plates in place before concrete; (2) slab finish, plate locations and elevations after the pour and before the unit is set; (3) final.",
-  ((PROJECT.conc.fc||0) <= 2500 || !PROJECT.engineered ? "Special inspection of concrete is not required for continuous footings supporting light-frame walls designed with f'c ≤ 2,500 psi (CBC 2025 §1705.3 Exception 2) or for the nonstructural slab on ground (Exception 3), subject to concurrence of the building official." : "Special inspection of concrete is required per CBC 2025 §1705.3 and Table 1705.3 for the footings (design f'c above 2,500 psi); the slab on ground is exempt (Exception 3).") + " Periodic special inspection of the manufacturer's SIP shear-wall fastening and anchorage in Seismic Design Category D is required by ICC-ES ESR-4725 and is arranged by the owner with the manufacturer.",
+  ((PROJECT.conc.fc||0) <= 2500 || !PROJECT.engineered ? `Special inspection of concrete is not required for continuous footings supporting light-frame walls designed with f'c ≤ 2,500 psi (${CODE().B} §1705.3 Exception 2) or for the nonstructural slab on ground (Exception 3), subject to concurrence of the building official.` : `Special inspection of concrete is required per ${CODE().B} §1705.3 and Table 1705.3 for the footings (design f'c above 2,500 psi); the slab on ground is exempt (Exception 3).`) + " Periodic special inspection of the manufacturer's SIP shear-wall fastening and anchorage in Seismic Design Category D is required by ICC-ES ESR-4725 and is arranged by the owner with the manufacturer.",
   "Deferred submittal: Boxabl unit structural plans, unit-to-foundation connection and plate anchorage (ICC-ES ESR-4725 and the Boxabl approved plans), to be submitted to the building official before the unit is set.",
-  "Structural calculations: " + PROJECT.calcRef + ", Oasis Engineering, on file with this submittal. Termite protection per CRC R318 where required by the building official.",
+  "Structural calculations: " + PROJECT.calcRef + ", Oasis Engineering, on file with this submittal. Termite protection per " + CODE().R + " R318 where required by the building official.",
  ]},
 ];
 
@@ -268,18 +282,39 @@ const NOTES_FN = () => [
 const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const num = (x,dp=0)=> Number.isFinite(x)? x.toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp}) : "—";
 const ft = x => `${Math.floor(x)}'-${Math.round((x-Math.floor(x))*12)}"`;
-const STATUS = { draft:"PRELIMINARY — NOT FOR CONSTRUCTION", review:"RELEASED FOR REVIEW", permit:"RELEASED FOR PERMIT", construction:"RELEASED FOR CONSTRUCTION" };
+const STATUS = { sample:"SAMPLE — FOR ILLUSTRATION ONLY — NOT FOR CONSTRUCTION", draft:"PRELIMINARY — NOT FOR CONSTRUCTION", review:"RELEASED FOR REVIEW", permit:"RELEASED FOR PERMIT", construction:"RELEASED FOR CONSTRUCTION" };
 
 /* ── controlled-value gate: prints "per engineered design" unless PROJECT.engineered ── */
 const ENG = () => !!PROJECT.engineered;
 const ev = (v, suffix="", dp=0) => ENG() && v!==null && v!==undefined && v!=="" ? (typeof v==="number" ? num(v,dp) : esc(v)) + suffix : "per engineered design";
 const evb = (v, suffix="") => ENG() && v!==null && v!==undefined && v!=="" ? String(v)+suffix : "—";
 
+/* ── code family: every citation, program name and option set derives from this ── */
+const CODE_FAMILIES = {
+  ibc2024:{ label:"2024 IBC / 2024 IRC", bc:"2024 International Building Code (IBC)", rc:"2024 International Residential Code (IRC)", B:"IBC", R:"IRC", asce:"ASCE/SEI 7-22", aci:"ACI 318-19", green:"", state:"", locate:"call 811 (the state one-call utility locating service)", modular:"the state industrialized / modular building program", modularRef:"state law and the program's rules" },
+  ibc2021:{ label:"2021 IBC / 2021 IRC (with amendments)", bc:"2021 International Building Code (IBC), as amended by the state and local jurisdiction", rc:"2021 International Residential Code (IRC), as amended", B:"IBC", R:"IRC", asce:"ASCE/SEI 7-16", aci:"ACI 318-19", green:"", state:"", locate:"call 811 (the state one-call utility locating service)", modular:"the state industrialized / modular building program", modularRef:"state law and the program's rules" },
+  cbc2025:{ label:"2025 CBC / 2025 CRC (California)", bc:"2025 California Building Code (CBC)", rc:"2025 California Residential Code (CRC)", B:"CBC", R:"CRC", asce:"ASCE/SEI 7-22", aci:"ACI 318-19", green:"2025 CALGreen", state:"CA", locate:"call 811 (Underground Service Alert / DigAlert)", modular:"California Factory-Built Housing (HCD)", modularRef:"Health and Safety Code §19960 et seq. and Title 25 CCR Div. 1 Ch. 3 Subch. 1; insignia per H&SC §19980" },
+  fbc2023:{ label:"2023 FBC 8th Ed. (Florida)", bc:"2023 Florida Building Code, Building, 8th Edition", rc:"2023 Florida Building Code, Residential, 8th Edition", B:"FBC-B", R:"FBC-R", asce:"ASCE/SEI 7-22", aci:"ACI 318-19", green:"", state:"FL", locate:"call 811 (Sunshine 811)", modular:"the Florida DBPR Manufactured Buildings Program", modularRef:"Florida Statutes §§553.35–553.42 and Rule 61-41 F.A.C.; insignia per §553.415" },
+  custom:{ label:"Custom", bc:"", rc:"", B:"IBC", R:"IRC", asce:"ASCE/SEI 7-22", aci:"ACI 318-19", green:"", state:"", locate:"call 811 (the state one-call utility locating service)", modular:"the state industrialized / modular building program", modularRef:"state law and the program's rules" }
+};
+function CODE(){ const f=CODE_FAMILIES[PROJECT.code.family]||CODE_FAMILIES.ibc2024; const c=Object.assign({},f); if(PROJECT.code.family==="custom") Object.assign(c, PROJECT.code.custom||{}); c.isCA=c.state==="CA"; c.text=[c.bc,c.rc,c.asce,c.aci,c.green].filter(Boolean).join(" · "); return c; }
+const CA = () => CODE().isCA;
+
 /* ── site hazard text ─────────────────────────────────────────── */
-const FHSZ_TXT = { verify:"To be verified by owner/contractor on the CAL FIRE FHSZ viewer before permit application", none:"Not within a Fire Hazard Severity Zone", moderate:"Moderate Fire Hazard Severity Zone (LRA)", high:"High Fire Hazard Severity Zone (LRA)", vhigh:"Very High Fire Hazard Severity Zone (LRA)", sra:"State Responsibility Area (SRA)" };
-const SPR_TXT = { verify:"Per AHJ and the HCD-approved unit plans — verify", required:"Required — new one-family dwelling, CRC R313.2 (unit system by manufacturer; supply by others)", adu:"Not required — accessory dwelling unit exception, Gov. Code §66323 (verify primary dwelling status)" };
+const FIRE_OPTS = {
+  ca:[["verify","To be verified — CAL FIRE FHSZ viewer"],["none","Not in a Fire Hazard Severity Zone"],["moderate","Moderate FHSZ (LRA)"],["high","High FHSZ (LRA)"],["vhigh","Very High FHSZ (LRA)"],["sra","State Responsibility Area (SRA)"],["fra","Federal Responsibility Area (FRA) — no FHSZ designation"]],
+  us:[["verify","To be verified — AHJ wildland-urban interface map"],["none","Not in a designated wildland-urban interface area"],["wui","Designated WUI area — local WUI code applies"]] };
+const SPR_OPTS = {
+  ca:[["verify","Per AHJ and the HCD-approved unit plans — verify"],["required","Required — new dwelling, CRC R313"],["adu","Not required — ADU exception (Gov. Code §66323)"]],
+  us:[["verify","Per AHJ — verify local adoption of IRC R313"],["required","Required — new dwelling, IRC R313 as adopted"],["notreq","Not required — IRC R313 amended out by the state/AHJ"]] };
+const FHSZ_TXT_US = { verify:"To be verified by owner/contractor against the AHJ's wildland-urban interface map before permit application", none:"Not within a designated wildland-urban interface area", wui:"Designated wildland-urban interface area" };
+const FHSZ_TXT = { verify:"To be verified by owner/contractor on the CAL FIRE FHSZ viewer before permit application", none:"Not within a Fire Hazard Severity Zone", moderate:"Moderate Fire Hazard Severity Zone (LRA)", high:"High Fire Hazard Severity Zone (LRA)", vhigh:"Very High Fire Hazard Severity Zone (LRA)", sra:"State Responsibility Area (SRA)", fra:"Federal Responsibility Area (FRA) — no Fire Hazard Severity Zone designation (CAL FIRE); local fire protection agency San Bernardino County Fire" };
+const SPR_TXT_CA = { verify:"Per AHJ and the HCD-approved unit plans — verify", required:"Required — new one-family dwelling, CRC R313.2 (unit system by manufacturer; supply by others)", adu:"Not required — accessory dwelling unit exception, Gov. Code §66323 (verify primary dwelling status)" };
+const SPR_TXT_US = { verify:"Per AHJ — verify local adoption of IRC R313", required:"Required — new one-family dwelling, IRC R313.2 as adopted (unit system by manufacturer; supply by others)", notreq:"Not required — IRC R313 amended out by the state or AHJ" };
+const fireTxt = P => (CA()?FHSZ_TXT:FHSZ_TXT_US)[P.fire.fhsz]||"";
+const sprTxt = P => (CA()?SPR_TXT_CA:SPR_TXT_US)[P.fire.sprinklers]||"";
 const inSFHA = P => /^(A|V)/i.test((P.flood.zone||"").trim());
-const wui = P => ["high","vhigh","sra"].includes(P.fire.fhsz);
+const wui = P => ["high","vhigh","sra","wui"].includes(P.fire.fhsz);
 
 /* ── materials takeoff, from the same numbers the calc uses ──────── */
 function takeoff(P){
@@ -382,7 +417,7 @@ function chrome(P, sheetNo, sheetName, inner){
   return `<section class="sheet">
     <div class="status-band ${P.status==='construction'?'hidden':''}">${esc(stat)}</div>
     <div class="border"></div>
-    <div class="wm ${P.status==='construction'?'hidden':''}"><span>${P.status==='draft'?'PRELIMINARY':''}</span></div>
+    <div class="wm ${P.status==='construction'?'hidden':''}"><span>${P.status==='draft'?'PRELIMINARY':P.status==='sample'?'SAMPLE':''}</span></div>
     <div class="content">${inner}</div>
     <div class="sq">1 in × 1 in<br>at full size</div>
     ${titleBlock(P, sheetNo, sheetName)}
@@ -395,12 +430,12 @@ const block = (x,y,w,h,inner) => `<div class="block" style="left:${x}in;top:${y}
    S0.0 — COVER · NOTES · CRITERIA
    ═══════════════════════════════════════════════════════════════════ */
 function sheetS0(P){
-  const s=P.seismic, w=P.wind, sn=P.snow;
+  const s=P.seismic, w=P.wind, sn=P.snow, C=CODE();
   const what = `<h2>What you are building</h2>
     ${has("render") ? `
     <div style="height:4.9in;display:flex;align-items:center;justify-content:center;"><img src="${IMG.render}" alt="Boxabl Casita" style="max-width:100%;max-height:100%;"></div>
     <div style="display:flex;gap:0.12in;align-items:center;margin:0.04in 0 0.1in;">
-      ${has("qr")?`<img src="${IMG.qr}" alt="QR" style="width:0.85in;height:0.85in;">`:""}
+      ${has("qr")?`<img src="${IMG.qr}" alt="QR" style="width:1.25in;height:1.25in;">`:""}
       <div style="font-size:8.2pt;line-height:1.3;color:#333;"><b>${esc(P.unit.model)}. Source: Boxabl.</b> Image courtesy of Boxabl; furnishings, decks and finishes shown are not part of this foundation design.${has("qr")?" Scan for unit information.":""}</div>
     </div>` : `<div style="height:5.2in;display:flex;align-items:center;justify-content:center;">${isoBox(P,560,330)}</div>`}
     <table class="kv">
@@ -413,26 +448,26 @@ function sheetS0(P){
       <tr><td>Site plan / setbacks</td><td>By others (not this set)</td></tr>
     </table>`;
   const crit = `<h2>Design criteria${ENG()?"":' <span style="font-size:8pt;font-weight:400;color:var(--accent);text-transform:none;letter-spacing:0;">— example site values shown; replace with the site-specific ASCE 7 Hazard Tool data</span>'}</h2>
-    <h3>Superimposed loads (CBC §1606–1607)</h3>
+    <h3>Superimposed loads (${C.B} §1606–1607)</h3>
     <table class="grid"><tr><th>Element</th><th>Dead</th><th>Live</th></tr>
       <tr><td>Roof</td><td>${P.loads.roofDL} psf</td><td>${P.loads.roofLL} psf (L<sub>r</sub>)</td></tr>
       <tr><td>Floor</td><td>${P.loads.floorDL} psf</td><td>${P.loads.floorLL} psf</td></tr>
       <tr><td>Wall</td><td>${P.loads.wallDL} psf</td><td>—</td></tr></table>
-    <h3>Wind (CBC §1609; ASCE 7-22 Ch. 26–27)</h3>
+    <h3>Wind (${C.B} §1609; ${C.asce} Ch. 26–27)</h3>
     <table class="kv"><tr><td>Basic wind speed, Risk Category ${w.risk}</td><td>V = ${w.V} mph</td></tr>
       <tr><td>Exposure · enclosure</td><td>${w.exp} · ${w.enclosure}</td></tr>
       <tr><td>Mean roof height</td><td>${ft(w.hm)}</td></tr>
       <tr><td>K<sub>d</sub> · K<sub>zt</sub> · K<sub>e</sub> · G · GC<sub>pi</sub></td><td>${w.Kd} · ${w.Kzt} · ${w.Ke} · ${w.G} · ±${w.GCpi}</td></tr></table>
-    <h3>Snow (CBC §1608; ASCE 7-22 Ch. 7)</h3>
+    <h3>Snow (${C.B} §1608; ${C.asce} Ch. 7)</h3>
     <table class="kv"><tr><td>Ground snow load p<sub>g</sub></td><td>${sn.pg} psf</td></tr><tr><td>Flat roof p<sub>f</sub> (C<sub>e</sub> ${sn.Ce}, C<sub>t</sub> ${sn.Ct}, I<sub>s</sub> ${sn.Is}) · minimum p<sub>m</sub></td><td>${sn.pf} · ${sn.pm} psf</td></tr></table>
-    <h3>Seismic (CBC §1613; ASCE 7-22 Ch. 11–12)</h3>
+    <h3>Seismic (${C.B} §1613; ${C.asce} Ch. 11–12)</h3>
     <table class="kv"><tr><td>Site class</td><td>${esc(s.siteClass)}</td></tr>
       <tr><td>S<sub>S</sub> · S<sub>1</sub></td><td>${s.Ss.toFixed(3)} · ${s.S1.toFixed(3)} g</td></tr>
       <tr><td>S<sub>DS</sub> · S<sub>D1</sub> · T<sub>L</sub></td><td>${s.SDS.toFixed(2)} · ${s.SD1.toFixed(2)} g · ${s.TL} s</td></tr>
       <tr><td>Seismic design category · I<sub>e</sub></td><td>${s.SDC} · ${s.Ie.toFixed(1)}</td></tr>
       <tr><td>System (ESR-4725, SDC D–F)</td><td>R ${s.R} · Ω<sub>0</sub> ${s.Om} · C<sub>d</sub> ${s.Cd}</td></tr>
       <tr><td>Seismic response coefficient · ρ</td><td>C<sub>s</sub> ${s.Cs.toFixed(3)} · ${s.rho.toFixed(1)}</td></tr></table>
-    <h3>Foundation (CBC Ch. 18)</h3>
+    <h3>Foundation (${C.B} Ch. 18)</h3>
     <table class="kv"><tr><td>Allowable bearing · friction</td><td>${num(P.soil.qall)} psf · ${P.soil.mu}</td></tr>
       <tr><td>Basis</td><td style="white-space:normal;font-weight:400;font-family:inherit;text-align:right">${esc(P.soil.basis)}</td></tr>
       <tr><td>Frost depth · min. embedment</td><td>${P.soil.frost} in · 12 in</td></tr>
@@ -441,18 +476,18 @@ function sheetS0(P){
     <table class="kv"><tr><td>Governing codes</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.codes)}</td></tr>
       <tr><td>Occupancy · construction</td><td>R-3 (one dwelling unit) · Type V-B (unit by Boxabl)</td></tr>
       <tr><td>Scope of this set</td><td style="white-space:normal;font-weight:400;font-family:inherit">Foundation only — slab-on-grade with turned-down perimeter footing for the Boxabl unit. Unit structure, connections and anchorage hardware by Boxabl (ESR-4725).</td></tr>
-      <tr><td>Special inspection</td><td style="white-space:normal;font-weight:400;font-family:inherit">Concrete: ${(P.conc.fc||0)<=2500?"not required — CBC §1705.3 Exceptions 2 and 3":"required — CBC §1705.3, Table 1705.3 (footings)"}. Unit shear-wall fastening and anchorage: periodic, per ESR-4725 (manufacturer).</td></tr>
+      <tr><td>Special inspection</td><td style="white-space:normal;font-weight:400;font-family:inherit">Concrete: ${(P.conc.fc||0)<=2500?`not required — ${C.B} §1705.3 Exceptions 2 and 3`:`required — ${C.B} §1705.3, Table 1705.3 (footings)`}. Unit shear-wall fastening and anchorage: periodic, per ESR-4725 (manufacturer).</td></tr>
       <tr><td>Deferred submittal</td><td style="white-space:normal;font-weight:400;font-family:inherit">Boxabl unit structural plans and unit-to-foundation anchorage.</td></tr>
-      <tr><td>Geotechnical</td><td style="white-space:normal;font-weight:400;font-family:inherit">Presumptive values (CBC Table 1806.2); San Bernardino County requires a soils report or an approved alternate for new construction — report recommendations govern where issued.</td></tr>
-      <tr><td>Unit certification</td><td style="white-space:normal;font-weight:400;font-family:inherit">California Factory-Built Housing — HCD Insignia of Approval (H&SC §19980). Approved unit plans, BIN${P.hcd.bin?" "+esc(P.hcd.bin):""} and insignia no.${P.hcd.insignia?" "+esc(P.hcd.insignia):""} to be submitted by owner/contractor.</td></tr>
+      <tr><td>Geotechnical</td><td style="white-space:normal;font-weight:400;font-family:inherit">Presumptive values (${C.B} Table 1806.2); a geotechnical report, where required by the building official or provided, governs.</td></tr>
+      <tr><td>Unit certification</td><td style="white-space:normal;font-weight:400;font-family:inherit">${C.isCA?"California Factory-Built Housing — HCD Insignia of Approval (H&SC §19980)":"Factory-built unit — "+esc(C.modular)+" insignia/label"}. Approved unit plans, serial no.${P.hcd.bin?" "+esc(P.hcd.bin):""} and insignia no.${P.hcd.insignia?" "+esc(P.hcd.insignia):""} to be submitted by owner/contractor.</td></tr>
       <tr><td>Structural calculations</td><td style="white-space:normal;font-weight:400;font-family:inherit">${esc(P.calcRef)}</td></tr></table>
     <h2 style="margin-top:0.15in">Location</h2>
     <table class="kv"><tr><td>Site</td><td style="white-space:normal;font-weight:700;font-family:inherit">${esc(P.address)}</td></tr>
       <tr><td>Jurisdiction</td><td>${esc(P.jurisdiction||"—")}</td></tr>
       <tr><td>Hazard data source</td><td>ASCE 7 Hazard Tool (see calculations)</td></tr>
       <tr><td>Flood zone (FEMA FIRM)</td><td style="${inSFHA(P)?'color:var(--fail);':''}">Zone ${esc(P.flood.zone)} · panel ${esc(P.flood.panel||"____")}${P.flood.date?" · "+esc(P.flood.date):""}${inSFHA(P)?" · SFHA — DESIGN NOT APPLICABLE":""}</td></tr>
-      <tr><td>Fire Hazard Severity Zone</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc(FHSZ_TXT[P.fire.fhsz]||"")}${wui(P)?" — CBC Ch. 7A / CRC R337 applies to unit":""}</td></tr>
-      <tr><td>Fire sprinklers</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc((SPR_TXT[P.fire.sprinklers]||"").split(" (")[0])}</td></tr>
+      <tr><td>${C.isCA?"Fire Hazard Severity Zone":"Wildfire hazard (WUI)"}</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc(fireTxt(P))}${wui(P)?(C.isCA?" — CBC Ch. 7A / CRC R337 applies to unit":" — WUI code applies to unit"):""}</td></tr>
+      <tr><td>Fire sprinklers</td><td style="white-space:normal;font-weight:700;font-family:inherit;text-align:right">${esc(sprTxt(P).split(" (")[0])}</td></tr>
       <tr><td>Site plan, setbacks, drainage, utilities</td><td>By others — separate submittal</td></tr></table>
     <h2 style="margin-top:0.15in">How to read this set</h2>
     <div style="font-size:9.2pt;line-height:1.3">
@@ -461,9 +496,9 @@ function sheetS0(P){
       Callouts read <b>detail / sheet</b>. All details are on S1.0.</div>
     ${P.info && P.info.trim() ? `<h2 style="margin-top:0.15in">Project information</h2><div class="prose">${esc(P.info)}</div>` : ""}`;
   const siteImgs = [["aerial",P.capA],["parcel",P.capB]].filter(x=>has(x[0]));
-  const notesH = siteImgs.length ? 16.3 : 21.7;
+  const notesH = siteImgs.length ? 14.0 : 21.7;   // starting height; fitSiteImages() balances the columns and re-flows the band after render
   const notes = `<h2>General notes</h2><div class="notes" style="column-count:2;height:${notesH}in;${siteImgs.length?'font-size:9.4pt;line-height:1.28;':''}">${NOTES_FN().map(g=>`<h3>${esc(g.h)}</h3><ol>${g.items.map(i=>`<li>${i}</li>`).join("")}</ol>`).join("")}</div>`;
-  const site = siteImgs.length ? `<div class="siteimgs" style="left:8.9in;top:16.9in;width:14.4in;height:5.5in;">${siteImgs.map(x=>`<div class="si ${siteImgs.length===1?'single':''}"><div class="im"><img src="${IMG[x[0]]}" alt=""></div><div class="cap">${esc(x[1])} <span>· ${esc(P.address)} · not to scale · for reference only</span></div></div>`).join("")}</div>` : "";
+  const site = siteImgs.length ? `<div class="siteimgs" id="siteimgs" style="left:8.9in;top:14.7in;width:14.4in;height:7.7in;">${siteImgs.map(x=>`<div class="si ${siteImgs.length===1?'single':''}"><div class="im"><img src="${IMG[x[0]]}" alt=""></div><div class="cap">${esc(x[1])} <span>· ${esc(P.address)} · not to scale · for reference only</span></div></div>`).join("")}</div>` : "";
   const inner = block(0,0,8.6,10.4,what) + block(0,10.6,8.6,11.8,crit) + block(8.9,0,14.4,22.4,notes) + site + block(23.6,0,7.9,22.4,code);
   return chrome(P,"S0.0",P.sheets[0][1],inner);
 }
@@ -483,17 +518,9 @@ function sheetS1(P){
     <div><div class="k">Base</div><div class="v">${P.slab.gravel}" · 10 mil</div><div class="s">clean gravel · vapor retarder</div></div>
     <div><div class="k">Soil</div><div class="v">${num(P.soil.qall)} psf</div><div class="s">firm native sand — call if different</div></div>
   </div>`;
-  // plan with overlaid callouts (fractions of the cropped image, 1227×1230)
-  const co = (x,y,n)=>`<div class="callout" style="left:${x*100}%;top:${y*100}%;">${n}<span>S1.0</span></div>`;
-  const plan = !has("plan") ? `<div style="color:#999;text-align:center;font-size:11pt;">Foundation plan image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.plan}" alt="foundation plan">
-      ${co(0.291,0.079,2)}${co(0.209,0.563,2)}${co(0.291,0.796,2)}${co(0.935,0.734,2)}
-      <div class="overlay-txt" style="left:40.5%;top:52.6%;">SEE 3/S1.0</div>
-      <div style="position:absolute;left:10.2%;top:88.2%;width:0.22in;height:0.22in;border:0.02in solid var(--accent);border-radius:50%;transform:translate(-50%,-50%);"></div>
-      <div class="overlay-txt" style="left:12%;top:91.5%;font-weight:700;color:var(--accent);">◄ 0,0 LAYOUT CORNER (OUTSIDE CORNER OF TURNDOWN) — SET LOCATION & ORIENTATION FROM SITE PLAN BY OTHERS</div>
-      <div class="overlay-txt" style="left:2%;top:97%;">${ft(P.unit.L)} × ${ft(P.unit.B)} OUT-TO-OUT OF WALL PANELS (VERIFY W/ BOXABL) · TURNDOWN ${evb(F.B,'"')} WIDE, WALL ON OUTER EDGE · BOXABL PLATES AT SPACING PER BOXABL TEMPLATE</div>
-    </div>`;
-  const td = !has("turndown") ? `<div style="color:#999;text-align:center;font-size:11pt;">Turndown section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.turndown}" alt="turndown"><div class="overlay-txt" style="left:84%;top:74%;">SEE 3/S1.0</div><div class="overlay-txt" style="left:2%;top:95%;font-weight:700;">BOTTOM OF FOOTING MIN. ${P.soil.frost}" BELOW FINISH GRADE</div></div>`;
-  const slab = !has("slab") ? `<div style="color:#999;text-align:center;font-size:11pt;">Slab-on-grade section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.slab}" alt="slab"><div class="overlay-txt" style="left:64%;top:21%;background:#fff;">10 MIL VAPOR RETARDER (STEGO WRAP OR EQUAL),</div><div class="overlay-txt" style="left:64%;top:28%;background:#fff;">LAPPED 6" & TAPED, AT INTERIOR CONDITIONS</div></div>`;
+  const plan = !has("plan") ? `<div style="color:#999;text-align:center;font-size:11pt;">Foundation plan image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.plan}" alt="foundation plan"></div>`;
+  const td = !has("turndown") ? `<div style="color:#999;text-align:center;font-size:11pt;">Turndown section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.turndown}" alt="turndown"></div>`;
+  const slab = !has("slab") ? `<div style="color:#999;text-align:center;font-size:11pt;">Slab-on-grade section image<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>` : `<div class="imgwrap"><img src="${IMG.slab}" alt="slab"></div>`;
   const seq = `<div class="seq" style="left:0;top:20.15in;width:31.5in;height:1.05in;">
     <div class="step"><b><span class="n">1</span>Permits, utilities, layout</b>Secure all permits and approvals first. Call 811 and locate existing utilities before any digging. Set 0,0 corner and orientation from the site plan. Strip pad + 2 ft; trench ${evb(F.B,'"')} wide to ${P.soil.frost}" below finish grade on native soil; compact subgrade 90%.</div>
     <div class="step hold"><b><span class="n">2</span>Underslab plumbing & utilities <span class="hp">HOLD 1</span></b>Rough-in plumbing, sleeves and conduit per Boxabl utility drawings — nothing through the turndown. Pressure-test, cap and brace all stubs. <b>Plumbing rough inspection before backfill.</b></div>
@@ -512,7 +539,7 @@ function sheetS1(P){
     + slot("d1", 8.7, 1.15, 13.7, 18.85, 1, "Foundation plan", "N.T.S. · DIMENSIONS GOVERN", plan)
     + slot("d2", 0, 1.15, 8.5, 8.6, 2, "Turned-down footing at perimeter wall", "N.T.S.", td)
     + slot("d3", 0, 9.95, 8.5, 4.4, 3, "Slab-on-grade", "N.T.S.", slab)
-    + slot("d4", 0, 14.55, 8.5, 5.45, 4, "Footing corner reinforcing (plan)", "N.T.S.", cornerDetail(P))
+    + slot("d4", 0, 14.55, 8.5, 5.45, 4, "Footing corner reinforcing (plan)", "N.T.S.", has("corner") ? `<div class="imgwrap"><img src="${IMG.corner}" alt="corner"></div>` : cornerDetail(P))
     + slot("d5", 22.6, 1.15, 8.9, 9.5, 5, "Boxabl stainless steel plates", "N.T.S. · LOCATE PER BOXABL", has("plates")?`<div class="imgwrap tall"><img src="${IMG.plates}" alt="plates"></div>`:`<div style="color:#999;text-align:center;font-size:11pt;">Manufacturer plate detail<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>`)
     + slot("d6", 22.6, 10.85, 8.9, 9.15, 6, "Rebar development, laps & hooks", "N.T.S.", has("rebar")?`<div class="imgwrap tall"><img src="${IMG.rebar}" alt="rebar"></div>`:`<div style="color:#999;text-align:center;font-size:11pt;">Rebar development, lap &amp; hook schedule<br><span style="font-size:8pt">upload from the panel · controlled workflow</span></div>`)
     + seq + take;
@@ -527,20 +554,38 @@ function capVal(pre,cus){ const p=$(pre).value; return p==="custom" ? ($(cus).va
 function gather(){
   PROJECT.info=$("p_info").value;
   PROJECT.flood={ zone:$("p_floodZone").value.trim()||"—", panel:$("p_floodPanel").value.trim(), date:$("p_floodDate").value.trim() };
+  PROJECT.code.family=$("p_codeFam").value; PROJECT.code.custom={ bc:$("p_cbc").value, rc:$("p_crc").value, B:$("p_cB").value||"IBC", R:$("p_cR").value||"IRC", asce:$("p_casce").value||"ASCE/SEI 7-22", aci:$("p_caci").value||"ACI 318-19", green:$("p_cgreen").value, modular:$("p_cmod").value||"the state industrialized / modular building program", modularRef:$("p_cmodref").value||"state law and the program's rules" };
+  $("codeCustom").style.display = PROJECT.code.family==="custom" ? "block" : "none";
+  syncFireOptions();
   PROJECT.fire={ fhsz:$("p_fhsz").value, sprinklers:$("p_spr").value };
   PROJECT.hcd={ bin:$("p_bin").value.trim(), insignia:$("p_insignia").value.trim() }; PROJECT.capA=capVal("p_capApre","p_capA"); PROJECT.capB=capVal("p_capBpre","p_capB");
   PROJECT.projNo=$("p_projNo").value; PROJECT.client=$("p_client").value; PROJECT.address=$("p_address").value; PROJECT.jurisdiction=$("p_juris").value;
   PROJECT.date=$("p_date").value; PROJECT.rev=$("p_rev").value; PROJECT.status=$("p_status").value; PROJECT.eor=$("p_eor").value; PROJECT.calcRef=$("p_calcRef").value;
 }
-function fill(){ $("p_info").value=PROJECT.info||""; $("p_floodZone").value=PROJECT.flood.zone; $("p_floodPanel").value=PROJECT.flood.panel; $("p_floodDate").value=PROJECT.flood.date; $("p_fhsz").value=PROJECT.fire.fhsz; $("p_spr").value=PROJECT.fire.sprinklers; $("p_bin").value=PROJECT.hcd.bin; $("p_insignia").value=PROJECT.hcd.insignia; $("p_projNo").value=PROJECT.projNo; $("p_client").value=PROJECT.client; $("p_address").value=PROJECT.address; $("p_juris").value=PROJECT.jurisdiction||""; $("p_date").value=PROJECT.date||new Date().toISOString().slice(0,10); $("p_rev").value=PROJECT.rev; $("p_status").value=PROJECT.status; $("p_eor").value=PROJECT.eor; $("p_calcRef").value=PROJECT.calcRef; }
-function render(){ gather(); const mb=$("modeBanner"); mb.style.background=ENG()?"#e8f5ea":"#fff4e5"; mb.style.color=ENG()?"#1e7a3b":"#b85c00"; mb.textContent=ENG()?"CONTROLLED PROJECT LOADED — engineered values and details shown":"PUBLISHED-SAFE MODE — controlled values print as “per engineered design”"; $("stage").innerHTML = (inSFHA(PROJECT)?`<div style="background:#c0392b;color:#fff;padding:8px 14px;font-weight:700;margin-bottom:12px;">Flood zone ${esc(PROJECT.flood.zone)} is a Special Flood Hazard Area — this slab-on-grade design does not apply. Foundation must be re-designed above BFE.</div>`:"") + sheetS0(PROJECT) + sheetS1(PROJECT); imgPanel(); }
+function syncFireOptions(){
+  const ca = (CODE_FAMILIES[$("p_codeFam").value]||{}).state==="CA";
+  $("lblFire").textContent = ca ? "Fire Hazard Severity Zone" : "Wildfire hazard (WUI)";
+  const setOpts=(sel,opts)=>{ const cur=sel.value; sel.innerHTML=opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join(""); sel.value = opts.some(o=>o[0]===cur)?cur:"verify"; };
+  setOpts($("p_fhsz"), ca?FIRE_OPTS.ca:FIRE_OPTS.us); setOpts($("p_spr"), ca?SPR_OPTS.ca:SPR_OPTS.us);
+}
+function fill(){ $("p_codeFam").value=PROJECT.code.family; const cu=PROJECT.code.custom||{}; $("p_cbc").value=cu.bc||""; $("p_crc").value=cu.rc||""; $("p_cB").value=cu.B||""; $("p_cR").value=cu.R||""; $("p_casce").value=cu.asce||""; $("p_caci").value=cu.aci||""; $("p_cgreen").value=cu.green||""; $("p_cmod").value=cu.modular||""; $("p_cmodref").value=cu.modularRef||""; syncFireOptions(); $("p_info").value=PROJECT.info||""; $("p_floodZone").value=PROJECT.flood.zone; $("p_floodPanel").value=PROJECT.flood.panel; $("p_floodDate").value=PROJECT.flood.date; $("p_fhsz").value=PROJECT.fire.fhsz; $("p_spr").value=PROJECT.fire.sprinklers; syncFireOptions(); $("p_bin").value=PROJECT.hcd.bin; $("p_insignia").value=PROJECT.hcd.insignia; $("p_projNo").value=PROJECT.projNo; $("p_client").value=PROJECT.client; $("p_address").value=PROJECT.address; $("p_juris").value=PROJECT.jurisdiction||""; $("p_date").value=PROJECT.date||new Date().toISOString().slice(0,10); $("p_rev").value=PROJECT.rev; $("p_status").value=PROJECT.status; $("p_eor").value=PROJECT.eor; $("p_calcRef").value=PROJECT.calcRef; }
+function fitSiteImages(){
+  const n=document.querySelector('.notes'), band=document.getElementById('siteimgs'); if(!n||!band) return;
+  // shrink the notes box until the two columns just hold the content (balanced columns), then hang the image band below it
+  let h=8; n.style.height=h+'in';
+  while(n.scrollWidth>n.clientWidth+2 && h<21.7){ h+=0.25; n.style.height=h+'in'; }
+  const content=band.parentElement.getBoundingClientRect(), nb=n.getBoundingClientRect();
+  const top=(nb.bottom-content.top)/96+0.2;            // in, 0.2 in breathing room
+  band.style.top=top+'in'; band.style.height=Math.max(22.4-top,3)+'in';
+}
+function render(){ gather(); const mb=$("modeBanner"); mb.style.background=ENG()?"#e8f5ea":"#fff4e5"; mb.style.color=ENG()?"#1e7a3b":"#b85c00"; mb.textContent=ENG()?"CONTROLLED PROJECT LOADED — engineered values and details shown":"PUBLISHED-SAFE MODE — controlled values print as “per engineered design”"; $("stage").innerHTML = (inSFHA(PROJECT)?`<div style="background:#c0392b;color:#fff;padding:8px 14px;font-weight:700;margin-bottom:12px;">Flood zone ${esc(PROJECT.flood.zone)} is a Special Flood Hazard Area — this slab-on-grade design does not apply. Foundation must be re-designed above BFE.</div>`:"") + sheetS0(PROJECT) + sheetS1(PROJECT); fitSiteImages(); imgPanel(); }
 function imgPanel(){
-  $("imgList").innerHTML = Object.keys(IMG_LABELS).map(k=>`<div class="img-row">${has(k)?`<img src="${IMG[k]}">`:`<div style="width:34px;height:34px;border:1px dashed #bbb;"></div>`}<div class="nm">${IMG_LABELS[k]}</div><button onclick="pickImg('${k}')">Replace</button>${(k==="aerial"||k==="parcel"||k==="render")&&has(k)?`<button onclick="clearImg('${k}')">×</button>`:""}</div>`).join("");
+  $("imgList").innerHTML = Object.keys(IMG_LABELS).map(k=>`<div class="img-row">${has(k)?`<img src="${IMG[k]}">`:`<div style="width:34px;height:34px;border:1px dashed #bbb;"></div>`}<div class="nm">${IMG_LABELS[k]}</div><button onclick="pickImg('${k}')">Replace</button>${(k==="aerial"||k==="parcel"||k==="render"||k==="corner")&&has(k)?`<button onclick="clearImg('${k}')">×</button>`:""}</div>`).join("");
 }
 function pickImg(k){ const inp=document.createElement("input"); inp.type="file"; inp.accept="image/*"; inp.onchange=e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ IMG[k]=rd.result; render(); }; rd.readAsDataURL(f); }; inp.click(); }
 function clearImg(k){ IMG[k]=""; render(); }
-function exportJSON(){ gather(); const images={}; Object.keys(IMG).forEach(k=>{ if(has(k)) images[k]=IMG[k]; }); const blob=new Blob([JSON.stringify({_meta:{framework:"ephemeral-eng",tool:"Foundation Sheet Set",toolVersion:"V1.1",saved:new Date().toISOString(),source:"user"},project:PROJECT,images},null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${PROJECT.projNo.replace(/[^\w-]+/g,"_")}_sheets_project.json`; a.click(); }
-$("p_file").addEventListener("change",e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const st=JSON.parse(rd.result); Object.assign(PROJECT, st.project||st); if(st.images) Object.assign(IMG, st.images); fill(); render(); }catch(err){ alert("Could not parse JSON"); } }; rd.readAsText(f); e.target.value=""; });
+function exportJSON(){ gather(); const images={}; Object.keys(IMG).forEach(k=>{ if(has(k)) images[k]=IMG[k]; }); const blob=new Blob([JSON.stringify({_meta:{framework:"ephemeral-eng",tool:"Foundation Sheet Set",toolVersion:"V1.3",saved:new Date().toISOString(),source:"user"},project:PROJECT,images},null,2)],{type:"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`${PROJECT.projNo.replace(/[^\w-]+/g,"_")}_sheets_project.json`; a.click(); }
+$("p_file").addEventListener("change",e=>{ const f=e.target.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const st=JSON.parse(rd.result); const sp=st.project||st; delete sp.codes; if(!sp.code) sp.code={family:"cbc2025",custom:{}}; Object.assign(PROJECT, sp); if(st.images) Object.assign(IMG, st.images); fill(); render(); }catch(err){ alert("Could not parse JSON"); } }; rd.readAsText(f); e.target.value=""; });
 document.querySelectorAll(".panel input,.panel select,.panel textarea").forEach(el=>{ el.addEventListener("input",render); el.addEventListener("change",render); });
 fill(); render();
 </script>
